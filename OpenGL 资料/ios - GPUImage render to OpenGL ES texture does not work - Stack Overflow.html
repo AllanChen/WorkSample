@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work -->
+<html itemscope="" itemtype="http://schema.org/QAPage"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta property="og:type" content="website">    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="GPUImage render to OpenGL ES texture does not work">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="I would like to render a video in an OpenGL ES texture so that I can apply this texture to a 3D surface in my iOS program. To do that I&#39;m using GPUImage, but it does not work, no texture seems to be ">
+    <meta property="og:url" content="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work">
+    <link rel="canonical" href="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow.html">
+
+    
+    
+    <script type="text/javascript" async="" src="http://engine.adzerk.net/ados?t=1454566725067&amp;request={%22Placements%22:[{%22A%22:22,%22S%22:8277,%22D%22:%22adzerk1564647183%22,%22ATA%22:[5,17,2221],%22Z%22:45}],%22Keywords%22:%22ios%2Cobjective-c%2Copengl-es-2.0%2Cgpuimage%2Cx-user-registered%2Cx-1500plus-rep%22,%22Referrer%22:%22%22,%22IsAsync%22:true}"></script><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/quant.js"></script><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/beacon.js"></script><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/analytics.js"></script><script type="text/javascript" async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/ados.js"></script><script src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/jquery.min.js"></script>
+    <script src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/stub.en.js"></script>
+    <link rel="stylesheet" type="text/css" href="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/all.css">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;GPUImage render to OpenGL ES texture does not work&#39;" href="http://stackoverflow.com/feeds/question/16375145">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({canOpenBounty:true,votesCast:[],canViewVoteCounts:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:16375145});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '16375145');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToReputationNotifications('1');
+                StackExchange.realtime.subscribeToTopBarNotifications('1');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1454566723,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"enableSocialMediaInSharePopup":true},"user":{"fkey":"92563e92e66272a7bfd777be5755edbc","rep":1712,"isRegistered":true,"userType":3,"userId":1326342,"accountId":1396717,"gravatar":"<div class=\"gravatar-wrapper-32\"><img src=\"https://i.stack.imgur.com/xH26m.jpg?s=32&amp;g=1\" alt=\"\" width=\"32\" height=\"32\"></div>","profileUrl":"http://stackoverflow.com/users/1326342/allan","canSeeDeletedPosts":false},"realtime":{"newest":false,"active":false,"tagged":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"7226ead6e52b","js/moderator.en.js":"34e3240b043d","js/full-anon.en.js":"7f5e2de1ebc7","js/full.en.js":"a53f1c27ea68","js/wmd.en.js":"759bb5b9d165","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"f58acd4f09d3","js/help.en.js":"dbd4f489eff2","js/tageditor.en.js":"5e355962578f","js/tageditornew.en.js":"6ec188ac9c56","js/inline-tag-editing.en.js":"314cfb72355b","js/revisions.en.js":"faae7769c4b4","js/review.en.js":"ed04222cecdb","js/tagsuggestions.en.js":"b278f9a0b23b","js/post-validation.en.js":"dad9ad595458","js/explore-qlist.en.js":"e71f14781288","js/events.en.js":"563da994a182","js/keyboard-shortcuts.en.js":"b9a573e1af73","js/external-editor.en.js":"cf58cc6630ef","js/external-editor.en.js":"cf58cc6630ef","js/snippet-javascript.en.js":"650f9a8035d8","js/snippet-javascript-codemirror.en.js":"33fdb7feae6d"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+    
+    
+<script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/full.en.js"></script><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/snippet-javascript.en.js"></script><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/post-validation.en.js"></script><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/prettify-full.en.js"></script><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/external-editor.en.js"></script><script type="text/javascript" src="http://static.adzerk.net/Extensions/adFeedback.js"></script><link rel="stylesheet" href="http://static.adzerk.net/Extensions/adFeedback.css"><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/wmd.en.js"></script><style type="text/css"> .wmd-snippet-button span { background-position: 0 0; } .wmd-snippet-button:hover span { background-position: 0 -40px; }</style><link type="text/css" rel="stylesheet" href="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/jobs.min.css"></head>
+<body class="question-page new-topbar">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+                    <a href="http://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://stackoverflow.com/users/logout" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:8 })">log out</a>
+    </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track" href="http://careers.stackoverflow.com/?utm_source=stackoverflow.com&amp;utm_medium=site-ui&amp;utm_campaign=multicollider" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+                <a href="http://stackexchange.com/users/1396717/?tab=accounts">your communities</a>
+        </h3>
+            
+            <a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" id="edit-pinned-sites">edit</a>
+            <a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" id="cancel-pinned-sites" style="display: none;">cancel</a>
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <ul class="my-sites">
+                    <li>
+                        
+
+
+
+    <a href="http://stackoverflow.com/" class="site-link js-gps-track" data-id="1" data-gps-track="
+            site.switch({ target_site:1, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+            <span class="rep-score">1,712</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://blender.stackexchange.com/" class="site-link js-gps-track" data-id="502" data-gps-track="
+            site.switch({ target_site:502, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-blender" title="Blender"></div>
+        Blender
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://gamedev.stackexchange.com/" class="site-link js-gps-track" data-id="53" data-gps-track="
+            site.switch({ target_site:53, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-gamedev" title="Game Development"></div>
+        Game Development
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://graphicdesign.stackexchange.com/" class="site-link js-gps-track" data-id="174" data-gps-track="
+            site.switch({ target_site:174, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-graphicdesign" title="Graphic Design"></div>
+        Graphic Design
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://security.stackexchange.com/" class="site-link js-gps-track" data-id="162" data-gps-track="
+            site.switch({ target_site:162, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-security" title="Information Security"></div>
+        Information Security
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+            </ul>
+                <div class="pinned-site-editor-container" style="display: none;">
+                    <input id="js-site-search-txt" type="text" class="site-filter-input" value="" placeholder="Add a Stack Exchange community">
+                    <input type="submit" id="pin-site-btn" value="Add" disabled="disabled">
+                    <ul class="js-found-sites found-sites"></ul>
+                    <ul class="pinned-site-list sortable" data-custom-list="False">
+                    </ul>
+                    <input type="submit" value="Save" id="save-pinned-sites-btn" disabled="disabled">
+                    <a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" id="reset-pinned-sites">reset to default list</a>
+                </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com/" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 153 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+    <a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display:none"></span>
+    </a>
+    <a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" class="topbar-icon icon-achievements yes-hover js-achievements-button " data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display:none">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <a href="http://stackoverflow.com/users/1326342/allan" class="profile-me js-gps-track" data-gps-track="profile_summary.click()">
+                    
+                    <div class="gravatar-wrapper-24" title="Allan"><img src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/xH26m.jpg" alt="" width="24" height="24" class="avatar-me js-avatar-me"></div>
+
+                    <div class="links-container topbar-flair">
+
+                        <span class="reputation" title="your reputation: 1,712">
+                            1,712
+                        </span>
+<span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="7 silver badges"><span class="badge2"></span><span class="badgecount">7</span></span><span title="23 bronze badges"><span class="badge3"></span><span class="badgecount">23</span></span>                    </div>
+                </a>
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+
+
+
+                            <a href="http://stackoverflow.com/review" title="Review queues - help improve the site">
+                                review
+                            </a>
+
+    <a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-jobs" href="http://stackoverflow.com/jobs">Jobs</a></li>
+                        <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://stackoverflow.com/help/badges">Badges</a></li>
+                                            </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+			<div id="question-header">
+                <h1 itemprop="name"><a href="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow.html" class="question-hyperlink">GPUImage render to OpenGL ES texture does not work</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="16375145" id="question">
+
+        <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="16375145">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">0</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" title="This is a favorite question (click again to undo)">favorite</a>
+        <div class="favoritecount"><b>1</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>I would like to render a video in an <code>OpenGL ES</code> texture so that I can apply this texture to a 3D surface in my iOS program. To do that I'm using <code>GPUImage</code>, but it does not work, no texture seems to be loaded in the output.</p>
+
+<p>Here is the .h code :</p>
+
+<pre class="lang-c prettyprint prettyprinted"><code><span class="com">#import &lt;UIKit/UIKit.h&gt;</span><span class="pln">
+</span><span class="com">#import &lt;GLKit/GLKit.h&gt;</span><span class="pln">
+
+</span><span class="com">#import "GPUImage.h"</span><span class="pln">
+
+</span><span class="lit">@interface</span><span class="pln"> </span><span class="typ">ViewController</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">GLKViewController</span><span class="pln"> </span><span class="pun">&lt;</span><span class="typ">GPUImageTextureOutputDelegate</span><span class="pun">&gt;</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">GLuint</span><span class="pln"> texture</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">GPUImageMovie</span><span class="pun">*</span><span class="pln"> movie</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">GPUImageTextureOutput</span><span class="pln"> </span><span class="pun">*</span><span class="pln">output</span><span class="pun">;</span><span class="pln">
+
+
+    </span><span class="typ">GPUImagePixellateFilter</span><span class="pun">*</span><span class="pln"> pixellateFilter</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="lit">@end</span></code></pre>
+
+<p>And here are parts of the.m file :</p>
+
+<p>Init</p>
+
+<pre class="lang-c prettyprint prettyprinted"><code><span class="pun">-</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">void</span><span class="pun">)</span><span class="pln">setupGL
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="pun">[</span><span class="typ">EAGLContext</span><span class="pln"> setCurrentContext</span><span class="pun">:</span><span class="pln">self</span><span class="pun">.</span><span class="pln">context</span><span class="pun">];</span><span class="pln">
+
+    </span><span class="pun">[</span><span class="pln">self loadShaders</span><span class="pun">];</span><span class="pln">
+
+    _vertexArrayBuff </span><span class="pun">=</span><span class="pln"> generateSphere</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">10</span><span class="pun">,</span><span class="pln"> </span><span class="lit">20</span><span class="pun">,</span><span class="pln"> </span><span class="lit">10</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">_arraySize</span><span class="pun">);</span><span class="pln">
+
+    glEnable</span><span class="pun">(</span><span class="pln">GL_DEPTH_TEST</span><span class="pun">);</span><span class="pln">
+
+    glGenVertexArraysOES</span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">_vertexArray</span><span class="pun">);</span><span class="pln">
+    glBindVertexArrayOES</span><span class="pun">(</span><span class="pln">_vertexArray</span><span class="pun">);</span><span class="pln">
+
+    glGenBuffers</span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">_vertexBuffer</span><span class="pun">);</span><span class="pln">
+    glBindBuffer</span><span class="pun">(</span><span class="pln">GL_ARRAY_BUFFER</span><span class="pun">,</span><span class="pln"> _vertexBuffer</span><span class="pun">);</span><span class="pln">
+    glBufferData</span><span class="pun">(</span><span class="pln">GL_ARRAY_BUFFER</span><span class="pun">,</span><span class="pln"> _arraySize </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="typ">GLfloat</span><span class="pun">),</span><span class="pln"> _vertexArrayBuff</span><span class="pun">,</span><span class="pln"> GL_STATIC_DRAW</span><span class="pun">);</span><span class="pln">
+
+    glEnableVertexAttribArray</span><span class="pun">(</span><span class="typ">GLKVertexAttribPosition</span><span class="pun">);</span><span class="pln">
+    glVertexAttribPointer</span><span class="pun">(</span><span class="typ">GLKVertexAttribPosition</span><span class="pun">,</span><span class="pln"> </span><span class="lit">3</span><span class="pun">,</span><span class="pln"> GL_FLOAT</span><span class="pun">,</span><span class="pln"> GL_FALSE</span><span class="pun">,</span><span class="pln"> </span><span class="lit">32</span><span class="pun">,</span><span class="pln"> BUFFER_OFFSET</span><span class="pun">(</span><span class="lit">0</span><span class="pun">));</span><span class="pln">
+    glEnableVertexAttribArray</span><span class="pun">(</span><span class="typ">GLKVertexAttribNormal</span><span class="pun">);</span><span class="pln">
+    glVertexAttribPointer</span><span class="pun">(</span><span class="typ">GLKVertexAttribNormal</span><span class="pun">,</span><span class="pln"> </span><span class="lit">3</span><span class="pun">,</span><span class="pln"> GL_FLOAT</span><span class="pun">,</span><span class="pln"> GL_FALSE</span><span class="pun">,</span><span class="pln"> </span><span class="lit">32</span><span class="pun">,</span><span class="pln"> BUFFER_OFFSET</span><span class="pun">(</span><span class="lit">12</span><span class="pun">));</span><span class="pln">
+    glEnableVertexAttribArray</span><span class="pun">(</span><span class="typ">GLKVertexAttribTexCoord0</span><span class="pun">);</span><span class="pln">
+    glVertexAttribPointer</span><span class="pun">(</span><span class="typ">GLKVertexAttribTexCoord0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln"> GL_FLOAT</span><span class="pun">,</span><span class="pln"> GL_FALSE</span><span class="pun">,</span><span class="pln"> </span><span class="lit">32</span><span class="pun">,</span><span class="pln"> BUFFER_OFFSET</span><span class="pun">(</span><span class="lit">24</span><span class="pun">));</span><span class="pln">
+
+    glBindVertexArrayOES</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="typ">NSString</span><span class="pun">*</span><span class="pln"> fileStr </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[[</span><span class="typ">NSBundle</span><span class="pln"> mainBundle</span><span class="pun">]</span><span class="pln"> pathForResource</span><span class="pun">:@</span><span class="str">"video"</span><span class="pln"> ofType</span><span class="pun">:@</span><span class="str">"mp4"</span><span class="pun">];</span><span class="pln">
+    NSURL</span><span class="pun">*</span><span class="pln"> fileUrl </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="pln">NSURL fileURLWithPath</span><span class="pun">:</span><span class="pln">fileStr</span><span class="pun">];</span><span class="pln">
+    movie </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[[</span><span class="typ">GPUImageMovie</span><span class="pln"> alloc</span><span class="pun">]</span><span class="pln"> initWithURL</span><span class="pun">:</span><span class="pln">fileUrl</span><span class="pun">];</span><span class="pln">
+
+    output </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[[</span><span class="typ">GPUImageTextureOutput</span><span class="pln"> alloc</span><span class="pun">]</span><span class="pln"> init</span><span class="pun">];</span><span class="pln">
+    output</span><span class="pun">.</span><span class="kwd">delegate</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> self</span><span class="pun">;</span><span class="pln">
+
+    pixellateFilter </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[[</span><span class="typ">GPUImagePixellateFilter</span><span class="pln"> alloc</span><span class="pun">]</span><span class="pln"> init</span><span class="pun">];</span><span class="pln">
+
+    </span><span class="pun">[</span><span class="pln">movie addTarget</span><span class="pun">:</span><span class="pln">pixellateFilter</span><span class="pun">];</span><span class="pln">
+    </span><span class="pun">[</span><span class="pln">pixellateFilter addTarget</span><span class="pun">:</span><span class="pln">output</span><span class="pun">];</span><span class="pln">
+
+    </span><span class="pun">[</span><span class="pln">movie startProcessing</span><span class="pun">];</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<p>Render</p>
+
+<pre class="lang-c prettyprint prettyprinted"><code><span class="pun">-</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">void</span><span class="pun">)</span><span class="pln">glkView</span><span class="pun">:(</span><span class="typ">GLKView</span><span class="pln"> </span><span class="pun">*)</span><span class="pln">view drawInRect</span><span class="pun">:(</span><span class="typ">CGRect</span><span class="pun">)</span><span class="pln">rect
+</span><span class="pun">{</span><span class="pln">
+    glClearColor</span><span class="pun">(</span><span class="lit">0.65f</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0.65f</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0.65f</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1.0f</span><span class="pun">);</span><span class="pln">
+    glClear</span><span class="pun">(</span><span class="pln">GL_COLOR_BUFFER_BIT </span><span class="pun">|</span><span class="pln"> GL_DEPTH_BUFFER_BIT</span><span class="pun">);</span><span class="pln">
+
+    glBindVertexArrayOES</span><span class="pun">(</span><span class="pln">_vertexArray</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="com">// Render the object again with ES2</span><span class="pln">
+    glUseProgram</span><span class="pun">(</span><span class="pln">_program</span><span class="pun">);</span><span class="pln">
+
+    glActiveTexture</span><span class="pun">(</span><span class="pln">GL_TEXTURE0</span><span class="pun">);</span><span class="pln">
+    glBindTexture</span><span class="pun">(</span><span class="pln">GL_TEXTURE_2D</span><span class="pun">,</span><span class="pln"> texture</span><span class="pun">);</span><span class="pln">
+    glTexParameteri</span><span class="pun">(</span><span class="pln">GL_TEXTURE_2D</span><span class="pun">,</span><span class="pln"> GL_TEXTURE_MIN_FILTER</span><span class="pun">,</span><span class="pln"> GL_LINEAR</span><span class="pun">);</span><span class="pln">
+    glTexParameteri</span><span class="pun">(</span><span class="pln">GL_TEXTURE_2D</span><span class="pun">,</span><span class="pln"> GL_TEXTURE_MAG_FILTER</span><span class="pun">,</span><span class="pln"> GL_LINEAR</span><span class="pun">);</span><span class="pln">
+    glTexParameteri</span><span class="pun">(</span><span class="pln">GL_TEXTURE_2D</span><span class="pun">,</span><span class="pln"> GL_TEXTURE_WRAP_S</span><span class="pun">,</span><span class="pln"> GL_CLAMP_TO_EDGE</span><span class="pun">);</span><span class="pln">
+    glTexParameteri</span><span class="pun">(</span><span class="pln">GL_TEXTURE_2D</span><span class="pun">,</span><span class="pln"> GL_TEXTURE_WRAP_T</span><span class="pun">,</span><span class="pln"> GL_CLAMP_TO_EDGE</span><span class="pun">);</span><span class="pln">
+
+    glUniformMatrix4fv</span><span class="pun">(</span><span class="pln">uniforms</span><span class="pun">[</span><span class="pln">UNIFORM_MODELVIEWPROJECTION_MATRIX</span><span class="pun">],</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> _modelViewProjectionMatrix</span><span class="pun">.</span><span class="pln">m</span><span class="pun">);</span><span class="pln">
+    glUniformMatrix3fv</span><span class="pun">(</span><span class="pln">uniforms</span><span class="pun">[</span><span class="pln">UNIFORM_NORMAL_MATRIX</span><span class="pun">],</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> _normalMatrix</span><span class="pun">.</span><span class="pln">m</span><span class="pun">);</span><span class="pln">
+    glUniform1i</span><span class="pun">(</span><span class="pln">uniforms</span><span class="pun">[</span><span class="pln">UNIFORM_TEXTUTRE</span><span class="pun">],</span><span class="pln"> </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+
+    glDrawArrays</span><span class="pun">(</span><span class="pln">GL_TRIANGLES</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> _arraySize </span><span class="pun">/</span><span class="pln"> </span><span class="lit">8</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<p>Delegate</p>
+
+<pre class="lang-c prettyprint prettyprinted"><code><span class="pun">-</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">void</span><span class="pun">)</span><span class="pln">newFrameReadyFromTextureOutput</span><span class="pun">:(</span><span class="typ">GPUImageTextureOutput</span><span class="pln"> </span><span class="pun">*)</span><span class="pln">callbackTextureOutput</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    dispatch_async</span><span class="pun">(</span><span class="pln">dispatch_get_main_queue</span><span class="pun">(),</span><span class="pln"> </span><span class="pun">^{</span><span class="pln">
+        texture </span><span class="pun">=</span><span class="pln"> callbackTextureOutput</span><span class="pun">.</span><span class="pln">texture</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">});</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<p>I tried to manually load a texture and display it and it worked so the shaders and texture coordinates are not the issue.</p>
+
+<p>But when I try to set the texture with <code>GPUImage</code> it does not work any more, my texture is not displayed, instead I have a black surface.</p>
+
+<p>Does anyone know what I did wrong? I followed the <code>CubeExample</code> from <code>GPUImage</code> but it does not work.</p>
+
+<p>I really need some help now</p>
+
+<p>Thank you!</p>
+
+<p>PS: I'm targeting iOS 6.1 and I'm using XCode 4.6.2</p>
+
+<p><strong>EDIT</strong></p>
+
+<p>Here is the code of the function called at beginning :</p>
+
+<pre class="lang-c prettyprint prettyprinted"><code><span class="pun">-</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">void</span><span class="pun">)</span><span class="pln">viewDidLoad
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="pun">[</span><span class="pln">super viewDidLoad</span><span class="pun">];</span><span class="pln">
+
+    self</span><span class="pun">.</span><span class="pln">context </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[[</span><span class="typ">EAGLContext</span><span class="pln"> alloc</span><span class="pun">]</span><span class="pln"> initWithAPI</span><span class="pun">:</span><span class="pln">kEAGLRenderingAPIOpenGLES2 sharegroup</span><span class="pun">:[[[</span><span class="typ">GPUImageContext</span><span class="pln"> sharedImageProcessingContext</span><span class="pun">]</span><span class="pln"> context</span><span class="pun">]</span><span class="pln"> sharegroup</span><span class="pun">]];</span><span class="pln">
+
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(!</span><span class="pln">self</span><span class="pun">.</span><span class="pln">context</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">NSLog</span><span class="pun">(@</span><span class="str">"Failed to create ES context"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="typ">GLKView</span><span class="pln"> </span><span class="pun">*</span><span class="pln">view </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">GLKView</span><span class="pln"> </span><span class="pun">*)</span><span class="pln">self</span><span class="pun">.</span><span class="pln">view</span><span class="pun">;</span><span class="pln">
+    view</span><span class="pun">.</span><span class="pln">context </span><span class="pun">=</span><span class="pln"> self</span><span class="pun">.</span><span class="pln">context</span><span class="pun">;</span><span class="pln">
+    view</span><span class="pun">.</span><span class="pln">drawableDepthFormat </span><span class="pun">=</span><span class="pln"> </span><span class="typ">GLKViewDrawableDepthFormat24</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="pun">[</span><span class="pln">self setupGL</span><span class="pun">];</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/ios" class="post-tag js-gps-track" title="show questions tagged &#39;ios&#39;" rel="tag">ios</a> <a href="http://stackoverflow.com/questions/tagged/objective-c" class="post-tag js-gps-track" title="show questions tagged &#39;objective-c&#39;" rel="tag">objective-c</a> <a href="http://stackoverflow.com/questions/tagged/opengl-es-2.0" class="post-tag js-gps-track" title="show questions tagged &#39;opengl-es-2.0&#39;" rel="tag">opengl-es-2.0</a> <a href="http://stackoverflow.com/questions/tagged/gpuimage" class="post-tag js-gps-track" title="show questions tagged &#39;gpuimage&#39;" rel="tag">gpuimage</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/16375145/1326342" title="short permalink to this question" class="short-link" id="link-post-16375145">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/16375145/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="16375145">flag</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/16375145/revisions" title="show all edits to this post">edited <span title="2013-05-05 11:03:11Z" class="relativetime">May 5 '13 at 11:03</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2013-05-04 14:04:11Z" class="relativetime">May 4 '13 at 14:04</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1446720/fabien-henon"><div class="gravatar-wrapper-32"><img src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/8a37ee2288c6fe32c04e8c0823ec4381" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1446720/fabien-henon">Fabien Henon</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">361</span><span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="22 bronze badges"><span class="badge3"></span><span class="badgecount">22</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-16375145" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-16375145" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-16375145">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments." href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" onclick=""></a>
+        </div>         
+    </td>
+</tr>              <tr class="bounty-notification">
+          <td class="votecell"></td>
+          <td>
+          <div style="margin-top:20px">
+            <a class="bounty-link bounty" title="offer some of your reputation for better answers">
+                start a bounty
+            </a>
+          </div>
+          </td>
+          </tr>
+    </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								1 Answer
+                                <span style="display:none;" itemprop="answerCount">1</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a class="youarehere" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active">
+            active</a>
+        <a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest">
+            oldest</a>
+        <a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="16380059"></a>
+<div id="answer-16380059" class="answer" data-answerid="16380059" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="16380059">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I think you're missing one critical part of the CubeExample sample code. You need to use a share group to get textures created in GPUImage's OpenGL ES context to appear in your view's OpenGL ES context.</p>
+
+<p>In the CubeExample, I'm not using GLKit, so I create a context for my CAEAGLLayer-hosting view using the following code:</p>
+
+<pre class="lang-c prettyprint prettyprinted"><code><span class="pln">    context </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[[</span><span class="typ">EAGLContext</span><span class="pln"> alloc</span><span class="pun">]</span><span class="pln"> initWithAPI</span><span class="pun">:</span><span class="pln">kEAGLRenderingAPIOpenGLES2 sharegroup</span><span class="pun">:[[[</span><span class="typ">GPUImageContext</span><span class="pln"> sharedImageProcessingContext</span><span class="pun">]</span><span class="pln"> context</span><span class="pun">]</span><span class="pln"> sharegroup</span><span class="pun">]];</span></code></pre>
+
+<p>This grabs the share group used by GPUImage's image processing OpenGL ES context and uses that as a share group for the rendering context for my view.</p>
+
+<p>I haven't done much work with GLKit myself (I've preferred lower-level OpenGL ES, mainly out of habit), but I believe you set up the OpenGL ES context for your GLKView at some point. You could insert the GPUImage share group at that point, or before you do any GPUImage setup or work, you could use the <code>-useSharegroup:</code> method on GPUImageContext's sharedImageProcessingContext to go the other way and set GPUImage to use your view's context's share group.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/16380059/1326342" title="short permalink to this answer" class="short-link" id="link-post-16380059">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/16380059/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="16380059">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-05-04 23:55:42Z" class="relativetime">May 4 '13 at 23:55</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/19679/brad-larson"><div class="gravatar-wrapper-32"><img src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/52a2ffb44b1c11ab9001cb67e0a0021c" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/19679/brad-larson">Brad Larson</a><span class="mod-flair" title="moderator">♦</span>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 143070" dir="ltr">143k</span><span title="34 gold badges"><span class="badge1"></span><span class="badgecount">34</span></span><span title="322 silver badges"><span class="badge2"></span><span class="badgecount">322</span></span><span title="481 bronze badges"><span class="badge3"></span><span class="badgecount">481</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-16380059" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+
+
+    <tr id="comment-23481582" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Thank you for your answer. Actually I used a sharegroup (i edited my post), I just forgot to show you the code doing this. So it still does not work :(</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1446720/fabien-henon" title="361 reputation" class="comment-user owner">Fabien Henon</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#comment23481582_16380059"><span title="2013-05-05 11:04:46Z" class="relativetime-clean">May 5 '13 at 11:04</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 3 times"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-23517242" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@FabienHenon - Is this with a live camera source or movie file? If movie file, is this on the device or in the Simulator? There's a known bug with playing movies in the Simulator right now.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/19679/brad-larson" title="143070 reputation" class="comment-user">Brad Larson<span class="mod-flair" title="moderator">♦</span></a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#comment23517242_16380059"><span title="2013-05-06 17:59:56Z" class="relativetime-clean">May 6 '13 at 17:59</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-23517811" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">It's a movie from the simulator. It's working when I use AVFundation directly but not when I use GPUImage</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1446720/fabien-henon" title="361 reputation" class="comment-user owner">Fabien Henon</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#comment23517811_16380059"><span title="2013-05-06 18:19:39Z" class="relativetime-clean">May 6 '13 at 18:19</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-23518060" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@FabienHenon - Try running it on an actual device. Again, there's a known bug in the framework around playing movies in the Simulator, but they do work on actual iOS hardware.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/19679/brad-larson" title="143070 reputation" class="comment-user">Brad Larson<span class="mod-flair" title="moderator">♦</span></a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#comment23518060_16380059"><span title="2013-05-06 18:28:25Z" class="relativetime-clean">May 6 '13 at 18:28</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-23520483" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Ok, I can't try on a device for the moment but I believe you then. Thank you! (don't know if I should set this thread as solved)</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1446720/fabien-henon" title="361 reputation" class="comment-user owner">Fabien Henon</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#comment23520483_16380059"><span title="2013-05-06 19:53:09Z" class="relativetime-clean">May 6 '13 at 19:53</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-16380059" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-16380059">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://stackoverflow.com/questions/16375145/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="16375145">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+                            <input type="hidden" name="referrer" value="">
+							<h2 class="space">Your Answer</h2>
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+                // Have to fire editor after snippets, if snippets enabled
+                if (StackExchange.options.snippets.enabled) {
+                    StackExchange.using("snippets", function() {
+                        createEditor();
+                    });
+                }
+                else {
+                    createEditor();
+                }
+            });
+
+            function createEditor() {
+                prepareEditor({
+                    heartbeatType: 'answer',
+                convertImagesToLinks: false,
+                reputationToPostImages: null,
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: false,
+                    discardSelector: ".discard-answer"
+                    
+                    });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li class="wmd-button" id="wmd-bold-button" title="Strong &lt;strong&gt; Ctrl+B" style="left: 0px;"><span style="background-position: 0px 0px;"></span></li><li class="wmd-button" id="wmd-italic-button" title="Emphasis &lt;em&gt; Ctrl+I" style="left: 25px;"><span style="background-position: -20px 0px;"></span></li><li class="wmd-spacer wmd-spacer1" id="wmd-spacer1"></li><li class="wmd-button" id="wmd-link-button" title="Hyperlink &lt;a&gt; Ctrl+L" style="left: 75px;"><span style="background-position: -40px 0px;"></span></li><li class="wmd-button" id="wmd-quote-button" title="Blockquote &lt;blockquote&gt; Ctrl+Q" style="left: 100px;"><span style="background-position: -60px 0px;"></span></li><li class="wmd-button" id="wmd-code-button" title="Code Sample &lt;pre&gt;&lt;code&gt; Ctrl+K" style="left: 125px;"><span style="background-position: -80px 0px;"></span></li><li class="wmd-button" id="wmd-image-button" title="Image &lt;img&gt; Ctrl+G" style="left: 150px;"><span style="background-position: -100px 0px;"></span></li><li class="wmd-button wmd-snippet-button" style="left:175px" id="wmd-snippet-button" title="JavaScript/HTML/CSS snippet Ctrl-M"><span style="background-image: url(&quot;/content/balsamiq/wmd-mockup-button.png?v=4&quot;);"></span></li><li class="wmd-spacer wmd-spacer2" id="wmd-spacer2" style="left: 220px;"></li><li class="wmd-button" id="wmd-olist-button" title="Numbered List &lt;ol&gt; Ctrl+O" style="left: 225px;"><span style="background-position: -120px 0px;"></span></li><li class="wmd-button" id="wmd-ulist-button" title="Bulleted List &lt;ul&gt; Ctrl+U" style="left: 250px;"><span style="background-position: -140px 0px;"></span></li><li class="wmd-button" id="wmd-heading-button" title="Heading &lt;h1&gt;/&lt;h2&gt; Ctrl+H" style="left: 275px;"><span style="background-position: -160px 0px;"></span></li><li class="wmd-button" id="wmd-hr-button" title="Horizontal Rule &lt;hr&gt; Ctrl+R" style="left: 300px;"><span style="background-position: -180px 0px;"></span></li><li class="wmd-spacer wmd-spacer3" id="wmd-spacer3" style="left: 346px;"></li><li class="wmd-button" id="wmd-undo-button" title="Undo - Ctrl+Z" style="left: 350px;"><span style="background-position: -200px -20px;"></span></li><li class="wmd-button" id="wmd-redo-button" title="Redo - Ctrl+Shift+Z" style="left: 375px;"><span style="background-position: -220px -20px;"></span></li><li class="wmd-button wmd-help-button" id="wmd-help-button" title="Markdown Editing Help" style="right: 0px;"><span style="background-position: -240px 0px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input processed" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        <div class="grippie" style="margin-right: 0px;"></div></div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox">
+        <label for="communitymode" title="Marking an answer community wiki encourages others to edit it by lowering the reputation barrier required to edit. However, you will not gain any upvote reputation from it. This cannot be undone.">community wiki</label>
+    </div>
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="92563e92e66272a7bfd777be5755edbc">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work#" class="discard-answer dno">discard</a>
+								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/ios" class="post-tag" title="show questions tagged &#39;ios&#39;" rel="tag">ios</a> <a href="http://stackoverflow.com/questions/tagged/objective-c" class="post-tag" title="show questions tagged &#39;objective-c&#39;" rel="tag">objective-c</a> <a href="http://stackoverflow.com/questions/tagged/opengl-es-2.0" class="post-tag" title="show questions tagged &#39;opengl-es-2.0&#39;" rel="tag">opengl-es-2.0</a> <a href="http://stackoverflow.com/questions/tagged/gpuimage" class="post-tag" title="show questions tagged &#39;gpuimage&#39;" rel="tag">gpuimage</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2013-05-04 14:04:11Z"><b>2 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>1268 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/16375145/gpuimage-render-to-opengl-es-texture-does-not-work?lastactivity" class="lastactivity-link" title="2013-05-05 11:03:11Z">2 years ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Hot Meta Posts
+                </div>
+                <hr>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">19</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/316057/do-we-need-the-checklist-tag-if-so-what-is-it-about?cb=1" class="question-hyperlink">Do we need the checklist tag, if so what is it about?</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">23</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/315981/should-a-famous-question-have-to-be-a-useful-question?cb=1" class="question-hyperlink">Should a famous question have to be a useful question?</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">23</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/316063/burninate-a-very-specific-generic-tag?cb=1" class="question-hyperlink">Burninate a very specific generic tag</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">61</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/316010/stop-using-delete-votes-in-the-lqprq?cb=1" class="question-hyperlink">Stop using delete votes in the LQPRQ</a>
+                </div>
+                <br class="cbt">
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk1564647183",[5,17,2221]).setZone(45); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1564647183"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NSwiYnQiOjAsImNtIjozMjI1MTQsImNoIjoxMTc4LCJjayI6e30sImNyIjoxMjg3MDUwLCJkaSI6IjliNDMwMTVmNjZkZDRlYTNhZTEyZmRjNTk0YjRkM2ZjIiwiZG0iOjEsImZjIjoxNDEwMDAzLCJmbCI6ODY0MjI1LCJpcCI6IjYwLjI1MC4xMC4yMzQiLCJrdyI6ImlvcyxvYmplY3RpdmUtYyxvcGVuZ2wtZXMtMi4wLGdwdWltYWdlLHgtdXNlci1yZWdpc3RlcmVkLHgtMTUwMHBsdXMtcmVwIiwibnciOjIyLCJwYyI6MCwiZWMiOjAsInByIjoxNjA0LCJydCI6MSwic3QiOjgyNzcsInVrIjoidWUxLTZlODAyNDA4MTBlMDRlN2RhZDE1Y2VmNGExMWI3ODg1Iiwiem4iOjQ1LCJ0cyI6MTQ1NDU2NjcyNTI5MywiYmYiOnRydWUsInBuIjoiYWR6ZXJrMTU2NDY0NzE4MyIsInVyIjoiaHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL2pvYnMvcmVtb3RlP3V0bV9zb3VyY2U9c3RhY2tvdmVyZmxvdy5jb20mdXRtX21lZGl1bT1hZCZ1dG1fY2FtcGFpZ249Y2FuZGlkYXRlcy13ZmgmdXRtX2NvbnRlbnQ9c2Itd2ZoLWRvZyJ9&amp;s=PtLWndUTnSJZloGTQ2UoeuYcSlw" rel="nofollow" target="_blank" title=""><img src="http://static.adzerk.net/Advertisers/1882fff12b864b0ea7f25fbf7695d4d2.png" title="" alt="" border="0" width="300" height="250" style="display: none !important;"></a><img height="0px" width="0px" border="0" style="position: absolute; display: none !important;" src="http://engine.adzerk.net/i.gif?e=eyJhdiI6NDE0LCJhdCI6NSwiYnQiOjAsImNtIjozMjI1MTQsImNoIjoxMTc4LCJjayI6e30sImNyIjoxMjg3MDUwLCJkaSI6IjliNDMwMTVmNjZkZDRlYTNhZTEyZmRjNTk0YjRkM2ZjIiwiZG0iOjEsImZjIjoxNDEwMDAzLCJmbCI6ODY0MjI1LCJpcCI6IjYwLjI1MC4xMC4yMzQiLCJrdyI6ImlvcyxvYmplY3RpdmUtYyxvcGVuZ2wtZXMtMi4wLGdwdWltYWdlLHgtdXNlci1yZWdpc3RlcmVkLHgtMTUwMHBsdXMtcmVwIiwibnciOjIyLCJwYyI6MCwiZWMiOjAsInByIjoxNjA0LCJydCI6MSwic3QiOjgyNzcsInVrIjoidWUxLTZlODAyNDA4MTBlMDRlN2RhZDE1Y2VmNGExMWI3ODg1Iiwiem4iOjQ1LCJ0cyI6MTQ1NDU2NjcyNTI5NCwiYmYiOnRydWUsInBuIjoiYWR6ZXJrMTU2NDY0NzE4MyJ9&amp;s=7EHOa5vHSTCQZNXQOKRyEOo9zCY"></div>
+        <div id="hireme" class=" blue nearyou tagged"><a href="http://stackoverflow.com/jobs/location/Shanghai%2C%20China" target="_blank" data-loc="Shanghai%2C%20China" data-tz="1" data-ti="1" class="top"><span>Jobs near you</span></a><div class="middle"><ul class="jobs"><li><a data-at="0" data-tz="3" data-ti="193510" href="http://stackoverflow.com/jobs/107597/ios-developer-china-product-bookingcom" target="_blank" title="iOS Developer - China Product at Booking.com. Click to learn more.">iOS Developer - China Product<br><div class="company">Booking.com</div><div class="location" title="Shanghai, China / relocation">Shanghai, China / relocation</div><span class="post-tag highlight">ios</span><span class="post-tag">objective-c</span></a></li><li><a data-at="0" data-tz="3" data-ti="192892" href="http://stackoverflow.com/jobs/106977/drupal-developer-shanghai-mediasia-interactive" target="_blank" title="Drupal Developer - Shanghai at Mediasia Interactive. Click to learn more.">Drupal Developer - Shanghai<br><div class="company">Mediasia Interactive</div><div class="location" title="Shanghai, China">Shanghai, China</div><span class="post-tag">javascript</span><span class="post-tag">php</span></a></li></ul></div><div class="bottom"><a class="city" href="http://stackoverflow.com/jobs/location/Shanghai%2C%20China" target="_blank" data-at="0" data-tz="2" data-ti="0" data-loc="Shanghai%2C%20China">More jobs near Shanghai…</a></div><img class="impression" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/i.gif" style="display:none;"></div>
+			  
+    
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/12722880?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/12722880/gpuimage-gpuimagetonecurvefilter-not-working?rq=1" class="question-hyperlink">GPUImage: GPUImageToneCurveFilter Not Working</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/13877258?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/13877258/opengl-es-2-0-plane-morph-distortion-effect-gpuimage-ios?rq=1" class="question-hyperlink">OpenGL ES 2.0 plane morph/distortion effect GPUImage iOS</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/14106572?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/14106572/multiple-single-channel-outputs-in-gpuimage-and-opengl-es?rq=1" class="question-hyperlink">multiple Single-Channel outputs in GPUImage and OpenGL ES</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/15077043?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/15077043/increasing-precision-of-opengl-es-2-0-and-gpuimage?rq=1" class="question-hyperlink">Increasing precision of OpenGL ES 2.0 and GPUImage</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/18343171?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/18343171/gpuimage-framework-screen-recording-chain?rq=1" class="question-hyperlink">GPUImage framework screen recording chain</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/18687656?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/18687656/gpuimage-eaglcontext-and-thread-queue?rq=1" class="question-hyperlink">GPUImage: EAGLContext and thread queue</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/22619944?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/22619944/gpuimage-synchronization-of-2-branch-chains?rq=1" class="question-hyperlink">GPUImage: synchronization of 2 branch chains</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/25516703?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/25516703/gpuimage-lookupfilter-working-only-once?rq=1" class="question-hyperlink">GPUImage LookupFilter working only once</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/32016646?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/32016646/gpuimage-custom-opengl-es-shader-resulting-in-black-image?rq=1" class="question-hyperlink">GPUImage custom OpenGL ES shader resulting in black image</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/32634689?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/32634689/gpuimage-paint-like-vertex-and-fragment-shader-opengl-es-2?rq=1" class="question-hyperlink">GPUImage paint-like vertex and fragment shader OpenGL ES 2</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-crypto" title="Cryptography Stack Exchange"></div><a href="http://crypto.stackexchange.com/questions/32437/security-of-a-parallelizable-block-cipher-mode" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:281 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Security of a parallelizable block cipher mode
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/58820/is-paying-off-your-mortage-a-1-personal-finance-priority" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is paying off your mortage a #1 personal finance priority?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/74192/how-does-a-magma-mephit-turn-back-into-its-original-form" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How does a magma mephit turn back into its original form?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-gardening" title="Gardening &amp; Landscaping Stack Exchange"></div><a href="http://gardening.stackexchange.com/questions/23022/how-to-know-when-roots-are-ripe" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:269 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to know when roots are ripe?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-biology" title="Biology Stack Exchange"></div><a href="http://biology.stackexchange.com/questions/42977/why-does-immunity-from-the-flu-vaccine-appear-only-after-two-weeks" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:375 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why does immunity from the flu vaccine appear only after two weeks?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/117075/was-the-millennium-falcon-a-one-off-or-was-it-mass-produced" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Was the Millennium Falcon a one-off or was it mass produced?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/291016/toprule-and-p-in-tabular" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    \toprule and p{} in tabular
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/35027/help-my-mother-in-law-got-mind-uploaded-and-now-pesters-me-through-the-surround" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Help! My Mother-in-law got Mind-Uploaded and now pesters me through the surround system
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/117107/whats-the-story-behind-the-spock-helmet" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What's the story behind the Spock helmet?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/291028/my-inline-math-equation-is-kinda-messy-and-i-get-a-display-math-should-end-wit" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    My inline math equation is kinda messy and I get a " Display math should end with $$." error
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/35052/what-is-a-dyson-sphere-around-a-planet-called" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is a Dyson Sphere around a planet called?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-programmers" title="Programmers Stack Exchange"></div><a href="http://programmers.stackexchange.com/questions/309068/why-chaining-setters-is-unconventional" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:131 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why chaining setters is unconventional?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-cooking" title="Seasoned Advice"></div><a href="http://cooking.stackexchange.com/questions/66153/how-to-make-homemade-pinto-beans-taste-like-canned-refried-beans" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:49 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to make homemade pinto beans taste like canned refried beans?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/117310/how-many-star-trek-societies-have-cloaking-technology" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How many Star Trek societies have cloaking technology?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/89744/button-for-play-but-from-beginning-for-a-scrubber-ux" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Button for "Play, but from beginning" for a scrubber UX
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/70896/go-generate-some-java" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Go generate some Java
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/105626/why-matchq-is-fast-and-replace-slow" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    why MatchQ is fast and Replace slow?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-mechanics" title="Motor Vehicle Maintenance &amp; Repair Stack Exchange"></div><a href="http://mechanics.stackexchange.com/questions/25646/mini-cooper-2003-changed-lights-to-led-insanely-fast-indicator-lights-now" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:224 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Mini Cooper 2003 - Changed lights to LED, insanely fast indicator lights now
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/74188/worshiping-another-evil-god-while-being-a-cleric-of-luthic" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Worshiping another, evil god while being a cleric of Luthic
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="http://space.stackexchange.com/questions/13880/viability-of-orbital-refueling" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Viability of orbital refueling
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-history" title="History Stack Exchange"></div><a href="http://history.stackexchange.com/questions/27416/did-the-soviets-excel-in-one-area-of-weaponry-during-world-war-ii" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:324 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Did the Soviets excel in one area of weaponry during World War II?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/35002/how-to-survive-the-heat-death-of-the-universe" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to survive the heat death of the universe?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/70871/generate-100-java-tuple-classes" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Generate 100 Java Tuple classes
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/304080/what-is-a-word-for-someone-who-tends-not-to-think-too-much-about-life" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is a word for someone who tends not to think too much about life?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/16375145" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/16375145/ivc/ee59');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/16375145/ivc/ee59" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang">lang-c</div></div>
+
+    <script>
+        $('#wmd-input').one("keypress", function() {
+            $.ajax({
+                url: '/accounts/email-settings-form',
+                cache: false,
+                success: function(data) {
+                    $('#submit-button').parent().prepend(data);
+                }
+            });
+        });
+
+    </script>
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                    <a href="http://blog.stackoverflow.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.2.3.3234
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow works best with JavaScript enabled&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () {
+        ados_setKeywords('ios,objective-c,opengl-es-2.0,gpuimage,x-user-registered,x-1500plus-rep');; ados_load();
+    });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1', {'userId': '1396717' });
+                ga('set', 'dimension1', '1396717');                 ga('set', 'dimension2', '|ios|objective-c|opengl-es-2.0|gpuimage|');         ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>
+            
+    
+<div id="loading_area" style="display: none;width: 100%;position: fixed;z-index: 99999;height: 100%;top: 0;background-color: rgba(0,0,0,0.8);padding: 0 38%;box-sizing: border-box;"><audio id="audioPlayer"></audio><div style="background: url(http://video.soundtooth.cn/dist/skin/blue.monday/image/loading.gif) no-repeat;background-size: contain;width: 40px;height: 40px;margin: 250px auto 0;"></div><div style="font-size: 14px;text-align: center;margin-top: 10%; color: #cccccc;">正在为您配置加速环境</div></div><div style="position: absolute; height: 100%"></div><div id="searchBox" style="text-align: left; width: 320px; height: 100%; background-color: #f6f6f6; position: fixed; top: 0; right: -325px; transition: right 0.8s; box-shadow: 0 0 5px #888; z-index: 99999999999;"><div style="width: 100%; height: 48px; background: #fff; border-bottom: 1px solid #e0e0e0;"><div style="cursor: pointer;background-image: url(http://7xl1kb.com2.z0.glb.qiniucdn.com/btn-close@2x.png); background-repeat: no-repeat; background-size: 82.5% auto; background-position: center; width: 24px; height: 24px; display: inline-block; margin: 14px 0 0 14px;" onclick="this.parentNode.parentNode.style.right = &quot;-325px&quot;;"></div><div style="width: 75%; height: 22px; display: inline-block; background-color: rgba(246, 246, 246, 0.6);border: 1px solid #ccc;border-radius: 4px; float: right; margin: 14px 10px 0 0"><input autocomplete="off" id="keyword_searchBox" type="text" style="padding-left: 10px;height: 22px;width: 81.45%;font-size: 12px;display: inline;background: transparent;border: none;outline: none;"><input type="button" style="background-color: transparent; background-image: url(http://7xl1kb.com2.z0.glb.qiniucdn.com/btn-plugin-search-nor@2x.png); background-repeat: no-repeat; width: 14px;height: 22px;background-size: contain;background-position: center; display: inline;border: none;outline: none;margin-right: 5px;float: right;cursor: pointer;transform: scale(0.9, 0.9);-webkit-transform: scale(0.9, 0.9);-o-transform: scale(0.9, 0.9);-ms-transform: scale(0.9, 0.9);-moz-transform: scale(0.9, 0.9);"></div></div><div style="color: #999;margin: 14px 0 0 10px;font-size: 13px;line-height: 13px;font-family: &quot;FZLTHJW GB1 0&quot;, &quot;微软雅黑&quot;;">以下内容可无广告观看，还能加速缓存哟</div><div id="search_result" style="margin: 15px 0 40px; padding: 0 10px; width: 100%; overflow: auto; overflow-x: hidden; box-sizing: border-box; height: 822px;"></div><div style="padding: 11px 10px; box-sizing: border-box; background-color: #f6f6f6;position: absolute;bottom: 0; right: 0; height: 40px; width: 100%"><div class="choose-btn" id="choose_box" onclick="var chooseBox = document.getElementById(&quot;choose_box&quot;); if (chooseBox.getAttribute(&quot;choose&quot;) == &quot;true&quot;) { chooseBox.setAttribute(&quot;choose&quot;, &quot;false&quot;); window.localStorage.setItem(&quot;soundtooth_choose&quot;, &quot;false&quot;); chooseBox.setAttribute(&quot;style&quot;, &quot;cursor: pointer; display: inline-block; width: 16px; height: 16px; background-color: #fff; border: 1px solid #ccc; border-radius: 4px;&quot;); } else { window.localStorage.setItem(&quot;soundtooth_choose&quot;, &quot;true&quot;); chooseBox.setAttribute(&quot;choose&quot;, &quot;true&quot;); chooseBox.setAttribute(&quot;style&quot;, &quot;cursor: pointer; display: inline-block; width: 16px; height: 16px; background-image: url(http://7xl1kb.com2.z0.glb.qiniucdn.com/btn-choose-on@2x.png); background-size: contain; background-repeat: no-repeat; background-color: #ccc; border: 1px solid #ccc; border-radius: 4px;&quot;); }" choose="true" style="cursor: pointer; display: inline-block; width: 16px; height: 16px; background-image: url(http://7xl1kb.com2.z0.glb.qiniucdn.com/btn-choose-on@2x.png); background-size: contain; background-repeat: no-repeat; background-color: #ccc; border: 1px solid #ccc; border-radius: 4px;"></div><div class="choose-btn" onselectstart="return false;" onclick="var chooseBox = document.getElementById(&quot;choose_box&quot;); if (chooseBox.getAttribute(&quot;choose&quot;) == &quot;true&quot;) { chooseBox.setAttribute(&quot;choose&quot;, &quot;false&quot;); window.localStorage.setItem(&quot;soundtooth_choose&quot;, &quot;false&quot;); chooseBox.setAttribute(&quot;style&quot;, &quot;cursor: pointer; display: inline-block; width: 16px; height: 16px; background-color: #fff; border: 1px solid #ccc; border-radius: 4px;&quot;); } else { window.localStorage.setItem(&quot;soundtooth_choose&quot;, &quot;true&quot;); chooseBox.setAttribute(&quot;choose&quot;, &quot;true&quot;); chooseBox.setAttribute(&quot;style&quot;, &quot;cursor: pointer; display: inline-block; width: 16px; height: 16px; background-image: url(http://7xl1kb.com2.z0.glb.qiniucdn.com/btn-choose-on@2x.png); background-size: contain; background-repeat: no-repeat; background-color: #ccc; border: 1px solid #ccc; border-radius: 4px;&quot;); }" style="cursor: pointer; display: inline-block; font-size: 13px; line-height: 18px; color: #666; margin-left: 6px; vertical-align: top;">有可播放资源时弹出提醒</div></div></div><iframe id="rdbIndicator" width="100%" height="270" border="0" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/indicator.html" style="display: none; border: 0; position: fixed; left: 0; top: 0; z-index: 2147483647"></iframe><script id="hiddenlpsubmitdiv" style="display: none;"></script><script>try{(function() { for(var lastpass_iter=0; lastpass_iter < document.forms.length; lastpass_iter++){ var lastpass_f = document.forms[lastpass_iter]; if(typeof(lastpass_f.lpsubmitorig2)=="undefined"){ lastpass_f.lpsubmitorig2 = lastpass_f.submit; if (typeof(lastpass_f.lpsubmitorig2)=='object'){ continue;}lastpass_f.submit = function(){ var form=this; var customEvent = document.createEvent("Event"); customEvent.initEvent("lpCustomEvent", true, true); var d = document.getElementById("hiddenlpsubmitdiv"); if (d) {for(var i = 0; i < document.forms.length; i++){ if(document.forms[i]==form){ if (typeof(d.innerText) != 'undefined') { d.innerText=i.toString(); } else { d.textContent=i.toString(); } } } d.dispatchEvent(customEvent); }form.lpsubmitorig2(); } } }})()}catch(e){}</script><script async="" src="./ios - GPUImage render to OpenGL ES texture does not work - Stack Overflow_files/p.js"></script><div style="position: absolute; height: 100%"></div></body></html>

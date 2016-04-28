@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios -->
+<html itemscope="" itemtype="http://schema.org/QAPage"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Is it possible using video as texture for GL in iOS? - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta property="og:type" content="website">    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Is it possible using video as texture for GL in iOS?">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Is it possible using video (pre-rendered, compressed with H.264) as texture for GL in iOS?
+
+If possible, how to do it? And any playback quality/frame-rate or limitations?
+">
+    <meta property="og:url" content="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios">
+    <link rel="canonical" href="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/Is it possible using video as texture for GL in iOS_ - Stack Overflow.html">
+
+    
+    
+    <script type="text/javascript" async="" src="http://engine.adzerk.net/ados?t=1454296351715&amp;request={%22Placements%22:[{%22A%22:22,%22S%22:8277,%22D%22:%22adzerk542758691%22,%22ATA%22:[5,17,2221],%22Z%22:45}],%22Keywords%22:%22video%2Cios%2Copengl-es%2Ctextures%2Cx-user-registered%2Cx-1500plus-rep%22,%22Referrer%22:%22http%3A%2F%2Fstackoverflow.com%2Fquestions%2F10646657%2Fhardware-accelerated-h-264-decoding-to-texture-overlay-or-similar-in-ios%22,%22IsAsync%22:true}"></script><script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/quant.js"></script><script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/beacon.js"></script><script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/analytics.js"></script><script type="text/javascript" async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/ados.js"></script><script src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/jquery.min.js"></script>
+    <script src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/stub.en.js"></script>
+    <link rel="stylesheet" type="text/css" href="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/all.css">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Is it possible using video as texture for GL in iOS?&#39;" href="http://stackoverflow.com/feeds/question/4237538">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({canOpenBounty:true,votesCast:[],canViewVoteCounts:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:4237538});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '4237538');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToReputationNotifications('1');
+                StackExchange.realtime.subscribeToTopBarNotifications('1');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1454292716,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"enableSocialMediaInSharePopup":true},"user":{"fkey":"92563e92e66272a7bfd777be5755edbc","rep":1692,"isRegistered":true,"userType":3,"userId":1326342,"accountId":1396717,"gravatar":"<div class=\"gravatar-wrapper-32\"><img src=\"https://i.stack.imgur.com/xH26m.jpg?s=32&amp;g=1\" alt=\"\" width=\"32\" height=\"32\"></div>","profileUrl":"http://stackoverflow.com/users/1326342/allan","canSeeDeletedPosts":false},"realtime":{"newest":false,"active":false,"tagged":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"72ed6ced36af","js/moderator.en.js":"481e310df8f0","js/full-anon.en.js":"ef9d9700035c","js/full.en.js":"29116d259397","js/wmd.en.js":"7e593f04f138","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"f58acd4f09d3","js/help.en.js":"54b998574be9","js/tageditor.en.js":"9a6504012242","js/tageditornew.en.js":"e988d08e49a4","js/inline-tag-editing.en.js":"de80429b1816","js/revisions.en.js":"82fcdf5bb6de","js/review.en.js":"3cd11576400b","js/tagsuggestions.en.js":"78eee7c19ab2","js/post-validation.en.js":"3c5f2f238cd6","js/explore-qlist.en.js":"e71f14781288","js/events.en.js":"12b8df2c974d","js/keyboard-shortcuts.en.js":"e79748fd0b4a","js/external-editor.en.js":"cf58cc6630ef","js/external-editor.en.js":"cf58cc6630ef","js/snippet-javascript.en.js":"da37000d40f8","js/snippet-javascript-codemirror.en.js":"7515e4059d63"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+    
+    
+<script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/full.en.js"></script><script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/snippet-javascript.en.js"></script><script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/post-validation.en.js"></script><script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/external-editor.en.js"></script><script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/wmd.en.js"></script><style type="text/css"> .wmd-snippet-button span { background-position: 0 0; } .wmd-snippet-button:hover span { background-position: 0 -40px; }</style><script type="text/javascript" src="http://static.adzerk.net/Extensions/adFeedback.js"></script><link rel="stylesheet" href="http://static.adzerk.net/Extensions/adFeedback.css"><link type="text/css" rel="stylesheet" href="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/jobs.min.css"></head>
+<body class="question-page new-topbar">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+                    <a href="http://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://stackoverflow.com/users/logout" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:8 })">log out</a>
+    </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track" href="http://careers.stackoverflow.com/?utm_source=stackoverflow.com&amp;utm_medium=site-ui&amp;utm_campaign=multicollider" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+                <a href="http://stackexchange.com/users/1396717/?tab=accounts">your communities</a>
+        </h3>
+            
+            <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" id="edit-pinned-sites">edit</a>
+            <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" id="cancel-pinned-sites" style="display: none;">cancel</a>
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <ul class="my-sites">
+                    <li>
+                        
+
+
+
+    <a href="http://stackoverflow.com/" class="site-link js-gps-track" data-id="1" data-gps-track="
+            site.switch({ target_site:1, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+            <span class="rep-score">1,692</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://blender.stackexchange.com/" class="site-link js-gps-track" data-id="502" data-gps-track="
+            site.switch({ target_site:502, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-blender" title="Blender"></div>
+        Blender
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://gamedev.stackexchange.com/" class="site-link js-gps-track" data-id="53" data-gps-track="
+            site.switch({ target_site:53, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-gamedev" title="Game Development"></div>
+        Game Development
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://graphicdesign.stackexchange.com/" class="site-link js-gps-track" data-id="174" data-gps-track="
+            site.switch({ target_site:174, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-graphicdesign" title="Graphic Design"></div>
+        Graphic Design
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://security.stackexchange.com/" class="site-link js-gps-track" data-id="162" data-gps-track="
+            site.switch({ target_site:162, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-security" title="Information Security"></div>
+        Information Security
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+            </ul>
+                <div class="pinned-site-editor-container" style="display: none;">
+                    <input id="js-site-search-txt" type="text" class="site-filter-input" value="" placeholder="Add a Stack Exchange community">
+                    <input type="submit" id="pin-site-btn" value="Add" disabled="disabled">
+                    <ul class="js-found-sites found-sites"></ul>
+                    <ul class="pinned-site-list sortable" data-custom-list="False">
+                    </ul>
+                    <input type="submit" value="Save" id="save-pinned-sites-btn" disabled="disabled">
+                    <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" id="reset-pinned-sites">reset to default list</a>
+                </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com/" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 151 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+    <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display:none"></span>
+    </a>
+    <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" class="topbar-icon icon-achievements yes-hover js-achievements-button " data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display:none">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <a href="http://stackoverflow.com/users/1326342/allan" class="profile-me js-gps-track" data-gps-track="profile_summary.click()">
+                    
+                    <div class="gravatar-wrapper-24" title="Allan"><img src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/xH26m.jpg" alt="" width="24" height="24" class="avatar-me js-avatar-me"></div>
+
+                    <div class="links-container topbar-flair">
+
+                        <span class="reputation" title="your reputation: 1,692">
+                            1,692
+                        </span>
+<span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="7 silver badges"><span class="badge2"></span><span class="badgecount">7</span></span><span title="23 bronze badges"><span class="badge3"></span><span class="badgecount">23</span></span>                    </div>
+                </a>
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+
+
+
+                            <a href="http://stackoverflow.com/review" title="Review queues - help improve the site">
+                                review
+                            </a>
+
+    <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-jobs" href="http://stackoverflow.com/jobs">Jobs</a></li>
+                        <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://stackoverflow.com/help/badges">Badges</a></li>
+                                            </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+			<div id="question-header">
+                <h1 itemprop="name"><a href="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/Is it possible using video as texture for GL in iOS_ - Stack Overflow.html" class="question-hyperlink">Is it possible using video as texture for GL in iOS?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="4237538" id="question">
+
+        <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="4237538">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">10</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" title="This is a favorite question (click again to undo)">favorite</a>
+        <div class="favoritecount"><b>7</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>Is it possible using video (pre-rendered, compressed with H.264) as texture for GL in iOS?</p>
+
+<p>If possible, how to do it? And any playback quality/frame-rate or limitations?</p>
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/video" class="post-tag js-gps-track" title="show questions tagged &#39;video&#39;" rel="tag">video</a> <a href="http://stackoverflow.com/questions/tagged/ios" class="post-tag js-gps-track" title="show questions tagged &#39;ios&#39;" rel="tag">ios</a> <a href="http://stackoverflow.com/questions/tagged/opengl-es" class="post-tag js-gps-track" title="show questions tagged &#39;opengl-es&#39;" rel="tag">opengl-es</a> <a href="http://stackoverflow.com/questions/tagged/textures" class="post-tag js-gps-track" title="show questions tagged &#39;textures&#39;" rel="tag">textures</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/4237538/1326342" title="short permalink to this question" class="short-link" id="link-post-4237538">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4237538/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="4237538">flag</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/4237538/revisions" title="show all edits to this post">edited <span title="2010-11-22 07:31:06Z" class="relativetime">Nov 22 '10 at 7:31</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info user-hover">
+    <div class="user-action-time">
+        asked <span title="2010-11-21 11:12:14Z" class="relativetime">Nov 21 '10 at 11:12</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/246776/eonil"><div class="gravatar-wrapper-32"><img src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/ipNsf.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/246776/eonil">Eonil</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 27293" dir="ltr">27.3k</span><span title="36 gold badges"><span class="badge1"></span><span class="badgecount">36</span></span><span title="178 silver badges"><span class="badge2"></span><span class="badgecount">178</span></span><span title="351 bronze badges"><span class="badge3"></span><span class="badgecount">351</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4237538" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-4237538" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-4237538">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments." href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" onclick=""></a>
+        </div>         
+    </td>
+</tr>              <tr class="bounty-notification">
+          <td class="votecell"></td>
+          <td>
+          <div style="margin-top:20px">
+            <a class="bounty-link bounty" title="offer some of your reputation for better answers">
+                start a bounty
+            </a>
+          </div>
+          </td>
+          </tr>
+    </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								2 Answers
+                                <span style="display:none;" itemprop="answerCount">2</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a class="youarehere" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active">
+            active</a>
+        <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest">
+            oldest</a>
+        <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="4241620"></a>
+<div id="answer-4241620" class="answer accepted-answer" data-answerid="4241620" itemscope="" itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="4241620">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">18</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>As of iOS 4.0, you can use <code>AVCaptureDeviceInput</code> to get the camera as a device input and connect it to a <code>AVCaptureVideoDataOutput</code> with any object you like set as the delegate. By setting a 32bpp BGRA format for the camera, the delegate object will receive each frame from the camera in a format just perfect for handing immediately to <code>glTexImage2D</code> (or <code>glTexSubImage2D</code> if the device doesn't support non-power-of-two textures; I think the MBX devices fall into this category).</p>
+
+<p>There are a bunch of frame size and frame rate options; at a guess you'll have to tweak those depending on how much else you want to use the GPU for. I found that a completely trivial scene with just a textured quad showing the latest frame, redrawn only exactly when a new frame arrives on an iPhone 4, was able to display that device's maximum 720p 24fps feed without any noticeable lag. I haven't performed any more thorough benchmarking than that, so hopefully someone else can advise.</p>
+
+<p>In principle, per the API, frames can come back with some in-memory padding between scanlines, which would mean some shuffling of contents before posting off to GL so you do need to implement a code path for that. In practice, speaking purely empirically, it appears that the current version of iOS never returns images in that form so it isn't really a performance issue.</p>
+
+<p>EDIT: it's now very close to three years later. In the interim Apple has released iOS 5, 6 and 7. With 5 they introduced <code>CVOpenGLESTexture</code> and <code>CVOpenGLESTextureCache</code>, which are now the smart way to pipe video from a capture device into OpenGL. Apple supplies sample code <a href="https://developer.apple.com/library/ios/samplecode/GLCameraRipple/Introduction/Intro.html#//apple_ref/doc/uid/DTS40011222">here</a>, from which the particularly interesting parts are in <code>RippleViewController.m</code>, specifically its <code>setupAVCapture</code> and <code>captureOutput:didOutputSampleBuffer:fromConnection:</code> — see lines 196–329. Sadly the terms and conditions prevent a duplication of the code here without attaching the whole project but the step-by-step setup is:</p>
+
+<ol>
+<li>create a <code>CVOpenGLESTextureCacheCreate</code> and an <code>AVCaptureSession</code>;</li>
+<li>grab a suitable <code>AVCaptureDevice</code> for video;</li>
+<li>create an <code>AVCaptureDeviceInput</code> with that capture device;</li>
+<li>attach an <code>AVCaptureVideoDataOutput</code> and tell it to call you as a sample buffer delegate.</li>
+</ol>
+
+<p>Upon receiving each sample buffer:</p>
+
+<ol>
+<li>get the <code>CVImageBufferRef</code> from it;</li>
+<li>use <code>CVOpenGLESTextureCacheCreateTextureFromImage</code> to get Y and UV <code>CVOpenGLESTextureRef</code>s from the CV image buffer;</li>
+<li>get texture targets and names from the CV OpenGLES texture refs in order to bind them;</li>
+<li>combine luminance and chrominance in your shader.</li>
+</ol>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/4241620/1326342" title="short permalink to this answer" class="short-link" id="link-post-4241620">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4241620/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="4241620">flag</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/4241620/revisions" title="show all edits to this post">edited <span title="2013-11-04 20:24:45Z" class="relativetime">Nov 4 '13 at 20:24</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-11-22 02:00:39Z" class="relativetime">Nov 22 '10 at 2:00</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/427332/tommy"><div class="gravatar-wrapper-32"><img src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/e11b58e11decc7b4c352d3ac3b2d0b90" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/427332/tommy">Tommy</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 75040" dir="ltr">75k</span><span title="9 gold badges"><span class="badge1"></span><span class="badgecount">9</span></span><span title="115 silver badges"><span class="badge2"></span><span class="badgecount">115</span></span><span title="134 bronze badges"><span class="badge3"></span><span class="badgecount">134</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4241620" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="3" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+
+
+    <tr id="comment-4595350" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Thanks for answer. I'll dig it.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/246776/eonil" title="27293 reputation" class="comment-user owner">Eonil</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#comment4595350_4241620"><span title="2010-11-22 07:35:43Z" class="relativetime-clean">Nov 22 '10 at 7:35</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-4596708" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">It's only just about 200 lines to tie the whole thing together; sorry for not posting code - I've tackled the problem only while at work so am contractually barred from posting what I have. But it's really trivial stuff and I definitely spent a lot longer figuring out which were the appropriate classes in the documentation than I did coding.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/427332/tommy" title="75040 reputation" class="comment-user">Tommy</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#comment4596708_4241620"><span title="2010-11-22 10:30:29Z" class="relativetime-clean">Nov 22 '10 at 10:30</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-5751080" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Eonil If you like his answer, mark it as the accepted answer.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/46768/pr1001" title="9925 reputation" class="comment-user">pr1001</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#comment5751080_4241620"><span title="2011-02-26 13:11:10Z" class="relativetime-clean">Feb 26 '11 at 13:11</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-25437792" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">My blog post about using 32BPP images as textures in OpenGL, includes xcode project and source code:  <a href="http://www.modejong.com/blog/post7_load_opengl_textures_with_alpha_channel_on_ios/index.html" rel="nofollow">modejong.com/blog/…</a></span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/763355/modj" title="2080 reputation" class="comment-user">MoDJ</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#comment25437792_4241620"><span title="2013-07-06 03:02:22Z" class="relativetime-clean">Jul 6 '13 at 3:02</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-29394590" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Adam since iOS 5 (about a year after my original answer) Apple has provided built-in functionality to commute <code>CVImageBuffer</code>s into OpenGL and has supplied a sample project; I've added a link as well as a more detailed breakdown of the steps involved.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/427332/tommy" title="75040 reputation" class="comment-user">Tommy</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#comment29394590_4241620"><span title="2013-11-04 20:26:06Z" class="relativetime-clean">Nov 4 '13 at 20:26</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-4241620" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-4241620">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#">add a comment</a><span class="js-link-separator ">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link " title="expand to show all comments on this post" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" onclick="">show <b>3</b> more comments</a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="29476160"></a>
+<div id="answer-29476160" class="answer" data-answerid="29476160" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="29476160">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Use <a href="https://developer.apple.com/library/ios/samplecode/RosyWriter/Introduction/Intro.html" rel="nofollow">RosyWriter</a> for a MUCH better example of how to do OpenGL video rendering. Performance is very good, especially if you reduce the framerate (~10% at 1080P/30, &gt;=5% at 1080P/15.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/29476160/1326342" title="short permalink to this answer" class="short-link" id="link-post-29476160">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/29476160/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="29476160">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-04-06 17:24:01Z" class="relativetime">Apr 6 '15 at 17:24</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1175751/sounder-michael"><div class="gravatar-wrapper-32"><img src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/7b24676bafbfc8a3c7a6645f10cb3926" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1175751/sounder-michael">sounder_michael</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">472</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-29476160" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-29476160" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-29476160">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://stackoverflow.com/questions/4237538/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="4237538">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+                            <input type="hidden" name="referrer" value="http://stackoverflow.com/questions/10646657/hardware-accelerated-h-264-decoding-to-texture-overlay-or-similar-in-ios">
+							<h2 class="space">Your Answer</h2>
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+                // Have to fire editor after snippets, if snippets enabled
+                if (StackExchange.options.snippets.enabled) {
+                    StackExchange.using("snippets", function() {
+                        createEditor();
+                    });
+                }
+                else {
+                    createEditor();
+                }
+            });
+
+            function createEditor() {
+                prepareEditor({
+                    heartbeatType: 'answer',
+                convertImagesToLinks: false,
+                reputationToPostImages: null,
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: false,
+                    discardSelector: ".discard-answer"
+                    
+                    });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li class="wmd-button" id="wmd-bold-button" title="Strong &lt;strong&gt; Ctrl+B" style="left: 0px;"><span style="background-position: 0px 0px;"></span></li><li class="wmd-button" id="wmd-italic-button" title="Emphasis &lt;em&gt; Ctrl+I" style="left: 25px;"><span style="background-position: -20px 0px;"></span></li><li class="wmd-spacer wmd-spacer1" id="wmd-spacer1"></li><li class="wmd-button" id="wmd-link-button" title="Hyperlink &lt;a&gt; Ctrl+L" style="left: 75px;"><span style="background-position: -40px 0px;"></span></li><li class="wmd-button" id="wmd-quote-button" title="Blockquote &lt;blockquote&gt; Ctrl+Q" style="left: 100px;"><span style="background-position: -60px 0px;"></span></li><li class="wmd-button" id="wmd-code-button" title="Code Sample &lt;pre&gt;&lt;code&gt; Ctrl+K" style="left: 125px;"><span style="background-position: -80px 0px;"></span></li><li class="wmd-button" id="wmd-image-button" title="Image &lt;img&gt; Ctrl+G" style="left: 150px;"><span style="background-position: -100px 0px;"></span></li><li class="wmd-button wmd-snippet-button" style="left:175px" id="wmd-snippet-button" title="JavaScript/HTML/CSS snippet Ctrl-M"><span style="background-image: url(&quot;/content/balsamiq/wmd-mockup-button.png?v=4&quot;);"></span></li><li class="wmd-spacer wmd-spacer2" id="wmd-spacer2" style="left: 220px;"></li><li class="wmd-button" id="wmd-olist-button" title="Numbered List &lt;ol&gt; Ctrl+O" style="left: 225px;"><span style="background-position: -120px 0px;"></span></li><li class="wmd-button" id="wmd-ulist-button" title="Bulleted List &lt;ul&gt; Ctrl+U" style="left: 250px;"><span style="background-position: -140px 0px;"></span></li><li class="wmd-button" id="wmd-heading-button" title="Heading &lt;h1&gt;/&lt;h2&gt; Ctrl+H" style="left: 275px;"><span style="background-position: -160px 0px;"></span></li><li class="wmd-button" id="wmd-hr-button" title="Horizontal Rule &lt;hr&gt; Ctrl+R" style="left: 300px;"><span style="background-position: -180px 0px;"></span></li><li class="wmd-spacer wmd-spacer3" id="wmd-spacer3" style="left: 346px;"></li><li class="wmd-button" id="wmd-undo-button" title="Undo - Ctrl+Z" style="left: 350px;"><span style="background-position: -200px -20px;"></span></li><li class="wmd-button" id="wmd-redo-button" title="Redo - Ctrl+Shift+Z" style="left: 375px;"><span style="background-position: -220px -20px;"></span></li><li class="wmd-button wmd-help-button" id="wmd-help-button" title="Markdown Editing Help" style="right: 0px;"><span style="background-position: -240px 0px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input processed" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        <div class="grippie" style="margin-right: 0px;"></div></div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox">
+        <label for="communitymode" title="Marking an answer community wiki encourages others to edit it by lowering the reputation barrier required to edit. However, you will not gain any upvote reputation from it. This cannot be undone.">community wiki</label>
+    </div>
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="92563e92e66272a7bfd777be5755edbc">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" class="discard-answer dno">discard</a>
+								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/video" class="post-tag" title="show questions tagged &#39;video&#39;" rel="tag">video</a> <a href="http://stackoverflow.com/questions/tagged/ios" class="post-tag" title="show questions tagged &#39;ios&#39;" rel="tag">ios</a> <a href="http://stackoverflow.com/questions/tagged/opengl-es" class="post-tag" title="show questions tagged &#39;opengl-es&#39;" rel="tag">opengl-es</a> <a href="http://stackoverflow.com/questions/tagged/textures" class="post-tag" title="show questions tagged &#39;textures&#39;" rel="tag">textures</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2010-11-21 11:12:14Z"><b>5 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>7140 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios?lastactivity" class="lastactivity-link" title="2015-04-06 17:24:01Z">10 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Featured on Meta
+                </div>
+                <hr>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="http://meta.stackoverflow.com/questions/314636/the-developer-story-part-2-we-didnt-explain-that-very-well?cb=1" class="question-hyperlink">
+<div class="favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>                </a>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/314636/the-developer-story-part-2-we-didnt-explain-that-very-well?cb=1" class="question-hyperlink">The Developer Story Part 2: We didn't explain that very well</a>
+                </div>
+                <br class="cbt">
+            </div>
+                <div class="bulletin-title">
+                    Hot Meta Posts
+                </div>
+                <hr>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">21</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/315848/same-audit-showed-up-again?cb=1" class="question-hyperlink">Same audit showed up again</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">3</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/315797/heuristics-for-protecting-historically-significant-high-value-high-score-posts?cb=1" class="question-hyperlink">Heuristics for protecting historically significant high value/high score posts</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">34</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/315776/question-answer-buddies-to-what-end?cb=1" class="question-hyperlink">Question / answer “buddies”: to what end?</a>
+                </div>
+                <br class="cbt">
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk542758691",[5,17,2221]).setZone(45); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk542758691"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NSwiYnQiOjAsImNtIjozMjI1MTQsImNoIjoxMTc4LCJjayI6e30sImNyIjoxMjg3MDYyLCJkaSI6Ijk0MzliOTJmMzljZjQwZmU4YWQ3Y2IyOWQxNDNiMWVmIiwiZG0iOjEsImZjIjoxNDEwMDE5LCJmbCI6ODY0MjI2LCJpcCI6IjYwLjI1MC4xMC4yMzQiLCJrdyI6InZpZGVvLGlvcyxvcGVuZ2wtZXMsdGV4dHVyZXMseC11c2VyLXJlZ2lzdGVyZWQseC0xNTAwcGx1cy1yZXAiLCJudyI6MjIsInBjIjowLCJlYyI6MCwicHIiOjE1NjgsInJ0IjoxLCJyZiI6Imh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMTA2NDY2NTcvaGFyZHdhcmUtYWNjZWxlcmF0ZWQtaC0yNjQtZGVjb2RpbmctdG8tdGV4dHVyZS1vdmVybGF5LW9yLXNpbWlsYXItaW4taW9zIiwic3QiOjgyNzcsInVrIjoidWUxLTZlODAyNDA4MTBlMDRlN2RhZDE1Y2VmNGExMWI3ODg1Iiwiem4iOjQ1LCJ0cyI6MTQ1NDI5NjM1MDc0MywiYmYiOnRydWUsInBuIjoiYWR6ZXJrNTQyNzU4NjkxIiwidXIiOiJodHRwOi8vc3RhY2tvdmVyZmxvdy5jb20vam9icy93aHktam9icz91dG1fc291cmNlPXN0YWNrb3ZlcmZsb3cuY29tJnV0bV9tZWRpdW09YWQmdXRtX2NhbXBhaWduPWNhbmRpZGF0ZXMtYWRkLWN2JnV0bV9jb250ZW50PXNiLWxhdW5jaC15b3Vyc2VsZiJ9&amp;s=U30KaiDOvS3E7xbL3RvByIgObcg" rel="nofollow" target="_blank" title=""><img src="http://static.adzerk.net/Advertisers/40d2ff087293407790cb3707a30a8a6b.png" title="" alt="" border="0" width="300" height="250" style="display: none !important;"></a><img height="0px" width="0px" border="0" style="position: absolute; display: none !important;" src="http://engine.adzerk.net/i.gif?e=eyJhdiI6NDE0LCJhdCI6NSwiYnQiOjAsImNtIjozMjI1MTQsImNoIjoxMTc4LCJjayI6e30sImNyIjoxMjg3MDYyLCJkaSI6Ijk0MzliOTJmMzljZjQwZmU4YWQ3Y2IyOWQxNDNiMWVmIiwiZG0iOjEsImZjIjoxNDEwMDE5LCJmbCI6ODY0MjI2LCJpcCI6IjYwLjI1MC4xMC4yMzQiLCJrdyI6InZpZGVvLGlvcyxvcGVuZ2wtZXMsdGV4dHVyZXMseC11c2VyLXJlZ2lzdGVyZWQseC0xNTAwcGx1cy1yZXAiLCJudyI6MjIsInBjIjowLCJlYyI6MCwicHIiOjE1NjgsInJ0IjoxLCJyZiI6Imh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMTA2NDY2NTcvaGFyZHdhcmUtYWNjZWxlcmF0ZWQtaC0yNjQtZGVjb2RpbmctdG8tdGV4dHVyZS1vdmVybGF5LW9yLXNpbWlsYXItaW4taW9zIiwic3QiOjgyNzcsInVrIjoidWUxLTZlODAyNDA4MTBlMDRlN2RhZDE1Y2VmNGExMWI3ODg1Iiwiem4iOjQ1LCJ0cyI6MTQ1NDI5NjM1MDc0NCwiYmYiOnRydWUsInBuIjoiYWR6ZXJrNTQyNzU4NjkxIn0&amp;s=rRzwm3oZ9qFNQOb1e8R436XzOOk"></div>
+        <div id="hireme" class=" orange looking tagged"><a href="http://stackoverflow.com/jobs" target="_blank" data-tz="1" data-ti="0" class="top"><span>Looking for a job?</span></a><div class="middle"><ul class="jobs"><li><a data-at="0" data-tz="3" data-ti="193510" href="http://stackoverflow.com/jobs/107597/ios-developer-china-product-bookingcom" target="_blank" title="iOS Developer - China Product at Booking.com. Click to learn more.">iOS Developer - China Product<br><div class="company">Booking.com</div><div class="location" title="Shanghai, China / relocation">Shanghai, China / relocation</div><span class="post-tag highlight">ios</span><span class="post-tag">objective-c</span></a></li><li><a data-at="0" data-tz="3" data-ti="188875" href="http://stackoverflow.com/jobs/102938/data-engineer-app-annie" target="_blank" title="Data Engineer at App Annie. Click to learn more.">Data Engineer<br><div class="company">App Annie</div><div class="location" title="Beijing, China">Beijing, China</div><span class="post-tag">data-warehouse</span><span class="post-tag">data-integration</span></a></li></ul></div><img class="impression" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/i.gif" style="display:none;"></div>
+			<div style="margin-bottom: 10px;">
+        
+
+<style type="text/css">
+#newsletter-ad {
+    width: 270px;
+    height: 250px;
+    overflow: hidden;
+    background: url('//cdn.sstatic.net/stackoverflow/img/newsletter-ad.png?v=3');
+    padding: 0 15px 0 15px;
+}
+#newsletter-ad-header {
+    margin-top: 60px;
+}
+#newsletter-ad ul {
+    margin: 1em 0 1em 1.5em;
+}
+#newsletter-ad ul li {
+    margin-bottom: 5px;
+}
+#newsletter-signup-container {
+    text-align: center;
+}
+#newsletter-preview-container {
+    margin-top: 10px;
+    text-align: center;
+}
+#newsletter-email-input {
+    width: 200px;
+}
+</style>
+
+<script>
+    StackExchange.ready(function () {
+        StackExchange.newsletterAd.init();
+    });
+</script>
+
+<div id="newsletter-ad">
+        <p id="newsletter-ad-header">Get the <b>weekly newsletter!</b> In it, you'll get:</p>
+        <ul>
+            <li>The week's top questions and answers</li>
+            <li>Important community announcements</li>
+            <li>Questions that need answers</li>
+        </ul>
+    <div id="newsletter-signup-container"><input id="newsletter-signup" type="button" value="Sign up for the newsletter"></div>
+    <p id="newsletter-preview-container">see an <a href="http://stackexchange.com/newsletters/newsletter?site=stackoverflow.com" id="newsletter-preview">example newsletter</a></p>
+    <div class="dno">
+        
+<p class="privacy-policy-agreement">
+By subscribing, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1">
+    </div>
+</div>
+
+    </div>  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/5621627?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">21</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/5621627/ios4-how-do-i-use-video-file-as-an-opengl-texture?lq=1" class="question-hyperlink">iOS4: how do I use video file as an OpenGL texture?</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/10646657?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">8</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/10646657/hardware-accelerated-h-264-decoding-to-texture-overlay-or-similar-in-ios?lq=1" class="question-hyperlink">Hardware accelerated h.264 decoding to texture, overlay or similar in iOS</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/6574801?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">10</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/6574801/ios-video-as-gl-texture-with-alpha-transparency?lq=1" class="question-hyperlink">iOS: Video as GL texture with alpha transparency</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/6327477?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">1</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/6327477/ios-playing-a-frame-by-frame-greyscale-animation-in-a-custom-colour?lq=1" class="question-hyperlink">iOS: playing a frame-by-frame greyscale animation in a custom colour</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/5621627?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">21
+    </div>
+</a><a href="http://stackoverflow.com/questions/5621627/ios4-how-do-i-use-video-file-as-an-opengl-texture?rq=1" class="question-hyperlink">iOS4: how do I use video file as an OpenGL texture?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/6574801?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">10
+    </div>
+</a><a href="http://stackoverflow.com/questions/6574801/ios-video-as-gl-texture-with-alpha-transparency?rq=1" class="question-hyperlink">iOS: Video as GL texture with alpha transparency</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/6984727?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/6984727/render-movie-to-a-opengl-texture-in-ios?rq=1" class="question-hyperlink">Render movie to a OpenGL texture in iOS</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/23288714?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/23288714/opengl-format-texture?rq=1" class="question-hyperlink">OpenGL format texture</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/24927034?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/24927034/exceeding-maximum-texture-size-when-playing-video-with-opengl-on-android?rq=1" class="question-hyperlink">Exceeding maximum texture size when playing video with OpenGL on Android</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/25729390?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/25729390/total-texture-memory-size-ios-opengl-es?rq=1" class="question-hyperlink">Total Texture memory size iOS / OpenGL ES</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/27268663?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/27268663/video-as-texture-in-opengles2-0?rq=1" class="question-hyperlink">Video as texture in OpenGLES2.0</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/29621199?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/29621199/three-js-video-textures-in-ios-play-back-in-a-separately-launched-player-ideas?rq=1" class="question-hyperlink">three.js video textures in ios play back in a separately launched player - ideas?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/31027536?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/31027536/binding-video-texture-on-opengl-sphere-on-android?rq=1" class="question-hyperlink">Binding Video Texture on OpenGL Sphere on Android</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/33677245?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/33677245/can-i-modify-opengl-texture-parameters-between-draw-calls?rq=1" class="question-hyperlink">Can I modify OpenGL texture parameters between draw calls?</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-emacs" title="Emacs Stack Exchange"></div><a href="http://emacs.stackexchange.com/questions/19983/set-author-per-repository" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:583 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Set author per repository
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/62421/a-university-does-not-allow-its-employees-to-use-its-affiliation-on-papers-done" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A university does not allow its employees to use its affiliation on papers done in spare time; how normal is that?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/24819/how-well-does-a-composite-fuselage-deal-with-lightning" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How well does a composite fuselage deal with lightning?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-movies" title="Movies &amp; TV Stack Exchange"></div><a href="http://movies.stackexchange.com/questions/47033/why-do-people-bleed-in-real-world-when-they-are-hurt-or-killed-in-the-matrix" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:367 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do people bleed in real world when they are hurt or killed in The Matrix?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/35119819/why-duplicate-code-is-needed-with-const-reference-arguments" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why duplicate code is needed with const reference arguments?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/116970/during-the-dominion-war-why-do-they-keep-saying-the-entire-quadrant-is-at-stake" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    During the Dominion War, why do they keep saying the entire quadrant is at stake?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="http://travel.stackexchange.com/questions/62111/why-do-some-hostels-only-allow-international-visitors" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do some hostels only allow international visitors?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/728048/moving-files-with-bash-scripts" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Moving files with bash scripts
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/105345/is-there-a-way-to-find-the-values-of-x-for-a-graph-in-a-given-area" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a way to find the values of x for a graph in a given area?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/74027/what-are-the-upsides-to-having-the-spell-like-ability-version-of-a-spell" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are the upsides to having the spell-like ability version of a spell?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1633790/what-is-the-order-when-doing-xyz-and-why" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the order when doing x^y^z and why?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-judaism" title="Mi Yodeya"></div><a href="http://judaism.stackexchange.com/questions/67876/how-to-explain-a-specific-phenomenon" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:248 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to explain a specific phenomenon
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/80285/difference-between-over-and-on" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Difference between "over" and "on"
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-dba" title="Database Administrators Stack Exchange"></div><a href="http://dba.stackexchange.com/questions/127857/how-to-design-a-database" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:182 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to design a database
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/35114451/java-integer-cyclic-iteration-shorthand" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Java integer cyclic iteration shorthand
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/62564/student-asks-for-letter-of-recommendation-i-cant-remember-the-student" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Student asks for letter of recommendation: I can't remember the student
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-chemistry" title="Chemistry Stack Exchange"></div><a href="http://chemistry.stackexchange.com/questions/44518/how-do-i-control-the-temperature-in-an-experiment" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:431 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I control the temperature in an experiment?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/258931/difference-between-cat-and-cat" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Difference between "cat" and "cat &lt;"
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1633704/the-length-of-toilet-roll" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    The length of toilet roll
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/116924/who-was-the-pan-in-pans-labyrinth" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Who was "The Pan" in Pan's Labyrinth?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/303552/what-is-the-practice-of-dropping-words-from-sentences" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the practice of dropping words from sentences?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/35120620/how-to-pass-a-list-as-an-input-of-a-function-in-python" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to pass a list as an input of a function in Python
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/112311/how-can-i-protect-myself-from-false-accusations-when-our-company-practices-passw" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I protect myself from false accusations when our company practices password escrow?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/25998/professor-halfbrain-and-the-fantasy-knight" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Professor Halfbrain and the fantasy knight
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="http://stackoverflow.com/questions/4237538/is-it-possible-using-video-as-texture-for-gl-in-ios#" class="show-more js-show-more js-gps-track" data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/4237538" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/4237538/ivc/d733');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/4237538/ivc/d733" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang">default</div></div>
+
+    <script>
+        $('#wmd-input').one("keypress", function() {
+            $.ajax({
+                url: '/accounts/email-settings-form',
+                cache: false,
+                success: function(data) {
+                    $('#submit-button').parent().prepend(data);
+                }
+            });
+        });
+
+    </script>
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                    <a href="http://blog.stackoverflow.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.1.29.3224
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow works best with JavaScript enabled&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () {
+        ados_setKeywords('video,ios,opengl-es,textures,x-user-registered,x-1500plus-rep');; ados_load();
+    });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1', {'userId': '1396717' });
+                ga('set', 'dimension1', '1396717');                 ga('set', 'dimension2', '|video|ios|opengl-es|textures|');         ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>
+            
+    
+<iframe id="rdbIndicator" width="100%" height="270" border="0" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/indicator.html" style="display: none; border: 0; position: fixed; left: 0; top: 0; z-index: 2147483647"></iframe><script id="hiddenlpsubmitdiv" style="display: none;"></script><script>try{(function() { for(var lastpass_iter=0; lastpass_iter < document.forms.length; lastpass_iter++){ var lastpass_f = document.forms[lastpass_iter]; if(typeof(lastpass_f.lpsubmitorig2)=="undefined"){ lastpass_f.lpsubmitorig2 = lastpass_f.submit; if (typeof(lastpass_f.lpsubmitorig2)=='object'){ continue;}lastpass_f.submit = function(){ var form=this; var customEvent = document.createEvent("Event"); customEvent.initEvent("lpCustomEvent", true, true); var d = document.getElementById("hiddenlpsubmitdiv"); if (d) {for(var i = 0; i < document.forms.length; i++){ if(document.forms[i]==form){ if (typeof(d.innerText) != 'undefined') { d.innerText=i.toString(); } else { d.textContent=i.toString(); } } } d.dispatchEvent(customEvent); }form.lpsubmitorig2(); } } }})()}catch(e){}</script><script async="" src="./Is it possible using video as texture for GL in iOS_ - Stack Overflow_files/p.js"></script></body></html>
