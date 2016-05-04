@@ -197,15 +197,30 @@
 }
 
 - (BOOL)isAllowUseCamera{
-    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if(authStatus == AVAuthorizationStatusAuthorized) {
-        return TRUE;
-    } else if(authStatus == AVAuthorizationStatusDenied){
-        return FALSE;
+  if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        
+        if(status == AVAuthorizationStatusAuthorized) {
+            return TRUE;
+        } else if(status == AVAuthorizationStatusDenied){
+            return FALSE;
+        } else if(status == AVAuthorizationStatusRestricted){
+            return FALSE;
+        } else if(status == AVAuthorizationStatusNotDetermined){
+            // not determined
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (granted) {
+                        return TRUE;
+                    }else{
+                        return FALSE;
+                    }
+                });
+            }];
+        }
     }
-    else{
-        return FALSE;
-    }
+
 }
 
 - (void)startScanning;
