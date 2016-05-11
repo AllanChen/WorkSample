@@ -7,11 +7,8 @@
 //
 
 #import "ScanQRCodeViewController.h"
-#import "LiveViewController.h"
 #import "QRScanView.h"
 #import "Masonry.h"
-#import "ACNetworkHttpRequestManages.h"
-#import "UtilityHelper.h"
 #import "ZXCGImageLuminanceSource.h"
 #import "ZXBinaryBitmap.h"
 #import "ZXDecodeHints.h"
@@ -20,16 +17,14 @@
 #import "ZXMultiFormatReader.h"
 #import "MBProgressHUD.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
-
-
+#define  ScreenRect    [UIScreen mainScreen].bounds
+#define  ScreenHeight  [UIScreen mainScreen].bounds.size.height
+#define  ScreenWidth   [UIScreen mainScreen].bounds.size.width
 
 @interface ScanQRCodeViewController ()
 {
     float _scanViewWidth;
     QRScanView *_scanView;
-    ACNetworkHttpRequestManages *_acnetworkHRM;
-    
     UILabel *_detailLab;
     UIImageView *_lineImage;
     UILabel *_faileQRCodeLab;
@@ -52,72 +47,98 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     if(![self isCameraAvailable]) {
         [self setupNoCameraView];
         return;
     }
     
-    if(![self isAllowUseCamera]){
-        _openCameraLab.text = @"请打开摄像头功能";
-        _openCameraLab.textColor = [UIColor whiteColor];
-        _openCameraLab.font = [UIFont fontWithName:@"Arial" size:16.0];
-        _openCameraLab.hidden = NO;
-        self.view.backgroundColor = [UIColor blackColor];
-        [self.view addSubview:_openCameraLab];
-        [UtilityHelper showAlertView:@"请打开摄像头权限" andMessage:@"设置->隐私->相机" andCancelBtnTitle:@"确定"];
-        return;
+    _openCameraLab.text = @"请打开摄像头功能";
+    _openCameraLab.textColor = [UIColor whiteColor];
+    _openCameraLab.font = [UIFont fontWithName:@"Arial" size:16.0];
+    _openCameraLab.hidden = NO;
+    self.view.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:_openCameraLab];
+    UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"请打开摄像头权限" message:@"设置->隐私->相机" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        
+        if(status == AVAuthorizationStatusAuthorized) {
+            [self setupView];
+        } else if(status == AVAuthorizationStatusDenied){
+            [errorAlert show];
+            return;
+        } else if(status == AVAuthorizationStatusRestricted){
+            [errorAlert show];
+            return;
+        } else if(status == AVAuthorizationStatusNotDetermined){
+            // not determined
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (granted) {
+                        NSLog(@"granted");
+                        [self setupView];
+                    }else{
+                        NSLog(@"No granted");
+                        [errorAlert show];
+                        return;
+                    }
+                });
+            }];
+        }
     }
-    if([self isCameraAvailable]) {
-        _openCameraLab.hidden = YES;
-        _scanViewWidth = [UIScreen mainScreen].bounds.size.width - 100;
-        _detailLab = [[UILabel alloc] init];
-        _detailLab.text = @"将云导播的二维码放入框内，即可自动联机直播";
-        _detailLab.textColor = [UIColor whiteColor];
-        _detailLab.font = [UIFont fontWithName:@"Arial" size:14];
-        
-        _lineImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"扫描动画.png"]];
-        _lineImage.frame = CGRectMake(0, 0, _scanViewWidth, 20);
-        _lineImage.center = CGPointMake(ScreenWidth*0.5, (ScreenHeight - _scanViewWidth)*0.5);
-        
-        _faileQRCodeLab = [[UILabel alloc] init];
-        _faileQRCodeLab.text = @"联机失败,二维码过期";
-        _faileQRCodeLab.textColor = [UIColor redColor];
-        _faileQRCodeLab.font = [UIFont fontWithName:@"Arial" size:16.0f];
-        _faileQRCodeLab.hidden = YES;
-        
-        _scanView = [[QRScanView alloc] init];
-        
-        [self setupAlphaLayer];
-        [self setupScanner];
-        [self scanLineSetup];
-        [self startScanning];
-        
-        [self.view addSubview:_scanView];
-        [self.view addSubview:self.pictureBtn];
-        [self.view addSubview:self.outBtn];
-        [self.view addSubview:_detailLab];
-        [self.view addSubview:_lineImage];
-        [self.view addSubview:_faileQRCodeLab];
-        
-        
-        _mbHUD = [[MBProgressHUD alloc] initWithView:self.view];
-        _mbHUD.mode = MBProgressHUDModeIndeterminate;
-        _mbHUD.labelText = @"正在识别二维码";
-        [self.view addSubview:_mbHUD];
-        
-        [_detailLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo((ScreenHeight + _scanViewWidth)*0.5 + 5);
-            make.centerX.equalTo(self.view.mas_centerX);
-        }];
-        
-        [_faileQRCodeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo((ScreenHeight - _scanViewWidth)*0.5 -20);
-            make.centerX.equalTo(self.view.mas_centerX);
-        }];
-        
-        _acnetworkHRM = [ACNetworkHttpRequestManages new];
-        [_acnetworkHRM initHttpRequestManages];
-    }
+
+}
+
+- (void)setupView{
+    _openCameraLab.hidden = YES;
+    _scanViewWidth = [UIScreen mainScreen].bounds.size.width - 100;
+    _detailLab = [[UILabel alloc] init];
+    _detailLab.text = @"将云导播的二维码放入框内，即可自动联机直播";
+    _detailLab.textColor = [UIColor whiteColor];
+    _detailLab.font = [UIFont fontWithName:@"Arial" size:14];
+    
+    _lineImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"扫描动画.png"]];
+    _lineImage.frame = CGRectMake(0, 0, _scanViewWidth, 20);
+    _lineImage.center = CGPointMake(ScreenWidth*0.5, (ScreenHeight - _scanViewWidth)*0.5);
+    
+    _faileQRCodeLab = [[UILabel alloc] init];
+    _faileQRCodeLab.text = @"联机失败,二维码过期";
+    _faileQRCodeLab.textColor = [UIColor redColor];
+    _faileQRCodeLab.font = [UIFont fontWithName:@"Arial" size:16.0f];
+    _faileQRCodeLab.hidden = YES;
+    
+    _scanView = [[QRScanView alloc] init];
+    
+    [self setupAlphaLayer];
+    [self setupScanner];
+    [self scanLineSetup];
+    [self startScanning];
+    
+    [self.view addSubview:_scanView];
+    [self.view addSubview:self.pictureBtn];
+    [self.view addSubview:self.outBtn];
+    [self.view addSubview:_detailLab];
+    [self.view addSubview:_lineImage];
+    [self.view addSubview:_faileQRCodeLab];
+    
+    
+    _mbHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    _mbHUD.mode = MBProgressHUDModeIndeterminate;
+    _mbHUD.labelText = @"正在识别二维码";
+    [self.view addSubview:_mbHUD];
+    
+    [_detailLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo((ScreenHeight + _scanViewWidth)*0.5 + 5);
+        make.centerX.equalTo(self.view.mas_centerX);
+    }];
+    
+    [_faileQRCodeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo((ScreenHeight - _scanViewWidth)*0.5 -20);
+        make.centerX.equalTo(self.view.mas_centerX);
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -177,7 +198,6 @@
 }
 
 
-#pragma TODO scanLine要设置它的初始位置
 - (void)scanLineSetup{
     [UIView beginAnimations:@"animation" context:NULL];
     [UIView setAnimationDuration:4];
@@ -196,32 +216,8 @@
     return [videoDevices count] > 0;
 }
 
-- (BOOL)isAllowUseCamera{
-  if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-    {
-        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        
-        if(status == AVAuthorizationStatusAuthorized) {
-            return TRUE;
-        } else if(status == AVAuthorizationStatusDenied){
-            return FALSE;
-        } else if(status == AVAuthorizationStatusRestricted){
-            return FALSE;
-        } else if(status == AVAuthorizationStatusNotDetermined){
-            // not determined
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (granted) {
-                        return TRUE;
-                    }else{
-                        return FALSE;
-                    }
-                });
-            }];
-        }
+- (void)isAllowUseCamera{
     }
-
-}
 
 - (void)startScanning;
 {
@@ -249,16 +245,11 @@
     {
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex:0];
         scanResult = metadataObject.stringValue;
-        [self vailQRCode:scanResult];
+        NSLog(@"scanResult -- %@",scanResult);
     }
     
 }
 
--(void)goToLiveVC:(NSString *)sid{
-    LiveViewController *liveVC = [LiveViewController new];
-    liveVC.sid = sid;
-    [self.navigationController pushViewController:liveVC animated:YES];
-}
 
 - (IBAction)outScanQRCodeVC:(id)sender{
     [self stopScanning];
@@ -266,16 +257,6 @@
 }
 
 
--(BOOL)vailDomainName:(NSString *)inputString{
-    NSArray *sourceStringArray = [inputString componentsSeparatedByString:@"/"];
-    NSString *outPutString = [[NSString alloc] initWithFormat:@"%@//%@/",sourceStringArray.firstObject,[sourceStringArray objectAtIndex:2]];
-    if ([outPutString isEqualToString:DOMAINNAME]) {
-        return TRUE;
-    }
-    else{
-        return FALSE;
-    }
-}
 
 - (NSString *)cutTheQRCodeString:(NSString *)inputString{
     NSArray *sourceStringArray = [inputString componentsSeparatedByString:@"/"];
@@ -283,24 +264,13 @@
     return outPutString;
 }
 
--(void)vailQRCode:(NSString *)inputString{
-    BOOL isVailCode = [self vailDomainName:inputString];
-    NSString *sid = [[NSString alloc] init];
-    if (isVailCode) {
-        sid = [self cutTheQRCodeString:inputString];
-        [_session stopRunning];
-        [self goToLiveVC:sid];
-    }
-    else{
-        [UtilityHelper showAlertView:@"验证错误" andMessage:@"请扫描正确的二维码" andCancelBtnTitle:@"确定"];
-    }
-}
 
 #pragma mark 从用户相册获取活动图片
 - (IBAction)pickupTheQRCodeFromLib:(id)sender{
     ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
     if (author == ALAuthorizationStatusRestricted || author ==ALAuthorizationStatusDenied){
-        [UtilityHelper showAlertView:@"温馨提示" andMessage:@"请您设置允许云导播访问您的相册\n设置>隐私>照片" andCancelBtnTitle:@"确定"];
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许云导播访问您的相册\n设置>隐私>照片" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [errorAlert show];
     }
     
     else {
@@ -336,7 +306,7 @@
                                     error:&error];
         if (result) {
             NSString *contents = result.text;
-            [self vailQRCode:contents];
+            NSLog(@"Result Contents : %@",contents);
         }
         
         else {
