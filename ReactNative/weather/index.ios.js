@@ -10,83 +10,58 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
-  navBar,
+  NavigatorIOS,
   View
 } from 'react-native';
 
-// var GiftedListView = require('react-native-gifted-listview');
-var weather = require('./tableview.ios.js')
-// class nam extends Component {
-//    _onFetch(page = 1, callback, options) {
-//     setTimeout(() => {
-//       var rows = ['row '+((page - 1) * 3 + 1), 'row '+((page - 1) * 3 + 2), 'row '+((page - 1) * 3 + 3)];
-//       if (page === 3) {
-//         callback(rows, {
-//           allLoaded: true, // the end of the list is reached
-//         });        
-//       } else {
-//         callback(rows);
-//       }
-//     }, 1000); // simulating network fetching
-//   }
-//   _onPress(rowData) {
-//     console.log(rowData+' pressed');
-//   }
+var weatherTable = require('./tableview.ios.js')
+var weather = React.createClass({
+  getInitialState() {
+    return {
+      navigationBarHidden: false
+    };
+  },
 
-//   /**
-//    * Render a row
-//    * @param {object} rowData Row data
-//    */
-//   _renderRowView(rowData) {
-//     return (
-//       <TouchableHighlight
-//         style={styles.row}
-//         underlayColor='#c8c7cc'
-//         onPress={() => this._onPress(rowData)}
-//       >  
-//         <Text>{rowData}</Text>
-//       </TouchableHighlight>
-//     );
-//   }
-  
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <View style={styles.navBar} />
-//         <GiftedListView
-//           rowView={this._renderRowView}
-//           onFetch={this._onFetch}
-//           onPress={this._onPress}
-//           firstLoader={true} // display a loader for the first fetching
-//           pagination={true} // enable infinite scrolling using touch to load more
-//           refreshable={true} // enable pull-to-refresh for iOS and touch-to-refresh for Android
-//           withSections={false} // enable sections
-//           customStyles={{
-//             paginationView: {
-//               backgroundColor: '#eee',
-//             },
-//           }}
+  toggleNavBar() {
+    this.setState({
+      navigationBarHidden: !this.state.navigationBarHidden
+    });
+  },
 
-//           refreshableTintColor="blue"
-//         />
-//       </View>
-//     );
-//   }
-// }
+  render() {
+    return (
+      <NavigatorIOS ref="nav"
+                    itemWrapperStyle={styles.navWrap}
+                    style={styles.nav}
+                    navigationBarHidden={this.state.navigationBarHidden}
+                    initialRoute={{
+                      title: "城市列表",
+                      component: weatherTable,
+                      passProps: {
+                        toggleNavBar: this.toggleNavBar,
+                      }
+                    }} />
+    );
+  }
+});
 
-// var styles = {
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#FFF',
-//   },
-//   navBar: {
-//     height: 64,
-//     backgroundColor: '#CCC'
-//   },
-//   row: {
-//     padding: 10,
-//     height: 44,
-//   },
-// };
+var styles = StyleSheet.create({
+  navWrap: {
+    flex: 1,
+   	marginTop: 70
+  },
+  nav: {
+    flex: 1,
+  },
+  button: {
+    backgroundColor: "#009DDD",
+    padding: 10,
+    margin: 10,
+  },
+  buttonText: {
+    color: "#fff"
+  }
+});
+
 
 AppRegistry.registerComponent('weather', () => weather);
