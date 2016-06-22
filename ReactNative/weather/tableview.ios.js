@@ -24,14 +24,14 @@ _onFetch(page = 1, callback, options) {
   callback(colorDatas,rows);
   },
   
-  _renderRowView(colorData,rowData){
+  _renderRowView (colorData,rowData){
     return(
       <TouchableHighlight
         style={{backgroundColor: 'blue', flex: 0.3, height:80}}
         onPress = {() => this._onPress(rowData)}>
       <Text
       style = {styles.rowText}
-      >{rowData}</Text>
+      >{colorData}</Text>
       </TouchableHighlight>
     );
   },
