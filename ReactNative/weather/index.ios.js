@@ -14,7 +14,9 @@ import {
   View
 } from 'react-native';
 
-var weatherTable = require('./tableview.ios.js')
+var weatherTable = require('./tableview.ios.js');
+var weatherListView = require('./list.ios.js');
+
 var weather = React.createClass({
   getInitialState() {
     return {
@@ -36,7 +38,7 @@ var weather = React.createClass({
                     navigationBarHidden={this.state.navigationBarHidden}
                     initialRoute={{
                       title: "城市列表",
-                      component: weatherTable,
+                      component: weatherListView,
                       passProps: {
                         toggleNavBar: this.toggleNavBar,
                       }
@@ -48,7 +50,7 @@ var weather = React.createClass({
 var styles = StyleSheet.create({
   navWrap: {
     flex: 1,
-   	marginTop: 70
+   	marginTop: 0
   },
   nav: {
     flex: 1,

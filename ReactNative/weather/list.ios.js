@@ -2,6 +2,8 @@
 
 var React = require('react');
 var ReactNative = require('react-native');
+var SecondPage = require('./second.ios.js');
+
 var {
   Image,
   ListView,
@@ -13,15 +15,12 @@ var {
 } = ReactNative;
 
 var ListViewSimpleExample = React.createClass({
-  statics: {
-    title: '<ListView>',
-    description: 'Performant, scrollable list of data.'
-  },
-
   getInitialState: function() {
+  	var addressData = require('./address.json');
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {
       dataSource: ds.cloneWithRows(this._genRows({})),
+      // dataSource : ds.cloneWithRows([]),
     };
   },
 
@@ -33,11 +32,12 @@ var ListViewSimpleExample = React.createClass({
 
   render: function() {
     return (
-      <View/>
+      <View style={styles.container}>
+        <View style={styles.navBar} />
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
-          renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
+          // renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
           renderSeparator={this._renderSeperator}/>
       </View>
     );
@@ -45,12 +45,13 @@ var ListViewSimpleExample = React.createClass({
 
 _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void){
 	var rowHash = Math.abs(hashCode(rowData));
-    var imgSource = THUMB_URLS[rowHash % THUMB_URLS.length];
 	return(
-		<TouchableHighlight>
+		<TouchableHighlight onPress={() => {
+          this._pressRow(rowID);          
+        }}>
 		<View>
-          <View style={styles.row}>
-            <Image style={styles.thumb} source={imgSource} />
+          <View style={styles.row}>           
+            <Image style={styles.thumb} source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}/>
             <Text style={styles.text}>
               {rowData + ' - ' + LOREM_IPSUM.substr(0, rowHash % 301 + 10)}
             </Text>
@@ -59,6 +60,7 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
         </TouchableHighlight>
 		);
 },
+ 
 
   _genRows: function(pressData: {[key: number]: boolean}): Array<string> {
     var dataBlob = [];
@@ -69,11 +71,19 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
     return dataBlob;
   },
 
-  _pressRow: function(rowID: number) {
-    this._pressData[rowID] = !this._pressData[rowID];
-    this.setState({dataSource: this.state.dataSource.cloneWithRows(
-      this._genRows(this._pressData)
-    )});
+  _pressRow: function(rowID: number) {    
+  	this._handleNextButtonPress(rowID);
+  },
+
+  _handleNextButtonPress: function(rowID:number) {
+        this.props.navigator.push({
+ 		component : SecondPage,
+ 		title:"SecondPage",
+ 		rightButtonTitle:"shop",
+ 		passProps: {
+                text: rowID,
+              }
+    });
   },
 
   _renderSeperator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
@@ -89,44 +99,25 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
   }
 });
 
-var THUMB_URLS = [
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/like.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/dislike.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/call.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/fist.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/bandaged.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/flowers.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/heart.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/liking.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/party.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/poke.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/superlike.png?raw=true'),
-  require('https://raw.githubusercontent.com/facebook/react-native/0.27-stable/Examples/UIExplorer/Thumbnails/victory.png?raw=true'),
-  ];
-var LOREM_IPSUM = 'Lorem ipsum dolor sit amet, ius ad pertinax oportere accommodare, an vix civibus corrumpit referrentur. Te nam case ludus inciderint, te mea facilisi adipiscing. Sea id integre luptatum. In tota sale consequuntur nec. Erat ocurreret mei ei. Eu paulo sapientem vulputate est, vel an accusam intellegam interesset. Nam eu stet pericula reprimique, ea vim illud modus, putant invidunt reprehendunt ne qui.';
-
-/* eslint no-bitwise: 0 */
-var hashCode = function(str) {
-  var hash = 15;
-  for (var ii = str.length - 1; ii >= 0; ii--) {
-    hash = ((hash << 5) - hash) + str.charCodeAt(ii);
-  }
-  return hash;
-};
-
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10,
+    padding: 0,
     backgroundColor: '#F6F6F6',
   },
+
   thumb: {
     width: 64,
     height: 64,
   },
   text: {
     flex: 1,
+    padding:10,
   },
 });
 
