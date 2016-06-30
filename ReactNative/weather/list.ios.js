@@ -30,7 +30,8 @@ var ListViewSimpleExample = React.createClass({
     this._pressData = {};
   }, 
 
-  render: function()     return (
+  render: function()     
+  return (
       <View style={styles.container}>
         <View style={styles.navBar} />
         <ListView
