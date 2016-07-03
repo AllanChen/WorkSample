@@ -13,14 +13,12 @@ var {
   Text,
   View,
 } = ReactNative;
-
-var addressDataSource = require('./address.json');
+var addressData = require('./address.json');
 var ListViewSimpleExample = React.createClass({
   getInitialState: function() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {
-      // dataSource: ds.cloneWithRows(this._genRows({})),
-      dataSource : ds.cloneWithRows(addressDataSource),
+      dataSource: ds.cloneWithRows(addressData),
     };
   },
 
@@ -28,10 +26,10 @@ var ListViewSimpleExample = React.createClass({
 
   componentWillMount: function() {
     this._pressData = {};
-  }, 
+  },
 
-  render: function(){
-  return(
+  render(){
+  	return (
       <View style={styles.container}>
         <View style={styles.navBar} />
         <ListView
@@ -51,8 +49,8 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
 		<View>
           <View style={styles.row}>           
             <Image style={styles.thumb} source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}/>
-            <Text style={styles.text}>              
-              {addressDataSource[rowID].name}
+            <Text style={styles.text}>
+              {addressData[rowID].name}
             </Text>
           </View>
         </View>
@@ -97,8 +95,6 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
     );
   }
 });
-
-var LOREM_IPSUM = 'Lorem ipsum dolor sit amet, ius ad pertinax oportere accommodare, an vix civibus corrumpit referrentur. Te nam case ludus inciderint, te mea facilisi adipiscing. Sea id integre luptatum. In tota sale consequuntur nec. Erat ocurreret mei ei. Eu paulo sapientem vulputate est, vel an accusam intellegam interesset. Nam eu stet pericula reprimique, ea vim illud modus, putant invidunt reprehendunt ne qui.';
 
 var styles = StyleSheet.create({
   container: {
