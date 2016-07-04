@@ -15,15 +15,17 @@ import {
   ListView,
   View
 } from 'react-native';
-var result = [];
+var result = ["ha","ha","ha"];
 var dataSource
 var Secondpage = React.createClass({
 
- getInitialState: function() {    
+getInitialState: function() {
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {
-      dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-    }
+      dataSource: ds.cloneWithRows(result),
+    };
   },
+
 
 componentWillMount() {
       //this._onFetch();
@@ -31,51 +33,45 @@ componentWillMount() {
 
 componentDidMount(){
 	this._onFetch();
-	var newDataSource = this.state.dataSource.cloneWithRows(result);
+	// var newDataSource = this.state.dataSource.cloneWithRows(result);
 	// this.setState({
 	// 	dataSource : newDataSource,
 	// });
 },
 
-_onFetch(){
+_onFetch(): Array {
 fetch('http://api.map.baidu.com/telematics/v3/weather?location=%E5%98%89%E5%85%B4&output=json&ak=sZvXrnY0LsGnucNksCdH73dUAre5FKMD')
 			.then((response) => response.text())
 			.then((responseText) => {
   				console.log(responseText);
   				var arr_from_json = JSON.parse( responseText );
-  				result = arr_from_json.results[0].index;
+  				result = arr_from_json.results[0].weather_data;
+  				var newDataSource = this.state.dataSource.cloneWithRows(result);
+         		this.setState({
+           			dataSource: newDataSource,
+         		});
 			})
 			.catch((error) => {
   				console.warn(error);
 			});
 },
 
-_genRows(pressData: {[key: number]: boolean}): Array<string> {
-    var dataBlob = [];
-    for (var ii = 0; ii < 100; ii++) {
-      var pressedText = pressData[ii] ? ' (pressed)' : '';
-      dataBlob.push('Row ' + ii + pressedText);
-    }
-    return dataBlob;
-  },
-
 render() {
     return (
      <View style={styles.container}>     
      	<ListView
           dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          renderSeparator={this._renderSeperator}/>
+          renderRow={this._renderRow}/>
      </View>
 
     );
   },
 
-_renderRow(rowID:number){
+ _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
 	return(
 			<TouchableHighlight>
 				<View>
-					<Text>result[number].title</Text>
+					<Text>"text"+"-"+{result[rowID].date}</Text>
 				</View>
 			</TouchableHighlight>
 		);
