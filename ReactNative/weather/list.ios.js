@@ -57,30 +57,19 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
         </TouchableHighlight>
 		);
 },
- 
-
-  _genRows: function(pressData: {[key: number]: boolean}): Array<string> {
-    var dataBlob = [];
-    for (var ii = 0; ii < 100; ii++) {
-      var pressedText = pressData[ii] ? ' (pressed)' : '';
-      dataBlob.push('Row ' + ii + pressedText);
-    }
-    return dataBlob;
-  },
-
   _pressRow: function(rowID: number) {    
   	this._handleNextButtonPress(rowID);
   },
 
   _handleNextButtonPress: function(rowID:number) {
         this.props.navigator.push({
- 		component : SecondPage,
- 		title:"SecondPage",
- 		rightButtonTitle:"shop",
- 		passProps: {
-                text: rowID,
-              }
-    });
+       		component : SecondPage,
+       		title:"SecondPage",
+       		rightButtonTitle:"shop",
+       		passProps: {
+                      text: addressData[rowID].name,
+                    }
+          });
   },
 
   _renderSeperator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {

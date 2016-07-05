@@ -26,33 +26,33 @@ getInitialState: function() {
     };
   },
 
+componentWillMount(){
+  
+this._onFetch();
 
-componentWillMount() {
-      //this._onFetch();
-    },
-
+},
 componentDidMount(){
-	this._onFetch();
-	// var newDataSource = this.state.dataSource.cloneWithRows(result);
-	// this.setState({
-	// 	dataSource : newDataSource,
-	// });
+	
 },
 
-_onFetch(): Array {
+_reloadLiveViewData: function(datas) {
+  var newDataSource = this.state.dataSource.cloneWithRows(datas);
+  this.setState({
+    dataSource: newDataSource,
+  });
+},
+
+_onFetch() {
 fetch('http://api.map.baidu.com/telematics/v3/weather?location=%E5%98%89%E5%85%B4&output=json&ak=sZvXrnY0LsGnucNksCdH73dUAre5FKMD')
 			.then((response) => response.text())
 			.then((responseText) => {
-  				console.log(responseText);
-  				var arr_from_json = JSON.parse( responseText );
-  				result = arr_from_json.results[0].weather_data;
-  				var newDataSource = this.state.dataSource.cloneWithRows(result);
-         		this.setState({
-           			dataSource: newDataSource,
-         		});
+  				var arr_from_json = JSON.parse(responseText);
+  				result = arr_from_json.results[0].index;
+          this._reloadLiveViewData(result);
 			})
 			.catch((error) => {
-  				console.warn(error);
+        alert(error);
+  			console.warn(error);
 			});
 },
 
@@ -71,7 +71,7 @@ render() {
 	return(
 			<TouchableHighlight>
 				<View>
-					<Text>"text"+"-"+{result[rowID].date}</Text>
+					<Text>{this.props.text}+ "des:"+ {result[rowID].des}</Text>
 				</View>
 			</TouchableHighlight>
 		);
