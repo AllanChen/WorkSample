@@ -15,7 +15,7 @@ import {
   ListView,
   View
 } from 'react-native';
-var result = ["ha","ha","ha"];
+var result = [];
 var dataSource
 var Secondpage = React.createClass({
 
@@ -27,12 +27,10 @@ getInitialState: function() {
   },
 
 componentWillMount(){
-  
-this._onFetch();
-
+	this._onFetch(this.props.text);
 },
 componentDidMount(){
-	
+
 },
 
 _reloadLiveViewData: function(datas) {
@@ -42,48 +40,79 @@ _reloadLiveViewData: function(datas) {
   });
 },
 
-_onFetch() {
-fetch('http://api.map.baidu.com/telematics/v3/weather?location=%E5%98%89%E5%85%B4&output=json&ak=sZvXrnY0LsGnucNksCdH73dUAre5FKMD')
+_onFetch(address) {
+var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&output=json&ak=sZvXrnY0LsGnucNksCdH73dUAre5FKMD"; 
+	fetch(url)
 			.then((response) => response.text())
 			.then((responseText) => {
   				var arr_from_json = JSON.parse(responseText);
   				result = arr_from_json.results[0].index;
-          this._reloadLiveViewData(result);
+          		this._reloadLiveViewData(result);
 			})
 			.catch((error) => {
         alert(error);
-  			console.warn(error);
+  			console.warn(url);
 			});
 },
 
+
+
 render() {
     return (
-     <View style={styles.container}>     
-     	<ListView
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}/>
+     <View style={styles.container}>
      </View>
-
+        <ListView
+            dataSource={this.state.dataSource}
+            renderHeader={this._renderHeader}
+            renderRow={this._renderRow}
+            />
+     </View>
+    </View>
     );
   },
+
+_renderHeader(){
+  return(
+        <View style={{backgroundColor:'red'}}>
+
+        </View>
+    );
+},
 
  _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
 	return(
 			<TouchableHighlight>
-				<View>
-					<Text>{this.props.text}+ "des:"+ {result[rowID].des}</Text>
+				<View style={styles.row}>
+					<Text style={{padding:10}} numberOfLines={5}>
+          "des:"+ {result[rowID].des}
+          </Text>
 				</View>
 			</TouchableHighlight>
 		);
 },
-
-
 });
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+  },
+
+  header: {
+   flexDirection: 'row',
+   backgroundColor : 'red',
+   height:100,
+  },
+
+  bodyContent: {
+	 flex:1,
+  },
+
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 0,
+    backgroundColor: '#F6F6F6',
   },
 
   contentTxt:{
