@@ -60,21 +60,20 @@ var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&o
 render() {
     return (
      <View style={styles.container}>
-     </View>
+     
         <ListView
             dataSource={this.state.dataSource}
             renderHeader={this._renderHeader}
             renderRow={this._renderRow}
             />
-     </View>
+     
     </View>
     );
   },
 
 _renderHeader(){
   return(
-        <View style={{backgroundColor:'red'}}>
-
+        <View style={{backgroundColor:'red',height:100}}>
         </View>
     );
 },
@@ -90,6 +89,7 @@ _renderHeader(){
 			</TouchableHighlight>
 		);
 },
+
 });
 
 var styles = StyleSheet.create({
