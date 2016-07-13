@@ -45,9 +45,9 @@ var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&o
 	fetch(url)
 			.then((response) => response.text())
 			.then((responseText) => {
-  				var arr_from_json = JSON.parse(responseText);
-  				result = arr_from_json.results[0].index;
-          		this._reloadLiveViewData(result);
+  				result = JSON.parse(responseText);
+  				// result = arr_from_json.results[0].index;
+          //this._reloadLiveViewData(result);
 			})
 			.catch((error) => {
         alert(error);
@@ -55,12 +55,9 @@ var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&o
 			});
 },
 
-
-
 render() {
     return (
      <View style={styles.container}>
-     
         <ListView
             dataSource={this.state.dataSource}
             renderHeader={this._renderHeader}
@@ -69,11 +66,20 @@ render() {
      
     </View>
     );
-  },
+  }, 
 
 _renderHeader(){
   return(
-        <View style={{backgroundColor:'red',height:100}}>
+        <View style={styles.headerView}>
+          <Text style={styles.titleText}>
+
+          {this.props.text + '\n' + result.results['pm']}
+          </Text>
+          <View>
+            <Text>
+              {}
+            </Text>            
+          </View>
         </View>
     );
 },
@@ -97,15 +103,15 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
-
-  header: {
-   flexDirection: 'row',
-   backgroundColor : 'red',
-   height:100,
+  
+  headerView:{
+  backgroundColor:'#c0c0c0',
+  height:150
   },
 
-  bodyContent: {
-	 flex:1,
+  titleText:{
+    textAlign:'center',
+    padding:0
   },
 
   row: {
