@@ -5,6 +5,8 @@
  */
 
 import React, { Component } from 'react';
+import Dimensions from 'Dimensions';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -13,11 +15,15 @@ import {
   NavigatorIOS,
   TouchableWithoutFeedback,
   ListView,
-  View
+  View,
+  Image
 } from 'react-native';
+
+var screenHeight = Dimensions.get('window').height;
+var screenWidth  = Dimensions.get('window').width;
 var result = [];
 var dataSource
-var Secondpage = React.createClass({
+var DetailPage = React.createClass({
 
 getInitialState: function() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -45,15 +51,17 @@ var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&o
 	fetch(url)
 			.then((response) => response.text())
 			.then((responseText) => {
-  				result = JSON.parse(responseText);
-  				// result = arr_from_json.results[0].index;
-          //this._reloadLiveViewData(result);
+  				var arr_from_json = JSON.parse(responseText);
+  				result = arr_from_json.results[0].index;
+          		this._reloadLiveViewData(result);
 			})
 			.catch((error) => {
         alert(error);
   			console.warn(url);
 			});
 },
+
+
 
 render() {
     return (
@@ -63,23 +71,15 @@ render() {
             renderHeader={this._renderHeader}
             renderRow={this._renderRow}
             />
-     
     </View>
-    )
-  }, 
+    );
+  },
 
 _renderHeader(){
   return(
-        <View style={styles.headerView}>
-          <Text style={styles.titleText}>
-
-          {this.props.text + '\n' + result.results['pm']}
-          </Text>
-          <View>
-            <Text>
-              {}
-            </Text>            
-          </View>
+        <View style={{backgroundColor:'#c0c0c0',height:150}}>
+        <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+       style={{width: screenWidth, height:150}}></Image>
         </View>
     );
 },
@@ -87,11 +87,9 @@ _renderHeader(){
  _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
 	return(
 			<TouchableHighlight>
-				<View style={styles.row}>
-					<Text style={{padding:10}} numberOfLines={5}>
+					<Text style={{padding:10,width:screenWidth}} numberOfLines={5}>
           "des:"+ {result[rowID].des}
           </Text>
-				</View>
 			</TouchableHighlight>
 		);
 },
@@ -103,20 +101,20 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
-  
-  headerView:{
-  backgroundColor:'#c0c0c0',
-  height:150
+
+  header: {
+   flexDirection: 'row',
+   backgroundColor : 'red',
+   height:100,
   },
 
-  titleText:{
-    textAlign:'center',
-    padding:0
+  bodyContent: {
+	 flex:1,
   },
 
   row: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    lineHeight: 20,
     padding: 0,
     backgroundColor: '#F6F6F6',
   },
@@ -131,4 +129,4 @@ var styles = StyleSheet.create({
 
   }
 });
-module.exports = Secondpage;
+module.exports = DetailPage;

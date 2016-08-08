@@ -1,4 +1,4 @@
-fetch('https://mywebsite.com/endpoint.php')
+fetch('//api.map.baidu.com/telematics/v3/weather?location=%E5%98%89%E5%85%B4&output=json&ak=sZvXrnY0LsGnucNksCdH73dUAre5FKMD')
 .then((response) => response.text())
 .then((responseText) => {
   console.log(responseText);

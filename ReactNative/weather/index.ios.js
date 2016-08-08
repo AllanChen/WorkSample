@@ -14,7 +14,6 @@ import {
   View
 } from 'react-native';
 
-var weatherTable = require('./tableview.ios.js');
 var weatherListView = require('./list.ios.js');
 
 var weather = React.createClass({

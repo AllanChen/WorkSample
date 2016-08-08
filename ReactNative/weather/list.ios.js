@@ -2,8 +2,7 @@
 
 var React = require('react');
 var ReactNative = require('react-native');
-var SecondPage = require('./second.ios.js');
-
+var DetailPage = require('./detail.ios.js');
 var {
   Image,
   ListView,
@@ -28,14 +27,13 @@ var ListViewSimpleExample = React.createClass({
     this._pressData = {};
   },
 
-  render(){
+render(){
   	return (
       <View style={styles.container}>
         <View style={styles.navBar} />
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
-          // renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
           renderSeparator={this._renderSeperator}/>
       </View>
     );
@@ -63,13 +61,10 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
 
   _handleNextButtonPress: function(rowID:number) {
         this.props.navigator.push({
-       		component : SecondPage,
-       		title:"SecondPage",
-       		rightButtonTitle:"shop",
-       		passProps: {
-                      text: addressData[rowID].name,
-                    }
-          });
+       		component : DetailPage,
+       		title: addressData[rowID].name,
+       		passProps: {text: addressData[rowID].name}
+        });
   },
 
   _renderSeperator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
