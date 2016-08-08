@@ -22,6 +22,7 @@ import {
 var screenHeight = Dimensions.get('window').height;
 var screenWidth  = Dimensions.get('window').width;
 var result = [];
+var weather_data = [];
 var dataSource
 var DetailPage = React.createClass({
 
@@ -36,7 +37,6 @@ componentWillMount(){
 	this._onFetch(this.props.text);
 },
 componentDidMount(){
-
 },
 
 _reloadLiveViewData: function(datas) {
@@ -53,6 +53,7 @@ var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&o
 			.then((responseText) => {
   				var arr_from_json = JSON.parse(responseText);
   				result = arr_from_json.results[0].index;
+                weather_data = arr_from_json.results[0].
           		this._reloadLiveViewData(result);
 			})
 			.catch((error) => {
@@ -60,9 +61,7 @@ var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&o
   			console.warn(url);
 			});
 },
-
-
-
+  
 render() {
     return (
      <View style={styles.container}>
@@ -78,7 +77,7 @@ render() {
 _renderHeader(){
   return(
         <View style={{backgroundColor:'#c0c0c0',height:150}}>
-        <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+        <Image source={{uri: weather_data[0].dayPictureUrl}}
        style={{width: screenWidth, height:150}}></Image>
         </View>
     );
@@ -88,8 +87,8 @@ _renderHeader(){
 	return(
 			<TouchableHighlight>
 					<Text style={{padding:10,width:screenWidth}} numberOfLines={5}>
-          "des:"+ {result[rowID].des}
-          </Text>
+                      {result[rowID].des}
+                    </Text>
 			</TouchableHighlight>
 		);
 },
