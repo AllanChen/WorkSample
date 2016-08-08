@@ -5,6 +5,8 @@
  */
 
 import React, { Component } from 'react';
+import Dimensions from 'Dimensions';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -13,8 +15,12 @@ import {
   NavigatorIOS,
   TouchableWithoutFeedback,
   ListView,
-  View
+  View,
+  Image
 } from 'react-native';
+
+var screenHeight = Dimensions.get('window').height;
+var screenWidth  = Dimensions.get('window').width;
 var result = [];
 var dataSource
 var DetailPage = React.createClass({
@@ -60,20 +66,20 @@ var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&o
 render() {
     return (
      <View style={styles.container}>
-     
         <ListView
             dataSource={this.state.dataSource}
             renderHeader={this._renderHeader}
             renderRow={this._renderRow}
             />
-     
     </View>
     );
   },
 
 _renderHeader(){
   return(
-        <View style={{backgroundColor:'red',height:100}}>
+        <View style={{backgroundColor:'#c0c0c0',height:150}}>
+        <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+       style={{width: screenWidth, height: 150}}></Image>
         </View>
     );
 },
@@ -81,11 +87,9 @@ _renderHeader(){
  _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
 	return(
 			<TouchableHighlight>
-				<View style={styles.row}>
-					<Text style={{padding:10}} numberOfLines={5}>
+					<Text style={{padding:10,width:screenWidth}} numberOfLines={5}>
           "des:"+ {result[rowID].des}
           </Text>
-				</View>
 			</TouchableHighlight>
 		);
 },
@@ -110,7 +114,7 @@ var styles = StyleSheet.create({
 
   row: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    lineHeight: 20,
     padding: 0,
     backgroundColor: '#F6F6F6',
   },
