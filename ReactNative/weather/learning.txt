@@ -6,3 +6,21 @@ fetch('//api.map.baidu.com/telematics/v3/weather?location=%E5%98%89%E5%85%B4&out
 .catch((error) => {
   console.warn(error);
 });
+
+cell 居中
+<View style={styles.row}>
+  <View style={styles.cell}> <Text style={styles.welcome}> cell1 </Text> </View>
+  <View style={styles.cell}> <Text style={styles.welcome}> cell2 </Text> </View>
+  <View style={styles.cell}> <Text style={styles.welcome}> cell3 </Text> </View>
+</View>
+
+cell: {
+       flex: 1,
+       height: 50,
+       backgroundColor: '#aaaaaa'
+   },
+   welcome: {
+       fontSize: 20,
+       textAlign: 'center',
+       margin: 10
+   },

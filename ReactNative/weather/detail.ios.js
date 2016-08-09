@@ -23,6 +23,7 @@ var screenHeight = Dimensions.get('window').height;
 var screenWidth  = Dimensions.get('window').width;
 var result = [];
 var weather_data = [];
+var sectionArray = ['s1','s2'];
 var addressImage = "";
 var dataSource
 var DetailPage = React.createClass({
@@ -31,15 +32,15 @@ getInitialState: function() {
     var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-    );
+    });
     return {
-      dataSource: ds.cloneWithRows(result),
+      dataSource: ds.cloneWithRowsAndSections(result,sectionArray,null),
     };
   },
 
 componentWillMount(){
 	this._onFetch(this.props.text);
-  this._onFetchAddressImage(this.props.text);
+  // this._onFetchAddressImage(this.props.text);
 },
 componentDidMount(){
 },
@@ -96,14 +97,11 @@ render() {
   },
 
 _renderSectionHeader: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
-  if (sectionID != 's1') {
     return(
       <View style={{backgroundColor:"#c0c0c0", height:20}}>
         <Text>描述</Text>
       </View>
     )
-  }
-
 },
 
 /*
@@ -131,7 +129,11 @@ _renderHeader(imageAddress){
  _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
 	return(
 			<TouchableHighlight>
-					<Text style={{padding:10,width:screenWidth}} numberOfLines={1}> {result[rowID].date}      {result[rowID].weather}      {result[rowID].temperature}</Text>
+      <View style={styles.row}>
+					<View style={styles.cellBox}><Text style={styles.contentTxt} numberOfLines={1}>{result[rowID].date}</Text></View>
+          <View style={styles.cellBox}><Text style={styles.contentTxt} numberOfLines={1}>{result[rowID].weather}</Text></View>
+          <View style={styles.cellBox}><Text style={styles.contentTxt} numberOfLines={1}>{result[rowID].temperature}</Text></View>
+      </View>
 			</TouchableHighlight>
 		);
 },
@@ -151,24 +153,24 @@ var styles = StyleSheet.create({
   },
 
   bodyContent: {
-	 flex:1,
+	 flex:1
   },
 
   row: {
     flexDirection: 'row',
-    lineHeight: 20,
     padding: 0,
     backgroundColor: '#F6F6F6',
   },
 
-  contentTxt:{
-  	width:200,
-  	height:200,
-  	color:"#f00",
-  	padding:70,
-  	fontSize:16,
-  	justifyContent: 'center',
+  cellBox: {
+    flex :1
+  },
 
+  contentTxt:{
+  	padding:10,
+  	fontSize:16,
+  	textAlign: 'center',
   }
+
 });
 module.exports = DetailPage;
