@@ -42,10 +42,10 @@ render(){
 _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void){
 	return(
 		<TouchableHighlight onPress={() => {
-          this._pressRow(rowID);          
+          this._pressRow(rowID);
         }}>
 		<View>
-          <View style={styles.row}>           
+          <View style={styles.row}>
             <Image style={styles.thumb} source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}/>
             <Text style={styles.text}>
               {addressData[rowID].name}
@@ -55,7 +55,7 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
         </TouchableHighlight>
 		);
 },
-  _pressRow: function(rowID: number) {    
+  _pressRow: function(rowID: number) {
   	this._handleNextButtonPress(rowID);
   },
 
