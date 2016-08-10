@@ -3,6 +3,7 @@
 var React = require('react');
 var ReactNative = require('react-native');
 var DetailPage = require('./detail.ios.js');
+var ScrollDetailPage = require('./scrollDetail.ios.js');
 var {
   Image,
   ListView,
@@ -61,7 +62,8 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
 
   _handleNextButtonPress: function(rowID:number) {
         this.props.navigator.push({
-       		component : DetailPage,
+       	// 	component : ScrollDetailPage,
+          component : DetailPage,
        		title: addressData[rowID].name,
        		passProps: {text: addressData[rowID].name}
         });

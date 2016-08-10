@@ -22,9 +22,7 @@ import {
 var screenHeight = Dimensions.get('window').height;
 var screenWidth  = Dimensions.get('window').width;
 var result = [];
-var weather_data = [];
-var sectionArray = ['s1','s2'];
-var addressImage = "";
+var addressImage = "http://api.map.baidu.com/images/weather/night/duoyun.png";
 var dataSource
 var DetailPage = React.createClass({
 
@@ -34,14 +32,15 @@ getInitialState: function() {
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2
     });
     return {
-      dataSource: ds.cloneWithRowsAndSections(result,sectionArray,null),
+      dataSource: ds.cloneWithRows(result),
     };
   },
 
 componentWillMount(){
-	this._onFetch(this.props.text);
   // this._onFetchAddressImage(this.props.text);
+	this._onFetch(this.props.text);
 },
+
 componentDidMount(){
 },
 
@@ -52,19 +51,41 @@ _reloadLiveViewData: function(datas) {
   });
 },
 
+render() {
+    return (
+     <View style={styles.container}>
+     <Image source = {{uri:"http://img.secretchina.com/dat/media/25/2015/05/27/20150527092249819.jpg"}} style={{width:screenWidth,height:screenHeight}}>
+     <View
+     automaticallyAdjustContentInsets={true}
+     style={styles.header}>
+        <Text style={{backgroundColor: 'rgba(0,0,0,0)',color:"white",textAlign:"center",fontSize:22,paddingBottom:10}}>{this.props.text}</Text>
+        <Text style={{backgroundColor: 'rgba(0,0,0,0)',color:"white",textAlign:"center",fontSize:14,paddingBottom:10}}>时区:"Asia/Shanghai"</Text>
+        <Text style={{backgroundColor: 'rgba(0,0,0,0)',color:"white",textAlign:"center",fontSize:14}}>Time_offset:"+08:00"</Text>
+     </View>
+     <ListView
+            automaticallyAdjustContentInsets={false}
+            dataSource  ={this.state.dataSource}
+            renderRow   ={this._renderRow}
+            />
+      </Image>
+    </View>
+    );
+  },
+
 _onFetch(address) {
-var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&output=json&ak=sZvXrnY0LsGnucNksCdH73dUAre5FKMD";
+  // var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&output=json&ak=sZvXrnY0LsGnucNksCdH73dUAre5FKMD";
+  var url = "https://api.thinkpage.cn/v3/weather/daily.json?key=o97r0fxvop12o8cx&location="+address+"&language=zh-Hans&unit=c&start=0&days=5"
 	fetch(url)
 			.then((response) => response.text())
 			.then((responseText) => {
   				var arr_from_json = JSON.parse(responseText);
-  				result = arr_from_json.results[0].weather_data;
-          weather_data = arr_from_json.results[0].index;
+  				result = arr_from_json.results[0].daily;
           this._reloadLiveViewData(result);
+
 			})
 			.catch((error) => {
-        //alert(error);
-  			//console.warn(url);
+        alert("onFecth"+error);
+  			console.warn(url);
 			});
 },
 
@@ -73,66 +94,26 @@ var addressImageURL = "http://image.baidu.com/search/avatarjson?tn=resultjsonava
 fetch(addressImageURL)
     .then((response) => response.text())
     .then((responseText) => {
-        var arr_from_json = JSON.parse(responseText);
-        addressImage = arr_from_json['imgs'][0]['middleURL'];
-        this._renderHeader(addressImage);
+        addressData = JSON.parse(responseText);
+        this._reloadLiveViewData(result);
     })
     .catch((error) => {
-      alert(error);
+      alert("onFetchAddressImage"+error);
       console.warn(url);
     });
-},
-
-render() {
-    return (
-     <View style={styles.container}>
-        <ListView
-            dataSource  ={this.state.dataSource}
-            renderRow   ={this._renderRow}
-            renderHeader={this._renderHeader}
-            renderSectionHeader = {this._renderSectionHeader}
-            />
-    </View>
-    );
-  },
-
-_renderSectionHeader: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
-    return(
-      <View style={{backgroundColor:"#c0c0c0", height:20}}>
-        <Text>描述</Text>
-      </View>
-    )
-},
-
-/*
-| 加载不到网络图片
-*/
-_renderHeader(imageAddress){
-  if (imageAddress) {
-    return(
-          <View style={{backgroundColor:'#c0c0c0',height:150}}>
-          <Image source={{uri: "http://facebook.github.io/react/img/logo_og.png"}}
-         style={{width: screenWidth, height:150}}></Image>
-          </View>
-      );
-    }
-  else {
-    return(
-          <View style={{backgroundColor:'#c0c0c0',height:150}}>
-          <Image source={{uri: "http://api.map.baidu.com/images/weather/night/duoyun.png"}}
-         style={{width: screenWidth, height:150}}></Image>
-          </View>
-      );
-  }
 },
 
  _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
 	return(
 			<TouchableHighlight>
       <View style={styles.row}>
-					<View style={styles.cellBox}><Text style={styles.contentTxt} numberOfLines={1}>{result[rowID].date}</Text></View>
-          <View style={styles.cellBox}><Text style={styles.contentTxt} numberOfLines={1}>{result[rowID].weather}</Text></View>
-          <View style={styles.cellBox}><Text style={styles.contentTxt} numberOfLines={1}>{result[rowID].temperature}</Text></View>
+					<View style={styles.cellBox}><Text style={styles.contentTxt}>{result[rowID].date}</Text></View>
+          <View style={[styles.cellBox,{flexDirection:'row'}]} >
+          <Image source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}} style={{width:20,height:20,justifyContent:'center',paddingTop:10}}/>
+          <Text style={styles.contentTxt}>{result[rowID].text_day}</Text>
+          </View>
+
+          <View style={styles.cellBox}><Text style={styles.contentTxt}>{result[rowID].low}~{result[rowID].high}</Text></View>
       </View>
 			</TouchableHighlight>
 		);
@@ -143,15 +124,18 @@ _renderHeader(imageAddress){
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
   },
 
   header: {
-   flexDirection: 'row',
-   backgroundColor : 'red',
-   height:100,
+   width:screenWidth,
+   height:150,
+   paddingTop:65,
+   backgroundColor: 'rgba(0,0,0,0)'
   },
 
+  headerContent:{
+
+  },
   bodyContent: {
 	 flex:1
   },
@@ -159,17 +143,18 @@ var styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     padding: 0,
-    backgroundColor: '#F6F6F6',
   },
 
   cellBox: {
-    flex :1
+    flex :1,
+    justifyContent:'center'
   },
 
   contentTxt:{
   	padding:10,
   	fontSize:16,
   	textAlign: 'center',
+    color:"#ffffff",
   }
 
 });

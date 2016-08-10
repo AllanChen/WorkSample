@@ -24,3 +24,5 @@ cell: {
        textAlign: 'center',
        margin: 10
    },
+
+   <View style={[styles.cellBox,{backgroundColor:'red',width:100}]} >
