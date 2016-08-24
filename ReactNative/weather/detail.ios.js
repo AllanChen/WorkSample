@@ -118,7 +118,6 @@ fetch(addressImageURL)
 			</TouchableHighlight>
 		);
 },
-
 });
 
 var styles = StyleSheet.create({
@@ -134,8 +133,8 @@ var styles = StyleSheet.create({
   },
 
   headerContent:{
-
   },
+  
   bodyContent: {
 	 flex:1
   },
