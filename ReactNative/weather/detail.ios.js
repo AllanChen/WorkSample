@@ -2,7 +2,7 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  * @flow
- */ 
+ */
 
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions';
@@ -62,18 +62,19 @@ render() {
         <Text style={{backgroundColor: 'rgba(0,0,0,0)',color:"white",textAlign:"center",fontSize:14,paddingBottom:10}}>时区:"Asia/Shanghai"</Text>
         <Text style={{backgroundColor: 'rgba(0,0,0,0)',color:"white",textAlign:"center",fontSize:14}}>Time_offset:"+08:00"</Text>
      </View>
+     <View style={styles.listView}>
      <ListView
             automaticallyAdjustContentInsets={false}
             dataSource  ={this.state.dataSource}
             renderRow   ={this._renderRow}
             />
+    </View>
       </Image>
     </View>
     );
   },
 
 _onFetch(address) {
-  // var url = "http://api.map.baidu.com/telematics/v3/weather?location="+address+"&output=json&ak=sZvXrnY0LsGnucNksCdH73dUAre5FKMD";
   var url = "https://api.thinkpage.cn/v3/weather/daily.json?key=o97r0fxvop12o8cx&location="+address+"&language=zh-Hans&unit=c&start=0&days=5"
 	fetch(url)
 			.then((response) => response.text())
@@ -81,7 +82,6 @@ _onFetch(address) {
   				var arr_from_json = JSON.parse(responseText);
   				result = arr_from_json.results[0].daily;
           this._reloadLiveViewData(result);
-
 			})
 			.catch((error) => {
         alert("onFecth"+error);
@@ -108,9 +108,9 @@ fetch(addressImageURL)
 			<TouchableHighlight>
       <View style={styles.row}>
 					<View style={styles.cellBox}><Text style={styles.contentTxt}>{result[rowID].date}</Text></View>
-          <View style={[styles.cellBox,{flexDirection:'row'}]} >
-          <Image source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}} style={{width:20,height:20,justifyContent:'center',paddingTop:10}}/>
-          <Text style={styles.contentTxt}>{result[rowID].text_day}</Text>
+          <View style={[styles.cellBox]} >
+            <Image source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}} style={{width:20,height:20,marginRight:10,justifyContent:'flex-start'}}/>
+            <Text style={styles.contentTxt}>{result[rowID].text_day}</Text>
           </View>
 
           <View style={styles.cellBox}><Text style={styles.contentTxt}>{result[rowID].low}~{result[rowID].high}</Text></View>
@@ -147,11 +147,21 @@ var styles = StyleSheet.create({
 
   cellBox: {
     flex :1,
-    justifyContent:'center'
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    height:40,
+  },
+
+  listView:{
+    width:(screenWidth*0.95),
+    marginLeft:screenWidth*0.025,
+    backgroundColor:"#333",
+    opacity:0.9,
+    borderRadius:10,
   },
 
   contentTxt:{
-  	padding:10,
   	fontSize:16,
   	textAlign: 'center',
     color:"#ffffff",
