@@ -58,9 +58,9 @@ render() {
      <View
      automaticallyAdjustContentInsets={true}
      style={styles.header}>
-        <Text style={{backgroundColor: 'rgba(0,0,0,0)',color:"white",textAlign:"center",fontSize:22,paddingBottom:10}}>{this.props.text}</Text>
-        <Text style={{backgroundColor: 'rgba(0,0,0,0)',color:"white",textAlign:"center",fontSize:14,paddingBottom:10}}>时区:"Asia/Shanghai"</Text>
-        <Text style={{backgroundColor: 'rgba(0,0,0,0)',color:"white",textAlign:"center",fontSize:14}}>Time_offset:"+08:00"</Text>
+        <Text style={{[styles.listViewHeaderViewTextBase],fontSize:22,paddingBottom:10}}>{this.props.text}</Text>
+        <Text style={[styles.listViewHeaderViewTextBase],{paddingBottom:10}}>时区:"Asia/Shanghai"</Text>
+        <Text style={styles.listViewHeaderViewTextBase}>Time_offset:"+08:00"</Text>
      </View>
      <View style={styles.listView}>
      <ListView
@@ -134,11 +134,17 @@ var styles = StyleSheet.create({
 
   headerContent:{
   },
-  
+
   bodyContent: {
 	 flex:1
   },
 
+  listViewHeaderViewTextBase:{
+    backgroundColor: 'rgba(0,0,0,0)',
+    color:"white",
+    textAlign:"center",
+    fontSize:14,
+  },
   row: {
     flexDirection: 'row',
     padding: 0,
