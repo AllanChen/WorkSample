@@ -19,15 +19,17 @@ import {
   Image
 } from 'react-native';
 
-var screenHeight = Dimensions.get('window').height;
-var screenWidth  = Dimensions.get('window').width;
-var result = [];
-var addressImage = "http://api.map.baidu.com/images/weather/night/duoyun.png";
-var dataSource
-var DetailPage = React.createClass({
+let screenHeight = Dimensions.get('window').height;
+let screenWidth  = Dimensions.get('window').width;
+let result = [];
+let addressImage = "http://api.map.baidu.com/images/weather/night/duoyun.png";
+let dataSource
+var weatherPic = "./images/0.png";
+
+let DetailPage = React.createClass({
 
 getInitialState: function() {
-    var ds = new ListView.DataSource({
+    let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2
     });
@@ -45,7 +47,7 @@ componentDidMount(){
 },
 
 _reloadLiveViewData: function(datas) {
-  var newDataSource = this.state.dataSource.cloneWithRows(datas);
+  let newDataSource = this.state.dataSource.cloneWithRows(datas);
   this.setState({
     dataSource: newDataSource,
   });
@@ -75,11 +77,11 @@ render() {
   },
 
 _onFetch(address) {
-  var url = "https://api.thinkpage.cn/v3/weather/daily.json?key=o97r0fxvop12o8cx&location="+address+"&language=zh-Hans&unit=c&start=0&days=5"
+  let url = "https://api.thinkpage.cn/v3/weather/daily.json?key=o97r0fxvop12o8cx&location="+address+"&language=zh-Hans&unit=c&start=0&days=5"
 	fetch(url)
 			.then((response) => response.text())
 			.then((responseText) => {
-  				var arr_from_json = JSON.parse(responseText);
+  				let arr_from_json = JSON.parse(responseText);
   				result = arr_from_json.results[0].daily;
           this._reloadLiveViewData(result);
 			})
@@ -90,7 +92,7 @@ _onFetch(address) {
 },
 
 _onFetchAddressImage(address){
-var addressImageURL = "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word="+address+"&cg=star&pn=0&rn=5&itg=0&z=0&fr=&width=&height=&lm=-1&ic=0&s=0&st=-1&gsm=3c"
+let addressImageURL = "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word="+address+"&cg=star&pn=0&rn=5&itg=0&z=0&fr=&width=&height=&lm=-1&ic=0&s=0&st=-1&gsm=3c"
 fetch(addressImageURL)
     .then((response) => response.text())
     .then((responseText) => {
@@ -104,16 +106,27 @@ fetch(addressImageURL)
 },
 
  _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
+  // var icon = this.props.text ? require('./images/1.png') : require('./images/0.png');
+  var imagesString = 'http://www.thinkpage.cn/weather/images/icons/3d_50/'+result[rowID].code_day+'.png';
+  // var icon  = result.length > 0 ? require(imagesString) : require('./images/1.png');
+  // let icon ;
+  // if (result.length>0) {
+  //   icon  = require(imagesString);
+  // }
+  // else {
+  //   icon  = require('./images/0.png');
+  // }
+
 	return(
 			<TouchableHighlight>
       <View style={styles.row}>
 					<View style={styles.cellBox}><Text style={styles.contentTxt}>{result[rowID].date}</Text></View>
           <View style={[styles.cellBox]} >
-            <Image source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}} style={{width:20,height:20,marginRight:10,justifyContent:'flex-start'}}/>
+            <Image source={{uri:imagesString}} style={{width:20,height:20,marginRight:10,justifyContent:'flex-start'}}/>
             <Text style={styles.contentTxt}>{result[rowID].text_day}</Text>
           </View>
 
-          <View style={styles.cellBox}><Text style={styles.contentTxt}>{result[rowID].low}~{result[rowID].high}</Text></View>
+          <View style={styles.cellBox}><Text style={styles.contentTxt}>{imagesString}</Text></View>
       </View>
 			</TouchableHighlight>
 		);
@@ -130,7 +143,6 @@ var styles = StyleSheet.create({
    height:150,
    paddingTop:65,
    backgroundColor: 'rgba(0,0,0,0)',
-   textAlign:'center',
   },
 
   headerContent:{
