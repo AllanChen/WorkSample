@@ -3,6 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+ 'use strict';
 
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions';
@@ -16,19 +17,20 @@ import {
   TouchableWithoutFeedback,
   ListView,
   View,
-  Image
+  Image,
+  Geolocation
 } from 'react-native';
 
 let screenHeight = Dimensions.get('window').height;
 let screenWidth  = Dimensions.get('window').width;
 let result = [];
-let addressImage = "http://api.map.baidu.com/images/weather/night/duoyun.png";
-let dataSource
-var weatherPic = "./images/0.png";
+let dataSource;
 
 let DetailPage = React.createClass({
+watchID: (null: ?number),
 
 getInitialState: function() {
+
     let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2
@@ -39,11 +41,41 @@ getInitialState: function() {
   },
 
 componentWillMount(){
-  // this._onFetchAddressImage(this.props.text);
 	this._onFetch(this.props.text);
+
 },
 
 componentDidMount(){
+  // navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       var initialPosition = JSON.stringify(position);
+  //       this.setState({initialPosition});
+  //     },
+  //     (error) => alert(error.message),
+  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  //   );
+  //   this.watchID = navigator.geolocation.watchPosition((position) => {
+  //     var lastPosition = JSON.stringify(position);
+  //     this.setState({lastPosition});
+  //   });
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var initialPosition = JSON.stringify(position);
+        this.setState({initialPosition});
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000 ,maximumAge:1000}
+    );
+    this.watchID = navigator.geolocation.watchPosition((position) =>{
+      var lastPosition = JSON.stringify(position);
+      alert(lastPosition);
+      this.setState({lastPosition});
+    });
+},
+
+componentWillUnmount(){
+  navigator.geolocation.clearWatch(this.watchID);
 },
 
 _reloadLiveViewData: function(datas) {
@@ -56,7 +88,7 @@ _reloadLiveViewData: function(datas) {
 render() {
     return (
      <View style={styles.container}>
-     <Image source = {{uri:"http://img.secretchina.com/dat/media/25/2015/05/27/20150527092249819.jpg"}} style={{width:screenWidth,height:screenHeight}}>
+     <Image source = {require('./images/bg.jpg')} style={{width:screenWidth,height:screenHeight}}>
      <View
      automaticallyAdjustContentInsets={true}
      style={styles.header}>
@@ -116,7 +148,6 @@ fetch(addressImageURL)
   // else {
   //   icon  = require('./images/0.png');
   // }
-
 	return(
 			<TouchableHighlight>
       <View style={styles.row}>
@@ -126,7 +157,7 @@ fetch(addressImageURL)
             <Text style={styles.contentTxt}>{result[rowID].text_day}</Text>
           </View>
 
-          <View style={styles.cellBox}><Text style={styles.contentTxt}>{imagesString}</Text></View>
+          <View style={styles.cellBox}><Text style={styles.contentTxt}>{result[rowID].low} ~ {result[rowID].high}</Text></View>
       </View>
 			</TouchableHighlight>
 		);
