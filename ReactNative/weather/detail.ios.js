@@ -17,8 +17,7 @@ import {
   TouchableWithoutFeedback,
   ListView,
   View,
-  Image,
-  Geolocation
+  Image
 } from 'react-native';
 
 let screenHeight = Dimensions.get('window').height;
@@ -28,8 +27,9 @@ let dataSource;
 
 let DetailPage = React.createClass({
 watchID: (null: ?number),
-
 getInitialState: function() {
+  initialPosition: 'unknown';
+  lastPosition: 'unknown';
 
     let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
@@ -41,36 +41,22 @@ getInitialState: function() {
   },
 
 componentWillMount(){
-	this._onFetch(this.props.text);
-
+	this.onFetch(this.props.text);
 },
 
 componentDidMount(){
-  // navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       var initialPosition = JSON.stringify(position);
-  //       this.setState({initialPosition});
-  //     },
-  //     (error) => alert(error.message),
-  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-  //   );
-  //   this.watchID = navigator.geolocation.watchPosition((position) => {
-  //     var lastPosition = JSON.stringify(position);
-  //     this.setState({lastPosition});
-  //   });
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        var initialPosition = JSON.stringify(position);
-        this.setState({initialPosition});
+        let initialPosition = JSON.stringify(position);
+        // this.setState({initialPosition});
       },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000 ,maximumAge:1000}
     );
     this.watchID = navigator.geolocation.watchPosition((position) =>{
-      var lastPosition = JSON.stringify(position);
-      alert(lastPosition);
+      let lastPosition = JSON.stringify(position);
       this.setState({lastPosition});
+      this.updateAddress();
     });
 },
 
@@ -78,7 +64,22 @@ componentWillUnmount(){
   navigator.geolocation.clearWatch(this.watchID);
 },
 
-_reloadLiveViewData: function(datas) {
+updateAddress(){
+  let url = "http://api.map.baidu.com/geocoder/v2/?ak=CC4d6ab90084e6ca5aa140fc6f68247e&callback=renderReverse&location=23.16,113.23&output=xml&pois=1";
+  fetch(url)
+      .then((response) => response.text())
+      .then((responseText) => {
+          let arr_from_json = JSON.parse(responseText);
+          result = arr_from_json.results[0].daily;
+          this.reloadLiveViewData(result);
+      })
+      .catch((error) => {
+        alert("onFecth"+error);
+        console.warn(url);
+      });
+},
+
+reloadLiveViewData: function(datas) {
   let newDataSource = this.state.dataSource.cloneWithRows(datas);
   this.setState({
     dataSource: newDataSource,
@@ -94,13 +95,13 @@ render() {
      style={styles.header}>
         <Text style={{fontSize:22,textAlign:'center',color:'white',paddingBottom:10}}>{this.props.text}</Text>
         <Text style={[styles.headerContent]}>时区:"Asia/Shanghai"</Text>
-        <Text style={[styles.headerContent]}>Time_offset:"+08:00"</Text>
+        <Text style={[styles.headerContent]}>Time_offset:"+08:00"{this.state.lastPosition}</Text>
      </View>
      <View style={styles.listView}>
      <ListView
             automaticallyAdjustContentInsets={false}
             dataSource  ={this.state.dataSource}
-            renderRow   ={this._renderRow}
+            renderRow   ={this.renderRow}
             />
     </View>
       </Image>
@@ -108,14 +109,14 @@ render() {
     );
   },
 
-_onFetch(address) {
+onFetch(address) {
   let url = "https://api.thinkpage.cn/v3/weather/daily.json?key=o97r0fxvop12o8cx&location="+address+"&language=zh-Hans&unit=c&start=0&days=5"
 	fetch(url)
 			.then((response) => response.text())
 			.then((responseText) => {
   				let arr_from_json = JSON.parse(responseText);
   				result = arr_from_json.results[0].daily;
-          this._reloadLiveViewData(result);
+          this.reloadLiveViewData(result);
 			})
 			.catch((error) => {
         alert("onFecth"+error);
@@ -123,31 +124,8 @@ _onFetch(address) {
 			});
 },
 
-_onFetchAddressImage(address){
-let addressImageURL = "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word="+address+"&cg=star&pn=0&rn=5&itg=0&z=0&fr=&width=&height=&lm=-1&ic=0&s=0&st=-1&gsm=3c"
-fetch(addressImageURL)
-    .then((response) => response.text())
-    .then((responseText) => {
-        addressData = JSON.parse(responseText);
-        this._reloadLiveViewData(result);
-    })
-    .catch((error) => {
-      alert("onFetchAddressImage"+error);
-      console.warn(url);
-    });
-},
-
- _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
-  // var icon = this.props.text ? require('./images/1.png') : require('./images/0.png');
+renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
   var imagesString = 'http://www.thinkpage.cn/weather/images/icons/3d_50/'+result[rowID].code_day+'.png';
-  // var icon  = result.length > 0 ? require(imagesString) : require('./images/1.png');
-  // let icon ;
-  // if (result.length>0) {
-  //   icon  = require(imagesString);
-  // }
-  // else {
-  //   icon  = require('./images/0.png');
-  // }
 	return(
 			<TouchableHighlight>
       <View style={styles.row}>
