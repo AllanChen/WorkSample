@@ -3,7 +3,6 @@
  * https://github.com/facebook/react-native
  * @flow
  */
- 'use strict';
 
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions';
@@ -65,18 +64,27 @@ componentWillUnmount(){
 },
 
 updateAddress(){
-  let url = "http://api.map.baidu.com/geocoder/v2/?ak=CC4d6ab90084e6ca5aa140fc6f68247e&callback=renderReverse&location=23.16,113.23&output=xml&pois=1";
-  fetch(url)
-      .then((response) => response.text())
-      .then((responseText) => {
-          let arr_from_json = JSON.parse(responseText);
-          result = arr_from_json.results[0].daily;
-          this.reloadLiveViewData(result);
-      })
-      .catch((error) => {
-        alert("onFecth"+error);
-        console.warn(url);
-      });
+  var foo = ( function() {
+      var secret = 'secret';
+    });
+
+  alert(foo.secret);
+
+
+  // let locationPointArray = JSON.parse(this.state.lastPosition);
+
+  // let url = "http://restapi.amap.com/v3/geocode/regeo?key=226fe1c151e83f47689ee4c35f2b1f39&location="{this.state.lastPosition}"&radius=1000&extensions=all";
+  // fetch(url)
+  //     .then((response) => response.text())
+  //     .then((responseText) => {
+  //         let arr_from_json = JSON.parse(responseText);
+  //         result = arr_from_json.results[0].daily;
+  //         this.reloadLiveViewData(result);
+  //     })
+  //     .catch((error) => {
+  //       alert("onFecth"+error);
+  //       console.warn(url);
+  //     });
 },
 
 reloadLiveViewData: function(datas) {
