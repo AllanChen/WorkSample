@@ -17,8 +17,7 @@ import {
   TouchableWithoutFeedback,
   ListView,
   View,
-  Image,
-  Geolocation
+  Image
 } from 'react-native';
 
 let screenHeight = Dimensions.get('window').height;
@@ -42,40 +41,30 @@ getInitialState: function() {
 
 componentWillMount(){
 	this._onFetch(this.props.text);
-
 },
 
 componentDidMount(){
-  // navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       var initialPosition = JSON.stringify(position);
-  //       this.setState({initialPosition});
-  //     },
-  //     (error) => alert(error.message),
-  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-  //   );
-  //   this.watchID = navigator.geolocation.watchPosition((position) => {
-  //     var lastPosition = JSON.stringify(position);
-  //     this.setState({lastPosition});
-  //   });
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var initialPosition = JSON.stringify(position);
-        this.setState({initialPosition});
+        // this.setState({initialPosition});
       },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000 ,maximumAge:1000}
     );
     this.watchID = navigator.geolocation.watchPosition((position) =>{
       var lastPosition = JSON.stringify(position);
-      alert(lastPosition);
-      this.setState({lastPosition});
+      this._updateAddress(lastPosition);
+      // this.setState({lastPosition});
     });
 },
 
 componentWillUnmount(){
   navigator.geolocation.clearWatch(this.watchID);
+},
+
+_updateAddress(position){
+  alert(position);
 },
 
 _reloadLiveViewData: function(datas) {
@@ -141,16 +130,7 @@ fetch(addressImageURL)
 },
 
  _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
-  // var icon = this.props.text ? require('./images/1.png') : require('./images/0.png');
   var imagesString = 'http://www.thinkpage.cn/weather/images/icons/3d_50/'+result[rowID].code_day+'.png';
-  // var icon  = result.length > 0 ? require(imagesString) : require('./images/1.png');
-  // let icon ;
-  // if (result.length>0) {
-  //   icon  = require(imagesString);
-  // }
-  // else {
-  //   icon  = require('./images/0.png');
-  // }
 	return(
 			<TouchableHighlight>
       <View style={styles.row}>
