@@ -3,7 +3,6 @@
  * https://github.com/facebook/react-native
  * @flow
  */
- 'use strict';
 
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions';
@@ -27,8 +26,9 @@ let dataSource;
 
 let DetailPage = React.createClass({
 watchID: (null: ?number),
-
 getInitialState: function() {
+  initialPosition: 'unknown';
+  lastPosition: 'unknown';
 
     let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
@@ -40,6 +40,7 @@ getInitialState: function() {
   },
 
 componentWillMount(){
+
 	this._onFetch(this.props.text);
 },
 
@@ -47,15 +48,14 @@ componentDidMount(){
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var initialPosition = JSON.stringify(position);
-        // this.setState({initialPosition});
       },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000 ,maximumAge:1000}
     );
     this.watchID = navigator.geolocation.watchPosition((position) =>{
-      var lastPosition = JSON.stringify(position);
-      this._updateAddress(lastPosition);
-      // this.setState({lastPosition});
+      let lastPosition = JSON.stringify(position);
+      this.setState({lastPosition});
+      this.updateAddress();
     });
 },
 
@@ -63,11 +63,29 @@ componentWillUnmount(){
   navigator.geolocation.clearWatch(this.watchID);
 },
 
-_updateAddress(position){
-  alert(position);
+updateAddress(){
+  var foo = ( function() {
+      var secret = 'secret';
+    });
+  alert(foo.secret);
+
+  // let locationPointArray = JSON.parse(this.state.lastPosition);
+
+  // let url = "http://restapi.amap.com/v3/geocode/regeo?key=226fe1c151e83f47689ee4c35f2b1f39&location="{this.state.lastPosition}"&radius=1000&extensions=all";
+  // fetch(url)
+  //     .then((response) => response.text())
+  //     .then((responseText) => {
+  //         let arr_from_json = JSON.parse(responseText);
+  //         result = arr_from_json.results[0].daily;
+  //         this.reloadLiveViewData(result);
+  //     })
+  //     .catch((error) => {
+  //       alert("onFecth"+error);
+  //       console.warn(url);
+  //     });
 },
 
-_reloadLiveViewData: function(datas) {
+reloadLiveViewData: function(datas) {
   let newDataSource = this.state.dataSource.cloneWithRows(datas);
   this.setState({
     dataSource: newDataSource,
@@ -92,7 +110,7 @@ render() {
      <ListView
             automaticallyAdjustContentInsets={false}
             dataSource  ={this.state.dataSource}
-            renderRow   ={this._renderRow}
+            renderRow   ={this.renderRow}
             />
     </View>
       </Image>
@@ -100,33 +118,19 @@ render() {
     );
   },
 
-_onFetch(address) {
+onFetch(address) {
   let url = "https://api.thinkpage.cn/v3/weather/daily.json?key=o97r0fxvop12o8cx&location="+address+"&language=zh-Hans&unit=c&start=0&days=5"
 	fetch(url)
 			.then((response) => response.text())
 			.then((responseText) => {
   				let arr_from_json = JSON.parse(responseText);
   				result = arr_from_json.results[0].daily;
-          this._reloadLiveViewData(result);
+          this.reloadLiveViewData(result);
 			})
 			.catch((error) => {
         alert("onFecth"+error);
   			console.warn(url);
 			});
-},
-
-_onFetchAddressImage(address){
-let addressImageURL = "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word="+address+"&cg=star&pn=0&rn=5&itg=0&z=0&fr=&width=&height=&lm=-1&ic=0&s=0&st=-1&gsm=3c"
-fetch(addressImageURL)
-    .then((response) => response.text())
-    .then((responseText) => {
-        addressData = JSON.parse(responseText);
-        this._reloadLiveViewData(result);
-    })
-    .catch((error) => {
-      alert("onFetchAddressImage"+error);
-      console.warn(url);
-    });
 },
 
  _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
