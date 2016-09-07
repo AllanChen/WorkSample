@@ -40,14 +40,14 @@ getInitialState: function() {
   },
 
 componentWillMount(){
-	this.onFetch(this.props.text);
+
+	this._onFetch(this.props.text);
 },
 
 componentDidMount(){
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        let initialPosition = JSON.stringify(position);
-        // this.setState({initialPosition});
+        var initialPosition = JSON.stringify(position);
       },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000 ,maximumAge:1000}
@@ -67,9 +67,7 @@ updateAddress(){
   var foo = ( function() {
       var secret = 'secret';
     });
-
   alert(foo.secret);
-
 
   // let locationPointArray = JSON.parse(this.state.lastPosition);
 
@@ -97,13 +95,16 @@ reloadLiveViewData: function(datas) {
 render() {
     return (
      <View style={styles.container}>
-     <Image source = {require('./images/bg.jpg')} style={{width:screenWidth,height:screenHeight}}>
+
+     <Image
+      style={{width:screenWidth,height:screenHeight}}
+      source = {require('./images/bg.jpg')}>
      <View
      automaticallyAdjustContentInsets={true}
      style={styles.header}>
-        <Text style={{fontSize:22,textAlign:'center',color:'white',paddingBottom:10}}>{this.props.text}</Text>
-        <Text style={[styles.headerContent]}>时区:"Asia/Shanghai"</Text>
-        <Text style={[styles.headerContent]}>Time_offset:"+08:00"{this.state.lastPosition}</Text>
+        <Text style={[styles.listViewHeaderViewTextBase],{fontSize:22,paddingBottom:10}}>{this.props.text}</Text>
+        <Text style={[styles.listViewHeaderViewTextBase],{paddingBottom:10}}>时区:"Asia/Shanghai"</Text>
+        <Text style={styles.listViewHeaderViewTextBase}>Time_offset:"+08:00"</Text>
      </View>
      <View style={styles.listView}>
      <ListView
@@ -132,7 +133,7 @@ onFetch(address) {
 			});
 },
 
-renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
+ _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
   var imagesString = 'http://www.thinkpage.cn/weather/images/icons/3d_50/'+result[rowID].code_day+'.png';
 	return(
 			<TouchableHighlight>
@@ -162,18 +163,15 @@ var styles = StyleSheet.create({
    backgroundColor: 'rgba(0,0,0,0)',
   },
 
-  headerContent:{
+  bodyContent: {
+	 flex:1
+  },
+  listViewHeaderViewTextBase:{
     backgroundColor: 'rgba(0,0,0,0)',
     color:"white",
     textAlign:"center",
     fontSize:14,
-    paddingBottom:10,
   },
-
-  bodyContent: {
-	 flex:1
-  },
-
   row: {
     flexDirection: 'row',
     padding: 0,
