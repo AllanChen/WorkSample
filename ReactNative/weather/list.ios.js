@@ -62,7 +62,6 @@ _renderRow: function(rowData: string, sectionID: number, rowID: number, highligh
 
   _handleNextButtonPress: function(rowID:number) {
         this.props.navigator.push({
-       	// 	component : ScrollDetailPage,
           component : DetailPage,
        		title: addressData[rowID].name,
        		passProps: {text: addressData[rowID].name}

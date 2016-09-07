@@ -25,6 +25,21 @@ let result = [];
 let dataSource;
 
 let DetailPage = React.createClass({
+var getDataByAddress = function (address){
+  let url = "http://restapi.amap.com/v3/geocode/regeo?output=json&location=116.310003,39.991957&key=226fe1c151e83f47689ee4c35f2b1f39&radius=1000&extensions=all";
+  fetch(url)
+      .then((response) => response.text())
+      .then((responseText) => {
+          let arr_from_json = JSON.parse(responseText);
+
+          return arr_from_json['regeocode']['addressComponent']['province'];
+      })
+      .catch((error) => {
+        alert ("i'am error"+error);
+        alert("onFecth"+error);
+        console.warn(url);
+      });
+  }
 watchID: (null: ?number),
 getInitialState: function() {
   initialPosition: 'unknown';
@@ -40,8 +55,7 @@ getInitialState: function() {
   },
 
 componentWillMount(){
-
-	this._onFetch(this.props.text);
+	this.onFetch(this.props.text);
 },
 
 componentDidMount(){
@@ -55,34 +69,12 @@ componentDidMount(){
     this.watchID = navigator.geolocation.watchPosition((position) =>{
       let lastPosition = JSON.stringify(position);
       this.setState({lastPosition});
-      this.updateAddress();
+      // getDataByAddress("");
     });
 },
 
 componentWillUnmount(){
   navigator.geolocation.clearWatch(this.watchID);
-},
-
-updateAddress(){
-  var foo = ( function() {
-      var secret = 'secret';
-    });
-  alert(foo.secret);
-
-  // let locationPointArray = JSON.parse(this.state.lastPosition);
-
-  // let url = "http://restapi.amap.com/v3/geocode/regeo?key=226fe1c151e83f47689ee4c35f2b1f39&location="{this.state.lastPosition}"&radius=1000&extensions=all";
-  // fetch(url)
-  //     .then((response) => response.text())
-  //     .then((responseText) => {
-  //         let arr_from_json = JSON.parse(responseText);
-  //         result = arr_from_json.results[0].daily;
-  //         this.reloadLiveViewData(result);
-  //     })
-  //     .catch((error) => {
-  //       alert("onFecth"+error);
-  //       console.warn(url);
-  //     });
 },
 
 reloadLiveViewData: function(datas) {
@@ -95,15 +87,14 @@ reloadLiveViewData: function(datas) {
 render() {
     return (
      <View style={styles.container}>
-
      <Image
       style={{width:screenWidth,height:screenHeight}}
       source = {require('./images/bg.jpg')}>
      <View
      automaticallyAdjustContentInsets={true}
      style={styles.header}>
-        <Text style={[styles.listViewHeaderViewTextBase],{fontSize:22,paddingBottom:10}}>{this.props.text}</Text>
-        <Text style={[styles.listViewHeaderViewTextBase],{paddingBottom:10}}>时区:"Asia/Shanghai"</Text>
+        <Text style={[styles.listViewHeaderViewTextBase]}>{this.props.text}</Text>
+        <Text style={[styles.listViewHeaderViewTextBase]}>时区:"Asia/Shanghai"</Text>
         <Text style={styles.listViewHeaderViewTextBase}>Time_offset:"+08:00"</Text>
      </View>
      <View style={styles.listView}>
@@ -133,7 +124,7 @@ onFetch(address) {
 			});
 },
 
- _renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
+ renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
   var imagesString = 'http://www.thinkpage.cn/weather/images/icons/3d_50/'+result[rowID].code_day+'.png';
 	return(
 			<TouchableHighlight>
