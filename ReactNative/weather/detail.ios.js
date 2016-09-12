@@ -25,26 +25,27 @@ let result = [];
 let dataSource;
 
 let DetailPage = React.createClass({
-var getDataByAddress = function (address){
-  let url = "http://restapi.amap.com/v3/geocode/regeo?output=json&location=116.310003,39.991957&key=226fe1c151e83f47689ee4c35f2b1f39&radius=1000&extensions=all";
-  fetch(url)
-      .then((response) => response.text())
-      .then((responseText) => {
-          let arr_from_json = JSON.parse(responseText);
+// var getDataByAddress = function (address){
+//   let url = "http://restapi.amap.com/v3/geocode/regeo?output=json&location=116.310003,39.991957&key=226fe1c151e83f47689ee4c35f2b1f39&radius=1000&extensions=all";
+//   fetch(url)
+//       .then((response) => response.text())
+//       .then((responseText) => {
+//           let arr_from_json = JSON.parse(responseText);
+//
+//           return arr_from_json['regeocode']['addressComponent']['province'];
+//       })
+//       .catch((error) => {
+//         alert ("i'am error"+error);
+//         alert("onFecth"+error);
+//         console.warn(url);
+//       });
+//   }
 
-          return arr_from_json['regeocode']['addressComponent']['province'];
-      })
-      .catch((error) => {
-        alert ("i'am error"+error);
-        alert("onFecth"+error);
-        console.warn(url);
-      });
-  }
+
 watchID: (null: ?number),
-getInitialState: function() {
+getInitialState(){
   initialPosition: 'unknown';
   lastPosition: 'unknown';
-
     let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2
@@ -55,7 +56,7 @@ getInitialState: function() {
   },
 
 componentWillMount(){
-	this.onFetch(this.props.text);
+	// this.onFetch(this.props.text);
 },
 
 componentDidMount(){
@@ -69,8 +70,26 @@ componentDidMount(){
     this.watchID = navigator.geolocation.watchPosition((position) =>{
       let lastPosition = JSON.stringify(position);
       this.setState({lastPosition});
-      // getDataByAddress("");
+      this.getDataByAddress();
     });
+},
+
+getDataByAddress(){
+  let url = "http://restapi.amap.com/v3/geocode/regeo?output=json&location=116.310003,39.991957&key=226fe1c151e83f47689ee4c35f2b1f39&radius=1000&extensions=all";
+  fetch(url)
+        .then((response) => response.text())
+        .then((responseText) => {
+            let arr_from_json = JSON.parse(responseText);
+            console.log(arr_from_json['regeocode']['addressComponent']['province']);
+            let addressString = arr_from_json['regeocode']['addressComponent']['province'];
+            this.onFetch(addressString);
+            // return arr_from_json['regeocode']['addressComponent']['province'];
+        })
+        .catch((error) => {
+          alert ("i'am error"+error);
+          alert("onFecth"+error);
+          console.warn(url);
+        });
 },
 
 componentWillUnmount(){
@@ -124,7 +143,7 @@ onFetch(address) {
 			});
 },
 
- renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
+renderRow: function(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
   var imagesString = 'http://www.thinkpage.cn/weather/images/icons/3d_50/'+result[rowID].code_day+'.png';
 	return(
 			<TouchableHighlight>
