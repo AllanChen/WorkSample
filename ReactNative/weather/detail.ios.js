@@ -41,7 +41,6 @@ let DetailPage = React.createClass({
 //       });
 //   }
 
-
 watchID: (null: ?number),
 getInitialState(){
   initialPosition: 'unknown';
@@ -159,6 +158,7 @@ renderRow: function(rowData: string, sectionID: number, rowID: number, highlight
 			</TouchableHighlight>
 		);
 },
+
 });
 
 var styles = StyleSheet.create({
