@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions'
 import {
@@ -25,12 +26,13 @@ class main extends Component {
     this.state = {
         initialPosition : 'unknow',
         lastPosition : 'unknow',
+        province : '',
         dataSource : ds.cloneWithRows(result),
     }
 }
 
   componentDidMount(){
-    this.onFetch('广州市');
+    // this.parseGeocode();
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var initialPosition = JSON.stringify(position);
@@ -42,7 +44,9 @@ class main extends Component {
   this.watchID = navigator.geolocation.watchPosition((position) => {
     var lastPosition = JSON.stringify(position);
     this.setState({lastPosition});
-    // alert(lastPosition);
+    let addressFromGeo = {};
+    addressFromGeo = JSON.parse(lastPosition);
+    this.parseGeocode(addressFromGeo);
   });
 }
 
@@ -60,6 +64,22 @@ class main extends Component {
                   this.reloadListView(result);
                 });
   }
+
+    parseGeocode(geoObjec:array){
+      let location = geoObjec['coords']['longitude'] + ',' + geoObjec['coords']['latitude'];
+      let geoURL = "http://restapi.amap.com/v3/geocode/regeo?output=json&location="+location+"&key=226fe1c151e83f47689ee4c35f2b1f39";
+      fetch(geoURL)
+                  .then((response)=> response.text())
+                  .then((responseText)=> {
+                    let resultData = JSON.parse(responseText);
+                    let province = resultData['regeocode']['addressComponent']['city'];
+                    this.setState({province : province});
+                    this.onFetch(province);
+                  })
+                  .catch((error)=> {
+                    alert('I\'m requestGeocode Error');
+                  });
+    }
 
     reloadListView(data){
       this.setState({
@@ -93,7 +113,7 @@ class main extends Component {
           <View
             automaticallyAdjustContentInsets={true}
             style={styles.header}>
-                  <Text style={[styles.listViewHeaderViewTextBase]}>{this.props.text}</Text>
+                  <Text style={[styles.listViewHeaderViewTextBase, styles.headerTitle]}>{this.state.province}</Text>
                   <Text style={[styles.listViewHeaderViewTextBase]}>时区:"Asia/Shanghai"</Text>
                   <Text style={styles.listViewHeaderViewTextBase}>Time_offset:"+08:00"</Text>
           </View>
@@ -103,6 +123,7 @@ class main extends Component {
               automaticallyAdjustContentInsets = {false}
               dataSource = {this.state.dataSource}
               renderRow  = {this.renderRow}
+              enableEmptySections = {true}
             />
           </View>
         </Image>
@@ -118,7 +139,7 @@ const styles = StyleSheet.create({
   header: {
   width:screenWidth,
   height:150,
-  paddingTop:65,
+  paddingTop:40,
   backgroundColor: 'rgba(0,0,0,0)',
  },
 
@@ -127,7 +148,13 @@ const styles = StyleSheet.create({
      color:"white",
      textAlign:"center",
      fontSize:14,
+     paddingBottom:10,
    },
+
+  headerTitle:{
+    fontSize:25,
+    paddingBottom:15
+    },
 
   row:{
     flexDirection:'row',
