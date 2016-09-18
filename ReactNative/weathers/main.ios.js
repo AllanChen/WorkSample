@@ -32,7 +32,6 @@ class main extends Component {
 }
 
   componentDidMount(){
-    // this.parseGeocode();
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var initialPosition = JSON.stringify(position);
@@ -62,6 +61,9 @@ class main extends Component {
                   let resultData = JSON.parse(responseText);
                   result = resultData.results[0].daily;
                   this.reloadListView(result);
+                })
+                .catch((error)=> {
+                  alert('onFetch Error');
                 });
   }
 
@@ -77,7 +79,7 @@ class main extends Component {
                     this.onFetch(province);
                   })
                   .catch((error)=> {
-                    alert('I\'m requestGeocode Error');
+                    alert('RequestGeocode Error');
                   });
     }
 
@@ -104,6 +106,18 @@ class main extends Component {
     		);
   }
 
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
+
+  setAnimationType(type) {
+    this.setState({animationType: type});
+  }
+
+  toggleTransparent() {
+    this.setState({transparent: !this.state.transparent});
+  }
+
   render(){
     return(
       <View style={styles.container}>
@@ -113,6 +127,14 @@ class main extends Component {
           <View
             automaticallyAdjustContentInsets={true}
             style={styles.header}>
+                  <TouchableHighlight>
+                  <View
+                  style={{flex:1,alignItems:'flex-end',justifyContent:'flex-end',paddingRight:15}}
+                  >
+                  <Image style={{width:20,height:20}} source = {require('./images/add.png')}></Image>
+                  </View>
+                  </TouchableHighlight>
+
                   <Text style={[styles.listViewHeaderViewTextBase, styles.headerTitle]}>{this.state.province}</Text>
                   <Text style={[styles.listViewHeaderViewTextBase]}>时区:"Asia/Shanghai"</Text>
                   <Text style={styles.listViewHeaderViewTextBase}>Time_offset:"+08:00"</Text>
@@ -173,7 +195,7 @@ const styles = StyleSheet.create({
     width:(screenWidth *0.95),
     marginLeft:screenWidth * 0.025,
     backgroundColor:'#333',
-    opacity:0.9,
+    opacity:0.7,
     borderRadius:10,
   },
 
