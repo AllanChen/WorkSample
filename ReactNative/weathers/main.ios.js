@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions';
 import Request from './Common/request.js';
-// import List from './Section/list.js';
+import List from './Section/list.js';
 import {
   AppRegistry,
   StyleSheet,
@@ -33,6 +33,8 @@ class main extends Component {
       timezone_offset: '',
       timezone: '',
       modalVisible: false,
+      transparent: false,
+      animationType: 'slide',
       dataSource: ds.cloneWithRows([]),
 
     }
@@ -114,14 +116,6 @@ class main extends Component {
     this.setState({ modalVisible: visible });
   }
 
-  setAnimationType(type) {
-    this.setState({ animationType: type });
-  }
-
-  toggleTransparent() {
-    this.setState({ transparent: !this.state.transparent });
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -131,7 +125,7 @@ class main extends Component {
           visible={this.state.modalVisible}
           onRequestClose={() => { alert("Modal has been closed.") } }
           >
-        
+          <List />
         </Modal>
 
         <Image
