@@ -113,7 +113,7 @@ class main extends Component {
   }
 
   setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+    // this.setState({ modalVisible: visible });
   }
 
   render() {
@@ -122,7 +122,7 @@ class main extends Component {
         <Modal
           animationType={"slide"}
           transparent={false}
-          visible={this.state.modalVisible}
+          visible={this.props.modalVisible}
           onRequestClose={() => { alert("Modal has been closed.") } }
           >
           <List />

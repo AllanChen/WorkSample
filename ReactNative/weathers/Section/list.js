@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Main from '../main.ios.js';
 import {
   AppRegistry,
   StyleSheet,
@@ -27,9 +28,10 @@ export default class list extends Component {
         paddingLeft: 10,
       }
     };
-    
+
     this.state = {
       dataSource: ds.cloneWithRows(addressData),
+      
     };
   }
 
@@ -50,15 +52,20 @@ export default class list extends Component {
     let imageHeight = 50;
     if (rowID == 0) imageHeight = 70;
     return (
-      <Image
-        style = {{ width: 640, height: imageHeight }}
-        source = {require('../images/sky.jpg') }
-        >
-        <View style={styles.row}>
-          <Text style={rowHeight(rowID)}>{addressData[rowID].name}</Text>    
-          <Text style={[rowHeight(rowID),{alignItems: 'flex-end',justifyContent: 'flex-end'}]}>39℃</Text>
-        </View>
-      </Image>
+      <TouchableHighlight onPress={() => {
+        
+        
+      } }>
+        <Image
+          style = {{ width: 640, height: imageHeight }}
+          source = {require('../images/sky.jpg') }
+          >
+          <View style={styles.row}>
+            <Text style={rowHeight(rowID) }>{addressData[rowID].name}</Text>
+            <Text style={[rowHeight(rowID), { alignItems: 'flex-end', justifyContent: 'flex-end' }]}>39℃</Text>
+          </View>
+        </Image>
+      </TouchableHighlight>
     );
   }
 }
