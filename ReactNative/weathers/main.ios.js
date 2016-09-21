@@ -20,7 +20,7 @@ let resultData = [];
 let dailyData = [];
 let dataSource;
 
-class main extends Component {
+export default class main extends Component {
   watchID: ?number = null;
 
   constructor(props) {
@@ -112,7 +112,7 @@ class main extends Component {
     );
   }
 
-  setModalVisible(visible) {
+ export setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
 

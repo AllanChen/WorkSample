@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as mains from '../main.ios.js'
 import {
   AppRegistry,
   StyleSheet,
