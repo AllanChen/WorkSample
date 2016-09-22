@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions';
 import Request from './Common/request.js';
-import list from './Section/list.ios.js';
+// import list from './Section/list.ios.js';
 import {
   AppRegistry,
   StyleSheet,
