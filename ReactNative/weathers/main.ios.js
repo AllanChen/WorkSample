@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions';
 import Request from './Common/request.js';
-import List from './Section/list.js';
+import list from './Section/list.ios.js';
 import {
   AppRegistry,
   StyleSheet,
@@ -20,7 +20,7 @@ let resultData = [];
 let dailyData = [];
 let dataSource;
 
-export default class main extends Component {
+class main extends Component {
   watchID: ?number = null;
 
   constructor(props) {
@@ -36,7 +36,6 @@ export default class main extends Component {
       transparent: false,
       animationType: 'slide',
       dataSource: ds.cloneWithRows([]),
-
     }
   }
 
@@ -112,22 +111,13 @@ export default class main extends Component {
     );
   }
 
- export setModalVisible(visible) {
+  setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => { alert("Modal has been closed.") } }
-          >
-          <List />
-        </Modal>
-
         <Image
           style={{ width: screenWidth, height: screenHeight }}
           source = {require('./images/bg.jpg') }>
@@ -136,8 +126,12 @@ export default class main extends Component {
             style={styles.header}>
             <TouchableHighlight
               onPress = {() => {
-                this.setModalVisible(true);
+                this.props.navigator.push({
+                  title: 'Main',
+                  component: list,
+                })
               } }
+              underlayColor = 'rgba(0,0,0,0)'
               >
               <View
                 style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end', paddingRight: 15 }}

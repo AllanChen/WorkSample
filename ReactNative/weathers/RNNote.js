@@ -34,3 +34,14 @@ rowHeight = function (rowID: number) {
       }
     };
 <Text style={rowHeight(rowID)}>{addressData[rowID].name}</Text>    
+
+Export 特性：
+一定要在class 之外：
+export function setVisible(visible) {
+    // this.setState({ modalVisible: false });
+    this.setModalVisible(false);
+ }
+
+ import * as NAME from 'CLASS PATH';
+
+ NAME.setVisible
