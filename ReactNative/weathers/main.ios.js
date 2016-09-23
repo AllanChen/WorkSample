@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Dimensions from 'Dimensions';
 import Request from './Common/request.js';
-// import list from './Section/list.ios.js';
+import list from './Section/list.ios.js';
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View,
   NavigatorIOS,
+  Navigator,
   ListView,
   Image,
   TouchableHighlight,
@@ -35,7 +36,7 @@ class main extends Component {
       modalVisible: false,
       transparent: false,
       animationType: 'slide',
-      dataSource: ds.cloneWithRows([]),
+      dataSource: ds.cloneWithRows(dailyData),
     }
   }
 
@@ -68,9 +69,10 @@ class main extends Component {
       daily.push(daily[0], daily[1]);
       this.setState({
         timezone: response.results[0].location.timezone,
-        timezone_offset: response.results[0].location.timezone_offset
+        timezone_offset: response.results[0].location.timezone_offset,
+        province: response.results[0].location.name
       })
-      this.reloadListView();
+      this.reloadListView(daily);
     }, (error) => {
       alert('Im Fetch Error');
     });
@@ -88,9 +90,9 @@ class main extends Component {
     });
   }
 
-  reloadListView() {
+  reloadListView(data) {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(daily),
+      dataSource: this.state.dataSource.cloneWithRows(data),
     });
   }
 
@@ -111,10 +113,6 @@ class main extends Component {
     );
   }
 
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -129,6 +127,10 @@ class main extends Component {
                 this.props.navigator.push({
                   title: 'Main',
                   component: list,
+                  callback:(msg) => {
+                     this.onFetch(msg);
+                     
+                  }
                 })
               } }
               underlayColor = 'rgba(0,0,0,0)'
