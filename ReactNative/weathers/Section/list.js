@@ -1,55 +1,75 @@
-constructor(props) {
-    super(props);
-var React = require('react');
-var ReactNative = require('react-native');
-var {
-  Image,
-  ListView,
-  TouchableHighlight,
+import React, { Component } from 'react';
+import * as mains from '../main.ios.js'
+import {
+  AppRegistry,
   StyleSheet,
-  RecyclerViewBackedScrollView,
   Text,
   View,
-} = ReactNative;
-var addressData = require('../Storage/address.json');
-var ListViewSimpleExample = React.createClass({
+  NavigatorIOS,
+  TouchableHighlight,
+  ListView,
+  Image
+} from 'react-native';
+let addressData = require('../Storage/storage.json');
+let rowHeight;
+export default class list extends Component {
   constructor(props) {
     super(props);
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    return {
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    rowHeight = function (rowID: number) {
+      let pt = 0;
+      if (rowID == 0) pt = 23;
+      else pt = 10;
+      return {
+        fontSize: 25,
+        backgroundColor: 'rgba(0,0,0,0)',
+        color: '#ffffff',
+        paddingTop: pt,
+        paddingLeft: 10,
+      }
+    };
+    
+    this.state = {
       dataSource: ds.cloneWithRows(addressData),
     };
   }
 
-render(){
-  	return (
+  render() {
+    return (
       <View style={styles.container}>
-        <View style={styles.navBar} />
         <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
+          automaticallyAdjustContentInsets = {false}
+          dataSource = {this.state.dataSource}
+          renderRow = {this.renderRow}
+          enableEmptySections = {true}
           />
       </View>
     );
   }
 
-_renderRow:(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void){
-	return(
-		<TouchableHighlight onPress={() => {
-
-        }}>
-		<View>
-          <View style={styles.row}>
-            <Image style={styles.thumb} source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}/>
-            <Text style={styles.text}>
-              {addressData[rowID].name}
-            </Text>
-          </View>
+  renderRow(rowData: string, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
+    let imageHeight = 50;
+    if (rowID == 0) imageHeight = 70;
+    return (
+      <TouchableHighlight
+        onPress ={() => {
+          this.props.navigator.callback();
+          this.props.navigator.pop();     
+        }}
+      >
+      <Image
+        style = {{ width: 640, height: imageHeight }}
+        source = {require('../images/sky.jpg') }
+        >
+        <View style={styles.row}>
+          <Text style={rowHeight(rowID)}>{addressData[rowID].name}</Text>    
+          <Text style={[rowHeight(rowID),{alignItems: 'flex-end',justifyContent: 'flex-end'}]}>39℃</Text>
         </View>
-        </TouchableHighlight>
-		);
+      </Image>
+      </TouchableHighlight>
+    );
+  }
 }
-};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -57,19 +77,22 @@ const styles = StyleSheet.create({
 
   row: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 0,
-    backgroundColor: '#F6F6F6',
+    alignItems: 'center',
   },
 
-  thumb: {
-    width: 64,
-    height: 64,
+  contentBox: {
+    height: 40,
   },
-  text: {
-    flex: 1,
-    padding:10,
+
+  firstRowText: {
+    paddingTop: 25,
   },
+
+  rowText: {
+    fontSize: 25,
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: '#ffffff',
+    paddingTop: rowHeight,
+    paddingLeft: 10,
+  }
 });
-
-module.exports = list;
