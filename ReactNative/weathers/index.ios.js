@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 const main = require('./main.ios.js');
-
+const start = require('./start.js');
 class weathers extends Component {
   constructor(props) {
         super(props);
@@ -39,7 +39,7 @@ class weathers extends Component {
           navigationBarHidden={!this.state.navigationBarHidden}
           initialRoute={{
             title:'Main',
-            component:main,
+            component:start,
             passProps:{
               toggleNavBar:this.toggleNavBar,
             }
@@ -56,14 +56,6 @@ const styles = StyleSheet.create({
     nav: {
       flex: 1,
     },
-    button: {
-      backgroundColor: "#009DDD",
-      padding: 10,
-      margin: 10,
-    },
-    buttonText: {
-      color: "#fff"
-    }
 });
 
 AppRegistry.registerComponent('weathers', () => weathers);

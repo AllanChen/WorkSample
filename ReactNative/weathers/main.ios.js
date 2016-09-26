@@ -36,7 +36,7 @@ class main extends Component {
       modalVisible: false,
       transparent: false,
       animationType: 'slide',
-      dataSource: ds.cloneWithRows(dailyData),
+      dataSource: ds.cloneWithRows([]),
     }
   }
 
