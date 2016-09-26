@@ -129,6 +129,7 @@ class main extends Component {
                   component: list,
                   callback:(msg) => {
                      this.onFetch(msg);
+
                   }
                 })
               } }
