@@ -9,9 +9,8 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import PageOne from './Section/pageOne.js'
-const swidth = Dimensions.get('window').width;
-const sheight = Dimensions.get('window').height;
-
+import PageTwo from './Section/pageTwo.js'
+import g from './Config/config.js'
 class start extends Component {
     constructor(props) {
         super(props);
@@ -30,12 +29,13 @@ class start extends Component {
                         <Text style={{ textAlign: 'center', color: '#ffffff', fontSize: 23 }}> 广州 </Text>
                     </View>
                 <View style={styles.scrollViewContainer}>
-                    <ScrollView 
+                    <ScrollView
+                        automaticallyAdjustContentInsets={false} 
                         showsVerticalScrollIndicator={false}
-                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
                         contentContainerStyle={styles.contentContainer}>
                         <PageOne />
-                        <PageOne />
+                        <PageTwo />
                     </ScrollView>
                 </View>
             </Image>
@@ -47,18 +47,18 @@ class start extends Component {
 
 const styles = StyleSheet.create({
     scrollViewContainer: {
-        height: sheight,
+        height: g.SHEIGHT,
         backgroundColor: 'rgba(0,0,0,0)',
     },
 
     bgImage: {
-        width: swidth,
-        height: sheight
+        width: g.SWIDTH,
+        height: g.SHEIGHT,
     },
 
     headView: {
         paddingTop: 30,
-        width: swidth,
+        width: g.SWIDTH,
         height: 20,
         justifyContent: 'center',
         backgroundColor: 'rgba(0,0,0,0)',
