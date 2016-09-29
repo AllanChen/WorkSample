@@ -26,6 +26,14 @@ class start extends Component {
                     <Text style={{ textAlign: 'center', color: '#ffffff', fontSize: 23 }}> 广州 </Text>
                 </View>
                 <View style={styles.scrollViewContainer}>
+                <ScrollView
+                        automaticallyAdjustContentInsets={false}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        pagingEnabled = {true}
+                        >
+
                     <ScrollView
                         automaticallyAdjustContentInsets={false}
                         showsVerticalScrollIndicator={false}
@@ -34,6 +42,16 @@ class start extends Component {
                         <PageOne />  
                         <PageTwo />         
                     </ScrollView>
+
+                    <ScrollView
+                        automaticallyAdjustContentInsets={false}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.contentContainer}>
+                        <PageOne />  
+                        <PageTwo />         
+                    </ScrollView>
+                </ScrollView>
                 </View>
             </Image>
         );
@@ -42,7 +60,7 @@ class start extends Component {
 
 const styles = StyleSheet.create({
     scrollViewContainer: {
-        height: g.SHEIGHT,
+        height: g.SHEIGHT-50,
         backgroundColor: 'rgba(0,0,0,0)',
         marginTop:15,
     },

@@ -30,8 +30,9 @@ export default class pageTwo extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView
+                    style={{width:g.SWIDTH}}
                     showsVerticalScrollIndicator={false}
-                    automaticallyAdjustContentInsets={false}
+                    automaticallyAdjustContentInsets={true}
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
                     horizontal={true}
@@ -44,21 +45,61 @@ export default class pageTwo extends Component {
                 <View style={styles.wind}>{windInfoArray}</View>
 
                 <View style={styles.life}>
-                    <View style={{width:g.SWIDTH,height:15}}><Text>生活指数</Text></View>
-                    <View>
-                        <Image
-                            style={{ width: 50, height: 50, paddingLeft: 10 }}
-                            source={require('../images/weather/33.png') }
-                            />
-                        <Text>9月27日\n</Text>
+                    <View style={{
+                        width: g.SWIDTH, height: 30, paddingLeft: 10, justifyContent: 'center', borderBottomWidth: 1, borderTopWidth: 1, borderColor: 'rgba(255,255,255,.3)',
+                    }}><Text style={[styles.textStyle, { fontSize: 15, }]}>生活指数</Text></View>
+
+                    <View style={{ flexDirection: 'row', width: g.SWIDTH, paddingTop: 5, height: 55 }}>
+                        <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Image
+                                style={[styles.pl5, { width: 40, height: 40, paddingLeft: 10 }]}
+                                source={require('../images/weather/33.png') }
+                                />
+                            <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
+                        </View >
+                        <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Image
+                                style={[styles.pl5, { width: 40, height: 40 }]}
+                                source={require('../images/weather/34.png') }
+                                />
+                            <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
+                        </View>
                     </View>
-                    <View>
-                        <Image
-                            style={{ width: 50, height: 50, paddingLeft: 10 }}
-                            source={require('../images/weather/33.png') }
-                            />
-                        <Text>9月27日\n</Text>
+
+                    <View style={{ flexDirection: 'row', width: g.SWIDTH, paddingTop: 5 }}>
+                        <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Image
+                                style={[styles.pl5, { width: 40, height: 40, paddingLeft: 10 }]}
+                                source={require('../images/weather/33.png') }
+                                />
+                            <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
+                        </View >
+                        <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Image
+                                style={[styles.pl5, { width: 40, height: 40 }]}
+                                source={require('../images/weather/34.png') }
+                                />
+                            <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
+                        </View>
                     </View>
+
+                    <View style={{ flexDirection: 'row', width: g.SWIDTH, paddingTop: 5 }}>
+                        <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Image
+                                style={[styles.pl5, { width: 40, height: 40, paddingLeft: 10 }]}
+                                source={require('../images/weather/33.png') }
+                                />
+                            <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
+                        </View >
+                        <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Image
+                                style={[styles.pl5, { width: 40, height: 40 }]}
+                                source={require('../images/weather/34.png') }
+                                />
+                            <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
+                        </View>
+                    </View>
+
                 </View>
             </View>
         )
@@ -110,12 +151,12 @@ export default class pageTwo extends Component {
             windInfoArray.push(
                 <View style={styles.weekInfo_daybyday}>
                     <Text style={[styles.textStyle, { paddingTop: 5, paddingBottom: 5, paddingLeft: 3 }]}>北风</Text>
-                    <Text style={[styles.textStyle, { fontSize: 10, paddingBottom: 5 }]}>4级</Text>
+                    <Text style={[styles.textStyle, { fontSize: 10 }]}>4级</Text>
                     <Image
-                        style={{ width: 30, height: 30, paddingTop: 10, paddingBottom: 10 }}
+                        style={{ width: 30, height: 30, paddingTop: 10 }}
                         source={require('../images/weather/32.png') }
                         />
-                    <Text style={[styles.textStyle, { paddingTop: 5, fontSize: 10 }]}>0%</Text>
+                    <Text style={[styles.textStyle, { fontSize: 10 }]}>0%</Text>
                 </View>
             );
         }
@@ -135,8 +176,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     timeWeather: {
-        height: 80,
+        height: 95,
         width: 70 * oneDayWeatherArrayLength,
+        // width: g.SWIDTH,
         flexDirection: 'row',
         borderTopWidth: 1,
         borderTopColor: 'rgba(255,255,255,.3)',
@@ -146,7 +188,7 @@ const styles = StyleSheet.create({
 
     weekInfo: {
         width: g.SWIDTH,
-        height: 230,
+        height: 225,
         backgroundColor: 'rgba(0,0,0,0)',
         flexDirection: 'row',
         marginTop: 10,
@@ -164,16 +206,26 @@ const styles = StyleSheet.create({
 
     wind: {
         width: g.SWIDTH,
-        height: 135,
+        height: 90,
         backgroundColor: 'rgba(0,0,0,0)',
         flexDirection: 'row',
-        marginTop: 10,
     },
-    life:{
-        width:g.SWIDTH,
-        height:200,
+    life: {
+        width: g.SWIDTH,
+        height: 180,
+        backgroundColor: 'rgba(0,0,0,0)',
     },
     textStyle: {
         color: '#ffffff',
     },
+    pt5: {
+        paddingTop: 5
+    },
+    pb5: {
+        paddingBottom: 5
+    },
+    pl5: {
+        paddingLeft: 5
+    }
+
 })
