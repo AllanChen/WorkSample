@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     },
 
     todayInfo: {
-        paddingTop: 30,
+        marginTop: 30,
         height: 200,
         width: g.SWIDTH,
         backgroundColor: 'rgba(0,0,0,0)',
@@ -114,10 +114,10 @@ const styles = StyleSheet.create({
     tempeture: {
         backgroundColor: 'rgba(0,0,0,0)',
         width: g.SWIDTH * 0.8,
+        height:30,
         flexDirection: 'row',
         alignItems: 'center',
         paddingLeft: 18,
-        marginTop: 10,
         flex: .3,
     },
 

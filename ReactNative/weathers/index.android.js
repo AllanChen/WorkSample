@@ -9,45 +9,91 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  Navigator,
+  ScrollView,
+  View,
+  Image,
+  TouchableHighlight,
 } from 'react-native';
-
+import PageOne from './Section/pageOne.js'
+import PageTwo from './Section/pageTwo.js'
+import g from './Config/config.js'
+const main = require('./main.ios.js');
+const start = require('./start.js');
 class weathers extends Component {
+  constructor(props) {
+    super(props);
+    this._panResponder = {};
+    this._isSwiping = false;
+    this.state = {
+      navigationBarHidden: false
+    };
+  }
+  toggleNavBar() {
+    this.setState({
+      // navigationBarHidden:!this.state.navigationBarHidden;
+    });
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Image
+        style={styles.bgImage}
+        source = {require('./images/bg.jpg') }
+        >
+        <View style={styles.headView}>
+          <TouchableHighlight
+            onPress = {() => {
+              
+            } }
+            underlayColor = 'rgba(0,0,0,0)'
+            >
+            <Image style={{ width: 20, height: 20, marginLeft: 10 }} source = {require('./images/add.png') }></Image>
+          </TouchableHighlight>
+          <Text style={{ textAlign: 'center', color: '#ffffff', fontSize: 18 }}> 广州 </Text>
+          <View style={{ width: 20, height: 20 }}></View>
+        </View>
+        <ScrollView
+          automaticallyAdjustContentInsets={false}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.contentContainer}>
+          <PageOne />
+          <PageTwo />
+        </ScrollView>
+      </Image>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  navWrap: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    marginTop: 0
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  nav: {
+    flex: 1,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  scrollViewContainer: {
+    height: g.SHEIGHT - 50,
+    backgroundColor: 'rgba(0,0,0,0)',
+  },
+
+  bgImage: {
+    width: g.SWIDTH,
+    height: g.SHEIGHT,
+  },
+
+  headView: {
+    backgroundColor: "rgba(0,0,0,0)",
+    flexDirection: 'row',
+    width: g.SWIDTH,
+    marginTop: 25,
+    height: 25,
+    justifyContent: 'space-between'
   },
 });
+
+
+
 
 AppRegistry.registerComponent('weathers', () => weathers);

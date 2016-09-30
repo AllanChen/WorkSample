@@ -19,11 +19,6 @@ const start = require('./start.js');
 class weathers extends Component {
   constructor(props) {
         super(props);
-        this._panResponder = {};
-        this._isSwiping = false;
-        this.state = {
-          navigationBarHidden: false
-        };
     }
  toggleNavBar(){
    this.setState({
@@ -36,12 +31,12 @@ class weathers extends Component {
     <NavigatorIOS ref="nav"
           itemWrapperStyle={styles.navWrap}
           style={styles.nav}
-          navigationBarHidden={!this.state.navigationBarHidden}
+          navigationBarHidden={true}
           initialRoute={{
             title:'Main',
             component:start,
             passProps:{
-              toggleNavBar:this.toggleNavBar,
+              
             }
           }}/>
     );
