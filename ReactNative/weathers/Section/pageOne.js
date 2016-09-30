@@ -84,26 +84,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
 
-    bgImage: {
-        width: g.SWIDTH,
-        height: g.SHEIGHT
-    },
-
-    headView: {
-        paddingTop: 30,
-        width: g.SWIDTH,
-        height: 20,
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0,0,0,0)',
-    },
-
-    scrollViewStyle: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-
     todayInfo: {
-        marginTop: 30,
+        marginTop: 20,
         height: 200,
         width: g.SWIDTH,
         backgroundColor: 'rgba(0,0,0,0)',
@@ -126,15 +108,15 @@ const styles = StyleSheet.create({
         width: g.SWIDTH * 0.8,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: 25,
-        paddingLeft: 18,
+        marginTop: 25,
+        marginLeft: 18,
     },
 
     pageOneButtom: {
         backgroundColor: 'rgba(0,0,0,0)',
         width: g.SWIDTH,
         height: 150,
-        marginTop: 195,
+        marginTop: 175,
         flexDirection: 'row',
         flex: 1,
         borderTopWidth: 1,

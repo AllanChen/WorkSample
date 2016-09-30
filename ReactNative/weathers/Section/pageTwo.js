@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
 
     weekInfo_daybyday: {
         width: g.SWIDTH / 6,
-        height: 100,
+        height: 200,
         flexDirection: 'column',
         backgroundColor: 'rgba(0,0,0,0)',
         alignItems: 'center',
