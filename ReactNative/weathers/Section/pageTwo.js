@@ -15,7 +15,8 @@ export default class pageTwo extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>pageTwo</Text>
+                <ScrollView></ScrollView>
+                 
             </View>
         )
     }
