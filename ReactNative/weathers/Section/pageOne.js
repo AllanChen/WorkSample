@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Dimensions from 'Dimensions';
+import g from '../Config/global.js'
 import {
     AppRegistry,
     StyleSheet,
@@ -8,8 +8,6 @@ import {
     Image,
     ScrollView,
 } from 'react-native';
-const swidth = Dimensions.get('window').width;
-const sheight = Dimensions.get('window').height;
 
 export default class pageOne extends Component {
     constructor(props) {
@@ -86,28 +84,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
 
-    bgImage: {
-        width: swidth,
-        height: sheight
-    },
-
-    headView: {
-        paddingTop: 30,
-        width: swidth,
-        height: 20,
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0,0,0,0)',
-    },
-
-    scrollViewStyle: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-
     todayInfo: {
-        paddingTop: 30,
+        marginTop: 20,
         height: 200,
-        width: swidth,
+        width: g.SWIDTH,
         backgroundColor: 'rgba(0,0,0,0)',
         flexDirection: 'row',
         flex: .4,
@@ -115,28 +95,28 @@ const styles = StyleSheet.create({
 
     tempeture: {
         backgroundColor: 'rgba(0,0,0,0)',
-        width: swidth * 0.8,
+        width: g.SWIDTH * 0.8,
+        height:30,
         flexDirection: 'row',
         alignItems: 'center',
         paddingLeft: 18,
-        marginTop: 10,
         flex: .3,
     },
 
     todayCityInfo: {
         backgroundColor: 'rgba(0,0,0,0)',
-        width: swidth * 0.8,
+        width: g.SWIDTH * 0.8,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: 25,
-        paddingLeft: 18,
+        marginTop: 25,
+        marginLeft: 18,
     },
 
     pageOneButtom: {
         backgroundColor: 'rgba(0,0,0,0)',
-        width: swidth,
+        width: g.SWIDTH,
         height: 150,
-        marginTop: 195,
+        marginTop: 175,
         flexDirection: 'row',
         flex: 1,
         borderTopWidth: 1,
