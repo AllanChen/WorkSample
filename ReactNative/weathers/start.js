@@ -11,7 +11,7 @@ import {
 import Dimensions from 'Dimensions';
 import PageOne from './Section/pageOne.js'
 import PageTwo from './Section/pageTwo.js'
-import g from './Config/config.js'
+import g from './Config/global.js'
 import Citylist from './Section/citylist.js'
 import Button from './Common/Button.js'
 import Drawer from 'react-native-drawer'

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import g from '../Config/config.js'
+import g from '../Config/global.js'
 import {
     AppRegistry,
     StyleSheet,

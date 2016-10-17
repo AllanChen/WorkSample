@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import PageOne from './Section/pageOne.js'
 import PageTwo from './Section/pageTwo.js'
-import g from './Config/config.js'
+import g from './Config/global.js'
 const main = require('./main.ios.js');
 const start = require('./start.js');
 class weathers extends Component {

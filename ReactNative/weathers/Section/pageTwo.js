@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Dimensions from 'Dimensions';
-import g from '../Config/config.js'
+import g from '../Config/global.js'
 import {
     AppRegistry,
     StyleSheet,
@@ -30,7 +30,7 @@ export default class pageTwo extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView
-                    style={{width:g.SWIDTH}}
+                    style={{ width: g.SWIDTH }}
                     showsVerticalScrollIndicator={false}
                     automaticallyAdjustContentInsets={true}
                     showsVerticalScrollIndicator={false}
@@ -99,7 +99,6 @@ export default class pageTwo extends Component {
                             <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
                         </View>
                     </View>
-
                 </View>
             </View>
         )
