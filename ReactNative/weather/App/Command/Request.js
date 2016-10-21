@@ -1,4 +1,4 @@
-let Request = {
+let request = {
     /*
      * fetch简单封装
      * url: 请求的URL
@@ -32,4 +32,4 @@ let Request = {
     }
 }
 
-export default Request;
+export default request;
