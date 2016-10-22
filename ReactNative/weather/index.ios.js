@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import App from './App/App';
 import {
   AppRegistry,
   StyleSheet,
@@ -6,12 +7,11 @@ import {
   View
 } from 'react-native';
 import {Provider} from 'react-redux'
-import App from './App/App.js'
-import Store from './App/Store/Store.js'
+import store from './App/Store/store.js'
 export default class weather extends Component {
   render() {
     return (
-      <Provider>
+      <Provider store={store}>
         <App />
       </Provider>
     );
