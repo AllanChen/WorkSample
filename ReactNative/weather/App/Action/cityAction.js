@@ -1,10 +1,14 @@
 
-export let cityAction = () =>{
+import * as types from '../Action/actionTypes';
+export let cityAction = (isRefreshing, isLoading) =>{
     
 } 
 
-let featchAddress = () => {
+
+export let featchAddress = (isRefreshing, isLoading) => {
     return {
-        type: types.FETCH_CITY_LIST
+        type: types.FETCH_CITY_LIST,        
+        isRefreshing: isRefreshing,
+        isLoading: isLoading,
     }
 }
