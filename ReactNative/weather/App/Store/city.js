@@ -1,5 +1,5 @@
 const city=[
-{ "id":"CHBJ000000", "name":"北京", "en":"Beijing", "parent1":"北京", "parent2":"直辖市", "parent3":"中国" },
+{ "id":"CHBJ000000", "name":"北京", "en":"Beijing", "parent1":"北京", "parent2":"直辖市", "parent3":"中国" }, 
 { "id":"CHBJ000100", "name":"海淀", "en":"Haidian", "parent1":"北京", "parent2":"直辖市", "parent3":"中国" },
 { "id":"CHBJ000200", "name":"朝阳", "en":"Chaoyang", "parent1":"北京", "parent2":"直辖市", "parent3":"中国" },
 { "id":"CHBJ000300", "name":"顺义", "en":"Shunyi", "parent1":"北京", "parent2":"直辖市", "parent3":"中国" },
@@ -2567,6 +2567,5 @@ const city=[
 { "id":"CHXJ150100", "name":"温泉", "en":"Wenquan", "parent1":"博尔塔拉", "parent2":"新疆", "parent3":"中国" },
 { "id":"CHXJ150200", "name":"精河", "en":"Jinghe", "parent1":"博尔塔拉", "parent2":"新疆", "parent3":"中国" },
 { "id":"CHXJ150300", "name":"阿拉山口", "en":"Alashankou", "parent1":"博尔塔拉", "parent2":"新疆", "parent3":"中国" }
-]
-
+];
 export default city;

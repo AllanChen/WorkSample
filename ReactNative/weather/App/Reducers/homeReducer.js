@@ -8,14 +8,14 @@ const  initialState = {
 };
 
 function homeReducer(state = initialState, action){
-    switch(action.type)
-    {
-        case FEATCH_ALL_DATA:
-            return Object.assign({},state,{city:[]});
+  switch(action.type){
 
-        default:
-            return state;       
-    }
+    case "INCREMENT_LIKES":
+      return state;
+
+    default:
+      return state;
+  }
 }
 
 export default homeReducer;

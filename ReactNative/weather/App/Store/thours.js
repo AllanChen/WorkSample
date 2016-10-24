@@ -1,5 +1,6 @@
-const thours = 
-    {
+
+const thours =
+{
 	"status": "OK",
 	"hourly": [{
 		"text": "霾",
@@ -124,3 +125,4 @@ const thours =
 	}]
 }
 export default thours
+

@@ -1,4 +1,5 @@
-const weather = {
+const weather = 
+{
 	"status": "OK",
 	"weather": [{
 		"city_name": "\u5317\u4eac",
