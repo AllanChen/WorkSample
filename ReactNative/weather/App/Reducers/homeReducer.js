@@ -1,13 +1,21 @@
-
-// const city = '{ "id":"CHBJ000000", "name":"北京", "en":"Beijing", "parent1":"北京", "parent2":"直辖市", "parent3":"中国" }';
+import city from '../Store/city';
+import weather from '../Store/weather';
+import thours from '../Store/thours';
 const  initialState = {
-    city : [],
-    thours : {},
-    weather : {},
+    city : city,
+    thours : thours,
+    weather : weather,
 };
 
 function homeReducer(state = initialState, action){
-    return state;
+    switch(action.type)
+    {
+        case FEATCH_ALL_DATA:
+            return Object.assign({},state,{city:[]});
+
+        default:
+            return state;       
+    }
 }
 
 export default homeReducer;
