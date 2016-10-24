@@ -5,12 +5,11 @@ import {
     Text,
     View
 } from 'react-native';
+import MainContainer from './Containers/MainContainer';
 class App extends Component {
     render() {
         return (
-            <Text>
-                This is APP view
-            </Text>
+            <MainContainer {...this.props} />
         )
     }
 }
