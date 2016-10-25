@@ -20,7 +20,7 @@ class MainContainer extends Component {
   componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
             const {dispatch, cityReducer} = this.props;
-            dispatch(featchAddress(0,0));
+            dispatch(featchAddress(1,0));
         });
     }
 
