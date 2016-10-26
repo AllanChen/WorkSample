@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
   InteractionManager
 } from 'react-native';
-import {featchAddress} from '../Action/cityAction';
+import {featchAddress,selectedRowID} from '../Action/cityAction';
 
 class MainContainer extends Component {
     constructor(props) {
@@ -18,13 +18,16 @@ class MainContainer extends Component {
     }
 
   componentDidMount() {
+      var result = [];
         InteractionManager.runAfterInteractions(() => {
-            const {dispatch, cityReducer} = this.props;
-            dispatch(featchAddress(1,0));
+          const {dispatch} = this.props;
+            dispatch(selectedRowID(0));
         });
+
     }
 
     render(){
+        console.log("---------"+this.props.cityReducer);
         return(
             <Text> this is a maninContainer</Text>
         );

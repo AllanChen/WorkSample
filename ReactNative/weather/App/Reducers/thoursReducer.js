@@ -3,11 +3,11 @@ let thoursReducer = (state = [], action) => {
     switch (action.type) {
         case types.FETCH_CITY_LIST:
             return Object.assign({}, state)
-            
-    
+
+
         default:
             return state;
-            
+
     }
 }
 
