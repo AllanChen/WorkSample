@@ -2,13 +2,13 @@ import cityData from '../Store/city';
 import * as types from '../Action/actionTypes';
 const initCityState = cityData;
 
-let cityReducer = (state = [], action) => {
+let cityReducer = (state = initCityState, action) => {
     switch (action.type) {
         case types.FETCH_CITY_LIST:
-            return Object.assign({},{0:"11",1:"22"})
+            return Object.assign({},state)
 
         case types.SELECT_CITY_ROWID:
-           return Object.assign({},{0:"33",1:"44"})
+           return Object.assign({},state[action.rowID])
 
         default:
             return state;

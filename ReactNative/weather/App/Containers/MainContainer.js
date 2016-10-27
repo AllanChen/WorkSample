@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {cityAction} from '../Action/cityAction';
+import Main from  './Main';
 import {
   AppRegistry,
   StyleSheet,
@@ -10,33 +10,21 @@ import {
   TouchableHighlight,
   InteractionManager
 } from 'react-native';
-import {featchAddress,selectedRowID} from '../Action/cityAction';
-
 class MainContainer extends Component {
     constructor(props) {
         super(props);
     }
 
-  componentDidMount() {
-      var result = [];
-        InteractionManager.runAfterInteractions(() => {
-          const {dispatch} = this.props;
-            dispatch(selectedRowID(0));
-        });
-
-    }
-
     render(){
-        console.log("---------"+this.props.cityReducer);
         return(
-            <Text> this is a maninContainer</Text>
+            <Main {...this.props} />
         );
     }
 };
 
 export default connect((state) => {
-    const { cityReducer } = state;
+    const { mainReducer } = state;
     return {
-        cityReducer
+        mainReducer
     }
 })(MainContainer);

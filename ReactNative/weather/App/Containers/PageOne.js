@@ -72,7 +72,7 @@ class PageOne extends Component {
                                 <Text style={[styles.textStyle, styles.fs15, styles.pt5, styles.pb5]}>大雨</Text>
                             </View>
                         </View>
-            </View>            
+            </View>
             )
     }
 }

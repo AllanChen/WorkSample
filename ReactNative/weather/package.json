@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
+    "test": "jest"
   },
   "dependencies": {
     "react": "15.3.2",
@@ -29,6 +28,7 @@
     "redux-thunk": "^1.0.0",
     "remote-redux-devtools": "^0.5.1",
     "remote-redux-devtools-on-debugger": "^0.6.3",
+    "remotedev-server": "^0.2.0",
     "whatwg-fetch": "1.0.0"
   }
 }

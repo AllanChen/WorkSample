@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import g from '../Config/global.js'
+import g from '../Command/global.js'
+import {featchAddress,selectedRowID} from '../Action/cityAction';
 import {
     AppRegistry,
     StyleSheet,
@@ -9,9 +10,9 @@ import {
     ListView,
     Image
 } from 'react-native';
-let addressData = require('../Store/city.js');
+let addressData = require('../Store/address.json');
 let rowHeight;
-export default class citylist extends Component {
+export default class CityList extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -20,7 +21,16 @@ export default class citylist extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+    // this.setState({
+    //   // dataSource: this.ds.cloneWithRows(nextProps.result.items)
+    // })
+    console.log(nextProps.cityReducer);
+  }
+
     render() {
+      const { cityData } = this.props;
+      console.log(cityData);
         return (
             <View style={styles.container}>
                 <View style={{ width: 100, height: 18, backgroundColor: '#131313' }}></View>
@@ -51,9 +61,8 @@ export default class citylist extends Component {
             </TouchableHighlight>
         );
     }
-
-
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

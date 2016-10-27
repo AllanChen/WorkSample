@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Dimensions from 'Dimensions';
-import g from '../Config/global.js'
+import g from '../Command/global.js'
 import {
     AppRegistry,
     StyleSheet,
@@ -14,7 +14,7 @@ let weekInfoDayByDayArray = [];
 let windInfoArray = [];
 let oneDayWeatherArrayLength;
 let weekInfoDayByDayArrayLength;
-export default class pageTwo extends Component {
+export default class PageTwo extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +24,7 @@ export default class pageTwo extends Component {
         this.renderDayWeather();
         this.renderWeekWeather();
         this.renderWindInfo();
-        this.updateState();
+        // this.updateState();
     }
     render() {
         return (
@@ -53,14 +53,14 @@ export default class pageTwo extends Component {
                         <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
                             <Image
                                 style={[styles.pl5, { width: 40, height: 40, paddingLeft: 10 }]}
-                                source={require('../images/weather/33.png') }
+                                source={require('../Img/weather/33.png') }
                                 />
                             <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
                         </View >
                         <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
                             <Image
                                 style={[styles.pl5, { width: 40, height: 40 }]}
-                                source={require('../images/weather/34.png') }
+                                source={require('../Img/weather/34.png') }
                                 />
                             <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
                         </View>
@@ -70,14 +70,14 @@ export default class pageTwo extends Component {
                         <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
                             <Image
                                 style={[styles.pl5, { width: 40, height: 40, paddingLeft: 10 }]}
-                                source={require('../images/weather/33.png') }
+                                source={require('../Img/weather/33.png') }
                                 />
                             <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
                         </View >
                         <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
                             <Image
                                 style={[styles.pl5, { width: 40, height: 40 }]}
-                                source={require('../images/weather/34.png') }
+                                source={require('../Img/weather/34.png') }
                                 />
                             <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
                         </View>
@@ -87,14 +87,14 @@ export default class pageTwo extends Component {
                         <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
                             <Image
                                 style={[styles.pl5, { width: 40, height: 40, paddingLeft: 10 }]}
-                                source={require('../images/weather/33.png') }
+                                source={require('../Img/weather/33.png') }
                                 />
                             <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
                         </View >
                         <View style={{ width: g.SWIDTH * 0.5, flexDirection: 'row', justifyContent: 'center' }}>
                             <Image
                                 style={[styles.pl5, { width: 40, height: 40 }]}
-                                source={require('../images/weather/34.png') }
+                                source={require('../Img/weather/34.png') }
                                 />
                             <Text style={[styles.textStyle, { textAlign: 'center', lineHeight: 19 }]}>9月27日 {"\n"} 农历八月二十七</Text>
                         </View>
@@ -113,7 +113,7 @@ export default class pageTwo extends Component {
                     <Text style={[styles.textStyle, styles.fs15, styles.pt5, styles.pb5]}>{times}时</Text>
                     <Image
                         style={{ width: 40, height: 40, paddingTop: 10, paddingBottom: 10 }}
-                        source={require('../images/weather/7.png') }
+                        source={require('../Img/weather/7.png') }
                         />
                     <Text style={[styles.textStyle, styles.fs15, styles.pt5, styles.pb5]}>{times}℃</Text>
                 </View>
@@ -129,7 +129,7 @@ export default class pageTwo extends Component {
                     <Text style={[styles.textStyle, { paddingBottom: 5 }]}>09/29</Text>
                     <Image
                         style={{ width: 30, height: 30, paddingTop: 10, paddingBottom: 10 }}
-                        source={require('../images/weather/8.png') }
+                        source={require('../Img/weather/8.png') }
                         />
                     <Text style={[styles.textStyle, { paddingTop: 5 }]}>大雨</Text>
                     <Text style={[styles.textStyle, { paddingTop: 10 }]}>30℃</Text>
@@ -138,7 +138,7 @@ export default class pageTwo extends Component {
                     <Text style={[styles.textStyle, { paddingTop: 10, paddingBottom: 10 }]}>小雨</Text>
                     <Image
                         style={{ width: 30, height: 30 }}
-                        source={require('../images/weather/19.png') }
+                        source={require('../Img/weather/19.png') }
                         />
                 </View>
             );
@@ -153,7 +153,7 @@ export default class pageTwo extends Component {
                     <Text style={[styles.textStyle, { fontSize: 10 }]}>4级</Text>
                     <Image
                         style={{ width: 30, height: 30, paddingTop: 10 }}
-                        source={require('../images/weather/32.png') }
+                        source={require('../Img/weather/32.png') }
                         />
                     <Text style={[styles.textStyle, { fontSize: 10 }]}>0%</Text>
                 </View>
