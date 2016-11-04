@@ -1,0 +1,12 @@
+- (UIImage *)getUIImage:(CMTime)frameTime{
+    //AVAssetImageGenerator* generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:destinationAsset];
+    NSURL *maskURL = [[NSBundle mainBundle] URLForResource:@"mask" withExtension:@"mp4"];
+    NSDictionary *inputOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *inputAsset = [[AVURLAsset alloc] initWithURL:maskURL options:inputOptions];
+    AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:inputAsset];
+    NSLog(@"---------%f", CMTimeGetSeconds(frameTime));
+    CGImageRef frameRef = [generator copyCGImageAtTime:frameTime actualTime:nil error:nil];
+    UIImage *image = [UIImage imageWithCGImage:frameRef];
+    CFRelease(frameRef); //cgImage is retained by the UIImage above
+    return image;
+}

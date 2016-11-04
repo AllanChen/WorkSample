@@ -1,0 +1,1 @@
+ffmpeg -loop 1 -i kb-1.png -i kb.mp3 -shortest -c:v libx264 -c:a copy kb.mkv
